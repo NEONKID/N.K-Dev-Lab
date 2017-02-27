@@ -1,42 +1,47 @@
 ---
-layout: post-index
-title: Latest Posts
-description: "Describe this nonsense."
-tags: [Jekyll, theme, themes, responsive, blog, modern]
+layout: main
+tags: [blog, github, neonkid]
 comments: false
-image:
-  feature: abstract-1.jpg
-  credit: dargadgetz
-  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
 ---
 
-{% for post in paginator.posts %}
-<article class="hentry">
-  <header>
-    {% if post.image.feature %}
-      <div class="entry-image-index">
-        <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}"><img src="{{ site.url }}/images/{{ post.image.feature }}" alt="{{ post.title }}"></a>
-      </div><!-- /.entry-image -->
-    {% endif %}
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{{ post.date | date: "%B %d, %Y" }}</a></time></span><span class="author vcard"><span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span></span>
-      {% if site.reading_time %}
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        {% include read-time-index.html %}
-      </span><!-- /.entry-reading-time -->
-      {% endif %}
-    </div><!-- /.entry-meta -->
-    {% if post.link %}
-      <h1 class="entry-title"><a href="{{ site.url }}{{ post.url }}" class="permalink" rel="bookmark" title="{{ post.title }}"><i class="fa fa-bookmark"></i></a> <a href="{{ post.link }}">{{ post.title }}</a></h1>
-    {% else %}
-      <h1 class="entry-title"><a href="{{ site.url }}{{ post.url }}" rel="bookmark" title="{{ post.title }}" itemprop="url">{{ post.title }}</a></h1>
-    {% endif %}
-  </header>
-  <div class="entry-content">
-    {{ post.content }}
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-{% endfor %}
-
-{% include pagination.html %}
+<article>
+  <div id="namecard">
+    <div id="namecard-Menu">
+      <div id="category">
+        <ul id="menu-list">
+          <li class="animated bounceIn">
+            <a href="Android"><img src="images/android-logo.png" /></a>
+          </li>
+          <li class="animated bounceIn" style="animation-delay: .2s">
+            <img src="images/linux-logo.png" />
+          </li>
+        </ul>
+      </div>
+      <div id="category">
+        <ul id="menu-list">
+          <li class="animated bounceIn" style="animation-delay: .4s">
+            <img src="images/java-logo.png" />
+          </li>
+          <li class="animated bounceIn" style="animation-delay: .6s">
+            <a href="OpenCV"><img src="images/opencv-logo.png" /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="namecard-Name">
+      <a href="about"><img src="images/KIDLOGO.png" alt class="img-circle img-icon" /></a>
+      <h1>K.S Jeong</h1>
+      <ul id="sns-list">
+        <li class="animated fadeIn" style="animation-delay: .8s">
+          <a href="//www.facebook.com/NK.4869"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+        </li>
+        <li class="animated fadeIn" style="animation-delay: 1s">
+          <a href="//twitter.com/clax1412"><i class="fa fa-twitter fa-2x" area-hidden="true"></i></a>
+        </li>
+        <li class="animated fadeIn" style="animation-delay: 1.2s">
+          <a href="//github.com/neonkid"><i class="fa fa-github-alt fa-2x" area-hidden="true"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div><!-- /.namecard -->
+</article>

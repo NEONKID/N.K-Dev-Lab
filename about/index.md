@@ -1,32 +1,67 @@
 ---
-layout: page
-title: About the Jekyll Theme
+layout: about
+title: About Neon K.I.D
 image:
-  feature: abstract-5.jpg
-  credit: dargadgetz
-  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+  credit: K.I.D Neon
+  creditlink: http://blog.neonkid.xyz/
 comments: false
-modified: 2016-02-01
+modified: 2017-02-26
 ---
 
-They say three times the charm, so here is another free responsive Jekyll blog theme for you. I've learned a ton since open sourcing my first two themes [on Github](http://github.com/mmistakes), and wanted to try a few new things this time around. 
+# About Neon K.I.D
 
-If you've used any of [my other themes](http://mademistakes.com/work/jekyll-themes/) most of this should be familiar territory...
+## Profile
 
-## HPSTR Features:
+* **Name** : 정 광 수 (鄭光洙, Kwang Soo Jeong)
+* **Age**: 25 (23)
+* **Email**: [clax1412@gmail.com](mailto://clax1412@gmail.com)
+* **Tistory**: [http://blog.neonkid.xyz/](http://blog.neonkid.xyz/)
+* **Github**: [https://github.com/neonkid](https://github.com/neonkid)
+* **Education**: Department of Computer Science, [DKU](http://www.dku.edu). Scheduled to graduate in 2018
 
-* Compatible with Jekyll 3 and GitHub Pages.
-* Responsive templates for post, page, and post index `_layouts`. Looks great on mobile, tablet, and desktop devices.
-* Gracefully degrades in older browsers. Compatible with Internet Explorer 8+ and all modern browsers.  
-* Sweet animated menu.
-* Background image support.
-* Support for large images to call out your favorite posts.
-* Optional [Disqus](http://disqus.com) comments.
-* Simple and clear permalink structure[^1].
-* [Open Graph](https://developers.facebook.com/docs/opengraph/) and [Twitter Cards](https://dev.twitter.com/docs/cards) support for a better social sharing experience.
-* [Custom 404 page]({{ site.url }}/404.html) to get you started.
-* [Syntax highlighting]({{ site.url }}/code-highlighting-post/) stylesheets to make your code examples look snazzy.
 
+## Tech
+
+* Languages
+  * C++
+  * Java
+  * Javascript
+* Library
+  * SMACK (XMPP, Java)
+  * Boost (C++)
+  * OpenCV(C++)
+  * TMap API (Android, Java)
+* Server Framework
+  * Apache Web Server
+  * Nginx Web Server
+  * Apache Tomcat (Web Application Server, WAS)
+  * Openfire Server / Asterisk
+  * OpenLDAP
+  * Docker Container
+* DBMS
+  * MySQL, MariaDB
+  * Redis
+* DevOps
+  * Git
+* Dev tools
+  * IntelliJ IDEA
+  * CLion, Vim
+  * Sublime text 3
+* OS 
+  * Linux
+  * Windows 
+
+<!--
+They say three times the charm, so here is another free responsive Jekyll blog theme for you. I've learned a ton since open sourcing my first two themes [on Github](http://github.com/mmistakes), and wanted to try a few new things this time around.
+
+If you've used any of [my other themes](http://mademistakes.com/work/jekyll-themes/) most of this should be familiar territory... 
+-->
+
+<!--## 현재 하고 있는 일들:
+* SmartDiary 프로그램 v1.2 공개-->
+
+<!--
 <div markdown="0"><a href="{{ site.url }}/theme-setup/" class="btn btn-info">Theme Setup</a> <a href="https://github.com/mmistakes/hpstr-jekyll-theme" class="btn btn-success">Download HPSTR</a></div>
+-->
 
 [^1]: Example: *domain.com/category-name/post-title*

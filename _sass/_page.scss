@@ -10,6 +10,30 @@ body {
 }
 
 /* 
+   NEONKID About Page
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+
+#about-neon-kid, #profile, #tech {
+	font-family: 'Press Start 2P', cursive;
+	font-weight: 400;
+	letter-spacing: -1px;
+	line-height: 1.65em;
+}
+
+#about-neon-kid {
+	font-size: 22px;
+	margin-bottom: 2.2em;
+}
+
+#profile, #tech {
+	font-size: 15px;
+	margin-top: 1.8em;
+	text-transform: uppercase;
+}
+
+/* 
    Main content
    ========================================================================== */
 
@@ -444,6 +468,151 @@ header .entry-meta {
 
 		&:nth-child(2) {
 			text-align: right;
+		}
+	}
+}
+
+/* 
+   Main (homepage)
+   ========================================================================== */
+
+#bg_image {
+	display:block;
+	background-image: url("../../images/background_image.png");
+    -webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+	position:fixed;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	z-index:-1;
+}
+
+#home {
+	article {
+		background-color: rgba( 255, 255, 255, 0.5 );
+		transform: scale(1.2);
+		margin: 12em 38em 12em 38em; // 상 우 하 좌
+		padding: 1.3em 0em 1.3em 0em; // U R B L
+		box-shadow: 0 0 0 0, 0 6px 12px rgba($base-color,0.1);
+		border-radius: 5px;
+		
+		// -> NameCard
+		#namecard {
+		    display: table;
+		    text-align: center;
+		    border-collapse: collapse;
+		}
+
+		#namecard-Menu {
+			display: table-cell;
+		    width: 70%;
+
+		    #category {
+		    	img {
+		    		width: 7em;
+				    height: 7em;
+				    transition: .15s ease;
+				    transform: .15s ease;
+
+				    border-radius: 50%;
+				    -webkit-border-radius: 50%;
+				    -moz-border-radius: 50%;
+				    -o-border-radius: 50%;
+				    -ms-border-radius: 50%;
+		    	}
+
+		    	a>img:hover {
+    				transform: scale(1.1);
+		    	}
+
+		    	#menu-list {
+		    		list-style-type: none;
+			    	margin: 0;
+			    	padding: 0;
+		    	}
+
+		    	#menu-list>li {
+		    		padding: 2em;
+		    	}
+		    }
+		}
+
+		#namecard-Name { 
+		    display: table-cell;
+		    padding-left: 3em;
+		    vertical-align: middle;
+
+		    .img-icon {
+			    width: 8em;
+			    height: 8em;
+			    padding: .2em;
+			    background-color: transparent;
+			    transition: .15s ease;
+			    transform: .15s ease;
+			}
+
+			h1 {
+				font-size: 20px;
+				font-weight: 400;
+			}
+
+			#sns-list>li {
+				padding: .5em;
+			}
+
+			#sns-list>li>a {
+				// color: rgba(255,255,255,.7);
+				color: #000;
+			    border: 0;
+			    text-shadow: 0 0 2px rgba(0, 0, 0, .1);
+			}
+
+			#sns-list>li>a:hover {
+			    color: #fff;
+			}
+
+			#sns-list {
+			    list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			}
+		}
+
+		section {
+	    	background-color: rgba(0,0,0,.6);
+		}
+
+		section .container {
+		    padding: 2em 1em;
+		    margin: auto;
+		}
+
+		section h1 {
+		    text-shadow: 0 0 2px rgba(0, 0, 0, .1);
+		    border-bottom: 1px solid #fff;
+		    border-bottom-color: rgba(255,255,255,.25)
+		}
+
+		section.section-hidden h1 {
+		    text-shadow:none
+		}
+
+		li {
+			display: inline-block;
+		}
+	}
+
+	footer {
+		margin-top: 4em;
+		background-color: transparent;
+		color: white;
+		a {
+			color: yellow;
 		}
 	}
 }

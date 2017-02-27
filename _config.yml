@@ -1,4 +1,4 @@
-title:            Site Title
+title:            Hi! I'm NEON KID
 description:      Describe your website here.
 disqus_shortname: 
 reading_time:     true
@@ -9,21 +9,21 @@ url:
 
 # Owner/author information
 owner:
-  name:           Your Name
-  avatar:         avatar.jpg
-  bio:            "Your bio goes here. It shouldn't be super long but a good sentence or two should suffice."
-  email:          you@email.com
+  name:           Neon K.I.D
+  avatar:         KIDLOGO.png
+  bio:            "Hello ! I'm Neon K.I.D"
+  email:          clax1412@gmail.com
   # Social networking links used in footer. Update and remove as you like.
-  twitter:        
-  facebook:       
-  github:         
+  twitter:        clax1412
+  facebook:       NK.4869
+  github:         neonkid
   stackexchange:  
   linkedin:       
   instagram:      
   flickr:         
   tumblr:         
   # google plus id, include the '+', eg +mmistakes
-  google_plus:
+  google_plus:    clax1412
 
 # Background image to be tiled on all pages
 background: 
@@ -35,7 +35,7 @@ google_verify:
 bing_verify:         
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    America/New_York
+timezone:    Asia/Seoul
 future:      false  # publish future dated posts --  true, false (default) 
 highlighter: rouge
 markdown:    kramdown
