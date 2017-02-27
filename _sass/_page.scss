@@ -12,6 +12,7 @@ body {
 /* 
    NEONKID About Page
    ========================================================================== */
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 
 #about-neon-kid, #profile, #tech {
 	font-family: 'Press Start 2P', cursive;
@@ -491,24 +492,43 @@ header .entry-meta {
 }
 
 #home {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+
 	article {
 		background-color: rgba( 255, 255, 255, 0.5 );
-		transform: scale(1.2);
-		margin: 12em 38em 12em 38em; // 상 우 하 좌
-		padding: 1.3em 0em 1.3em 0em; // U R B L
+		// margin: 12em 38em 12em 38em; // 상 우 하 좌
 		box-shadow: 0 0 0 0, 0 6px 12px rgba($base-color,0.1);
 		border-radius: 5px;
+		top: 25%;
+		left: 32.5%;
+
+		// Tablet
+		@media #{$medium} {
+			padding: 1.3em 2em 1.3em 2em;
+			max-width: 43em;
+		}
+
+		// PC Screen
+		@media #{$large} {
+			padding: 1.3em 2em 1.3em 2em; // U R B L
+			position: absolute;
+			// margin: 12em 38em 12em 38em; // 상 우 하 좌
+			width: 43em;
+		}
 		
 		// -> NameCard
 		#namecard {
-		    display: table;
-		    text-align: center;
+		    display: inline-block;
 		    border-collapse: collapse;
+		    vertical-align: middle;
 		}
 
 		#namecard-Menu {
 			display: table-cell;
-		    width: 70%;
+		    vertical-align: middle;
+		    padding-right: 2.5em;
 
 		    #category {
 		    	img {
@@ -542,8 +562,10 @@ header .entry-meta {
 
 		#namecard-Name { 
 		    display: table-cell;
-		    padding-left: 3em;
+		    // padding-left: 3em;
+		    text-align: center;
 		    vertical-align: middle;
+		    padding-left: 2.5em;
 
 		    .img-icon {
 			    width: 8em;
@@ -581,32 +603,15 @@ header .entry-meta {
 			}
 		}
 
-		section {
-	    	background-color: rgba(0,0,0,.6);
-		}
-
-		section .container {
-		    padding: 2em 1em;
-		    margin: auto;
-		}
-
-		section h1 {
-		    text-shadow: 0 0 2px rgba(0, 0, 0, .1);
-		    border-bottom: 1px solid #fff;
-		    border-bottom-color: rgba(255,255,255,.25)
-		}
-
-		section.section-hidden h1 {
-		    text-shadow:none
-		}
-
 		li {
 			display: inline-block;
 		}
 	}
 
 	footer {
-		margin-top: 4em;
+		position: absolute;
+		top: 90%;
+		width: 100%;
 		background-color: transparent;
 		color: white;
 		a {
