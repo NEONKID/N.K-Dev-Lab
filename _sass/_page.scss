@@ -507,7 +507,7 @@ header .entry-meta {
 		// Tablet
 		@media #{$medium} {
 			width: auto;
-			padding: 1.3em 0em;	// 상하 좌우 
+			padding: 0 1.3em;	// 상하 좌우 
 			margin: 15em auto;
 		}
 
@@ -566,7 +566,7 @@ header .entry-meta {
 		    	}
 
 		    	#menu-list>li {
-		    		padding: 1.5em;
+		    		padding: 1.8em;
 		    	}
 		    }
 		}
