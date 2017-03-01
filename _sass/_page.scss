@@ -508,11 +508,15 @@ header .entry-meta {
 		@media #{$medium} {
 			width: auto;
 			padding: 0 1.3em;	// 상하 좌우 
-			margin: 15em auto;
+			margin: 16em auto;
 		}
 
 		@media #{$large} {
-			margin: 14em auto;
+			margin: 15em auto;
+		}
+
+		@media (width: 1024px) and (orientation: landscape) {
+			margin: 8em auto;
 		}
 		
 		// -> NameCard
