@@ -46,7 +46,7 @@ body {
 }
 
 .entry-content {
-	@include font-size(16);
+	@include font-size(18);
 
 	// Dotted line underlines for links
 	p > a,
@@ -307,7 +307,7 @@ header .entry-meta {
 		}
 
 		@media #{$large} {
-			max-width: 800px;
+			max-width: 990px;
 			margin: 50px auto 30px auto;
 			padding: 50px 80px;
 
@@ -394,7 +394,7 @@ header .entry-meta {
 	}
 
 	@media #{$large} {
-		max-width: 800px;
+		max-width: 990px;
 		padding: 50px 80px;
 		margin: 60px auto;
 	}
@@ -559,6 +559,8 @@ header .entry-meta {
 				    }
 		    	}
 
+		    	a { outline:none; }
+
 		    	a>img:hover {
     				transform: scale(1.1);
 		    	}
@@ -586,6 +588,8 @@ header .entry-meta {
 		    	width: auto;
 		    	margin: 0 2em;
 		    }
+
+		    a { outline:none; }
 
 		    .img-icon {
 			    width: 7em;
