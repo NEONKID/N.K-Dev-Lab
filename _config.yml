@@ -87,3 +87,4 @@ exclude:
   - package.json
   - spec
   - tmp
+  - vender
