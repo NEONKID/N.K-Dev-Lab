@@ -4,6 +4,7 @@ title: "Boost Library 설치와 사용"
 date: 2017-03-05 02:15:40 +0900
 categories: boost
 modified: 2017-03-05
+tags: [Boost, C++]
 image:
   feature: boost-Banner_1.png
   credit: Fringeneering
@@ -71,7 +72,23 @@ Boost 라이브러리는 현재 C++ 언어에서도 표준 라이브러리로 �
 
 ### Visual Studio
 
-Visual Studio에서 제공하는 NuGet 설치 도구를 이용한 사용 방법입니다. (차후 작성 예정)
+Visual Studio에서 제공하는 NuGet 설치 도구를 이용한 사용 방법입니다. 이 방법은 한 프로젝트를  수행할지 여러 프로젝트를 수행할지를 결정할 수 있으며 Visual Studio IDE 도구가 실행 가능한 플랫폼에서는 되게 유용하게 사용될 수 있습니다.
+
+![nuget-1]({{ site.url }}/images/boost/nuget-1.png)
+
+먼저, 프로젝트를 불러와서, 솔루션 탐색기에 프로젝트 오른쪽 버튼을 누르고, Nuget 패키지 관리를 클릭합니다.
+
+![nuget-2]({{ site.url }}/images/boost/nuget-2.png)
+
+Browse 버튼을 클릭하여, NuGet 패키지를 검색합니다.
+
+![nuget-3]({{ site.url }}/images/boost/nuget-3.png)
+
+Boost를 검색하면 맨 상단에 바로, 최신의 Boost 라이브러리가 뜹니다. 선택 후, 오른쪽에 프로젝트 리스트에서 Boost 설치할 프로젝트에 체크 박스를 둔 후, Install 버튼을 클릭하면 설치가 시작됩니다.
+
+![nuget-4]({{ site.url }}/images/boost/nuget-4.png)
+
+설치하는 데 2~3분 정도 소요됩니다. 설치가 끝나면, 바로 해당 프로젝트에서 Boost 라이브러리를 사용할 수 있습니다.
 
 
 
@@ -89,7 +106,15 @@ CMake를 사용한 사용 방법은 CLion 등과 같은 크로스 플랫폼 IDE 
 
 새 프로젝트를 만들어줍니다.
 
-![clion_preview-2]({{ site.url }}/images/boost/clion-2.png)
+```cmake
+cmake_minimum_required(VERSION 3.6)
+project(Jekyll_post)
+
+set(CMAKE_CXX_STANDARD 11)
+
+set(SOURCE_FILES main.cc)
+add_executable(Jekyll_post %{SOURCE_FILES})
+```
 
 그럼 CMakeLists.txt 파일이 보일 겁니다. [CMake 관련 글][cmake-post]을 참조하시면 좀 더 이해가 쉬울 수 있으니 미리 보는 것을 권장해봅니다. 이 파일에서 여러분이 아래의 내용 3줄만 추가하시면 됩니다.
 

@@ -4,6 +4,7 @@ title: "Android AIDL 을 사용한 Activity 와 Service 통신"
 date: 2017-06-22 02:15:40 +0900
 categories: android
 modified: 2017-06-22
+tags: [android]
 image:
   feature: android-Banner.png
   credit: darkness

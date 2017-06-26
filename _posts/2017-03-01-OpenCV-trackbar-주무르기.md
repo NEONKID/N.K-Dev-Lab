@@ -4,6 +4,7 @@ title: "OpenCV Trackbar 주무르기"
 date: 2017-03-01 09:15:40 +0900
 categories: opencv
 modified: 2017-03-01
+tags: [OpenCV, C++]
 image:
   feature: opencv-Banner.png
   credit: Sorry... Unknown

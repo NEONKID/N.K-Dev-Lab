@@ -4,6 +4,7 @@ title: "Android, 다른 쓰레드에서 UI 처리를 하는 방법"
 date: 2017-06-23 01:20:40 +0900
 categories: android
 modified: 2017-06-23
+tags: [android]
 image:
   feature: android-Banner.png
   credit: darkness
