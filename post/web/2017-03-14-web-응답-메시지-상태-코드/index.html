@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Web 응답 메시지 상태 코드</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="Neon K.I.D" />
+  <meta name="description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
+상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@clax1412" />
+    <meta name="twitter:title" content="Web 응답 메시지 상태 코드" />
+    <meta name="twitter:description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
+상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다." />
+    <meta name="twitter:image" content="https://neonkid.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/" />
+<link rel="alternative" href="https://neonkid.github.io/index.xml" title="Welcome !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Welcome !" />
+<meta name="msapplication-tooltip" content="Welcome !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neonkid.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neonkid.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neonkid.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neonkid.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neonkid.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neonkid.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neonkid.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neonkid.github.io/img/nk.png" alt="Avatar">
+  
+  <h2 class="title">Welcome !</h2>
+  
+  <p class="subtitle">~ NEONKID&#39;s Hugo Blog ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://neonkid.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://neonkid.github.io/links/">Links</a></li>
+      
+        <li class="menu-item "><a href="https://neonkid.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/neonkid" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/clax1412" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//www.facebook.com/NK.4869" title="Facebook"><span class="icon icon-facebook"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neonkid.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Web 응답 메시지 상태 코드</h1>
+      <p class="post-meta">@Neon K.I.D · Mar 14, 2017 · 3 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다.
+그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.</p>
+
+<h2 id="상태-코드-구분">상태 코드 구분</h2>
+
+<ul>
+<li>1xx : 정보를 제공.</li>
+<li>2xx : 요청이 성공적으로 이루어짐.</li>
+<li>3xx : 요청한 해당 자원이 다른 곳에 있거나 누락.</li>
+<li>4xx : 요청(클라이언트)에 문제가 있음.</li>
+<li>5xx : 서버에 오류가 있음.</li>
+</ul>
+
+<p>생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다. 가장 눈에 익숙한 부분이고, 서버 개발이나 테스팅에 있어서 자주 만나는 넘버 값이기 때문이다.</p>
+
+<h3 id="주요-상태-코드">주요 상태 코드</h3>
+
+<ul>
+<li><strong>100 Continue</strong>
+클라이언트가 서버에게 메시지 바디를 포함한 요청을 보냈을 때 받는 응답 코드다. 서버의 응답에는 클라이어트가 요청한 헤더를 전송 받았고, 클라이언트는 계속해서 서버에게 바디를 보낼 수 있다고 나타낸다. 서버는 클라이언트의 요청이 완료되면 두 번째 응답을 보낸다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>200 OK</strong>
+클라이언트의 요청이 성공했다는 것을 나타낸다. 서버의 응답 메시지 바디에 클라이언트가 요청한 내용에 대한 결과를 포함한다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>201 Created</strong>
+클라이언트의 PUT 요청이 성공적이라는 것을 나타낸다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>301 Moved Permanently</strong>
+브라우저의 요청을 다른 URL로 항시 전달한다는 것을 의미한다. 다른 URL에 대한 정보는 Location 헤더에 나타난다. 따라서 클라이언트는 예전 URL 대신에 새로 바뀐 URL 을 통해 자원을 찾는다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>302 Found</strong>
+브라우저의 요청을 임시 URL로 바꾸고 Location 헤더에 임시로 변경한 URL에 대한 정보를 적는다. 클라이언트가 다음에 같은 요청을 하면 기존의 URL로 돌아간다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>304 Not Modified</strong>
+브라우저가 서버에게 요청한 자료에 대해 서버는 클라이언트 내에 복사된 캐시를 사용하게 한다. 서버는 If-Modified-Since 와 If-None-Match 요청 헤더를 사용해 클라이언트가 가장 최근의 자료를 가지고 있는지 여부를 확인한다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>400 Bad Request</strong>
+클라이언트가 서버에게 잘못된 HTTP 요청을 했다는 것을 나타낸다. 예를 들어 클라이언트가 URL 주소의 중간에 빈 공간을 넣는 등 부적절한 방법으로 서버에게 요청을 한 경우 400 Bad Request 응답코드를 받는다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>401 Unauthorized</strong>
+서버가 클라이언트의 요청에 대해 HTTP 인증 확인을 요구하는 것을 의미한다. www-authenticate 헤더는 인증과 관련된 내용을 지원하는 다양한 타입에 대한 정보를 담고 있다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>403 Forbidden</strong>
+클라이언트의 요청에 대해 접근을 차단한다는 것을 나타낸다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>404 Not Found</strong>
+클라이언트가 서버에게 요청한 자료가 존재하지 않는다는 것을 나타낸다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>405 Method Not Allowed</strong>
+클라이언트가 요청에 이용한 메소드가 해당 URL에 지원이 불가능하다는 것을 나타낸다. 예를 들어 PUT 방식을 지원하지 않는 곳에서 클라이언트가 PUT 메소드를 통해 서버에게 자원을 요청했다면 405 상태 코드를 보게 된다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>413 Request Entity Too Large</strong>
+클라이언트가 요청한 바디를 서버에서 처리하기에는 너무 크다는 것을 나타낸다. 예를 들어 버퍼 오버플로우의 취약점을 찾고자 긴 문자열 데이터를 서버에 전송하면 413 상태 코드를 보게 된다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>414 Request URI Too Long</strong>
+413응답과 비슷하지만 414 메시지는 요청에 사용된 URL이 서버가 감당할 수 없을 만큼 너무 크다는 것을 나타낸다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>500 Internal Server Error</strong>
+서버가 클라이언트의 요청을 실행할 수 없을 때 500 상태 코드가 발생한다. 보통 서버가 예상하지 못한 요청을 보냈을 때 애플리케이션이 적절히 처리하지 못할 경우 500 상태 코드를 볼 수 있다. 어디서 문제가 생겼는지 알아보려면 서버의 응답 내용을 상세히 살펴봐야 한다.</li>
+</ul>
+
+<p>​</p>
+
+<ul>
+<li><strong>503 Service Unavailable</strong>
+웹서버는 클라이언트의 요청에 대해 정상적으로 응답할 수 있으나 서버에서 구동 중인 애플리케이션이 응답을 하지 못할 때 나타난다. 503 상태 코드의 경우 클라이언트가 요청을 잘못해서 발생했는지 아니면 서버에 있는 애플리케이션이 문제가 있는지 잘 확인해야 한다.</li>
+</ul>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://neonkid.github.io/tags/web"><span class="tag">Web</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Copyright (c) 2017, Neon K.I.D; all rights reserved.This post was published <strong>187</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 Welcome !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://neonkid.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

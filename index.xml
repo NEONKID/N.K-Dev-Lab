@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome !</title>
+    <link>https://neonkid.github.io/</link>
+    <description>Recent content on Welcome !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>Copyright (c) 2017, Neon K.I.D; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 17 Sep 2017 09:39:39 +0900</lastBuildDate>
+    
+	<atom:link href="https://neonkid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Links</title>
+      <link>https://neonkid.github.io/links/</link>
+      <pubDate>Sun, 17 Sep 2017 09:39:39 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/links/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://neonkid.github.io/about/</link>
+      <pubDate>Sun, 17 Sep 2017 10:14:29 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android CustomView를 만들어보자</title>
+      <link>https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</link>
+      <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</guid>
+      <description>벌써 8월이 시작됐네요. 올해 장마는 무척 길었던 것 같습니다.
+오늘은 안드로이드의 CustomView를 제작하는 간단한 방법을 적어보고자 합니다.
+저는 사실 디자인에 많이 약합니다. 제가 현재 맡고 있는 졸업 작품에서도 클라이언트로 안드로이드 앱 개발을 담당하고 있지만, 앱 디자인에 코드를 여러 번 뜯어고쳤습니다. 처음에는 그다지 디자인에 많이 신경도 쓰지 않았고, Android, android-support, material design에서 기본적으로 제공해주는 View, Widget을 가져다가 쓰는 것이 전부이고, 그 이상은 생각하지 않았습니다.
+하지만 제가 보기에도 제가 만든 앱의 디자인이 정말 초라하게 느껴집니다.</description>
+    </item>
+    
+    <item>
+      <title>Unix Thread의 기본을 다져보자</title>
+      <link>https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/</link>
+      <pubDate>Sun, 25 Jun 2017 00:15:20 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/</guid>
+      <description>개발 글을 써온지 벌써 4개월이 지났지만, 학교 생활과 성적 관리 등으로 인해 컨텐츠가 많이 부족하여 이리저리 생각해 본 결과, 이 개발 블로그에 제가 알고 있는 모든 개발 지식들을 올리려고 합니다. 물론 용도는 여러 가지가 있겠지만, 주 용도는 사람의 기본적인 특성인 망각 특성 때문이겠죠? ㅎㅎ
+오늘은 Unix Programming에 대한 카테고리를 새로 추가하여, pthread부터 시작해보려 합니다. 왜 쓰레드부터 시작하냐고요? 그렇군요. 올해는 유난히 제 프로젝트, 과제 등에서 모두 쓰레드를 사용했기 떄문이라고 이야기 하고 싶네요.</description>
+    </item>
+    
+    <item>
+      <title>Android, 다른 쓰레드에서 UI 처리를 하는 방법</title>
+      <link>https://neonkid.github.io/post/android/2017-06-23-android-%EB%8B%A4%EB%A5%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%97%90%EC%84%9C-ui-%EC%B2%98%EB%A6%AC%EB%A5%BC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/</link>
+      <pubDate>Fri, 23 Jun 2017 01:20:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/android/2017-06-23-android-%EB%8B%A4%EB%A5%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%97%90%EC%84%9C-ui-%EC%B2%98%EB%A6%AC%EB%A5%BC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/</guid>
+      <description>오늘 포스트는 어제에 이어서, 쓰레드에 대한 이야기를 계속해보려 합니다.
+아무래도 UI 프로그래밍에 대한 이야기다보니, UI 프로그래밍에 많이 유명하다고 생각되는 Windows 쪽의 이야기를 많이 섞어보자 합니다. 읽으실 때, 이해가 조금 안되시는 부분도 있을테니 참고하시기 바랍니다.
+UI 리소스를 Sub Thread에서 직접 사용할 경우. 안드로이드 앱에는 UI가 존재합니다. UI라고 하는 것은 사용자들이 터치하는 버튼, 텍스트 박스 등의 컴포넌트를 말하는데요. 주로 간단한 애플리케이션에서는 이 UI를 메인 쓰레드에서 처리합니다.
+하지만 앱이 커지게 되면, 쓰레드가 생기게 될 수 있고, 해당 쓰레드에서 UI를 처리할 수도 있습니다.</description>
+    </item>
+    
+    <item>
+      <title>Android AIDL 을 사용한 Activity 와 Service 통신</title>
+      <link>https://neonkid.github.io/post/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/</link>
+      <pubDate>Thu, 22 Jun 2017 02:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/</guid>
+      <description>안녕하세요. 처음으로 Android 포스트를 쓰게 되었네요. 안드로이드 포스트를 커리큘럼별로 포스팅을 해볼까 라는 생각도 했었지만, 커리큘럼에 대한 내용은 다른 블로그에서도 많이 찾아볼 수 있는 내용이고 또 어렵지 않은 내용이기에 커리큘럼이기 보다는 자주 사용하면서도 쉽게 이해하기 어려운 부분을 정리해보고자 처음 포스트를 AIDL로 삼게 되었습니다.
+AIDL ? AIDL은 Android Interface Definition Language의 약자로, 인터페이스를 정의한 언어입니다. 본래는 Android IDL은 Corba의 IDL 기능을 그대로 묘사한 것이며 RPC 통신할 때 많이 사용합니다. 우리가 이 포스트에서 다룰 주제도, Activity와 Service 간의 통신으로 프로세스 간의 통신을 구현하기 위한 목적으로 사용합니다.</description>
+    </item>
+    
+    <item>
+      <title>Web 응답 메시지 상태 코드</title>
+      <link>https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</link>
+      <pubDate>Tue, 14 Mar 2017 02:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</guid>
+      <description>최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
+상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다.</description>
+    </item>
+    
+    <item>
+      <title>Boost Library 설치와 사용</title>
+      <link>https://neonkid.github.io/post/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</link>
+      <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</guid>
+      <description>음 생각해보니, CMake에 관한 포스트를 Tistory에 게시를 해버렸네요. 이 개발자 페이지에 신경을 썼음에도 불구하고, 아무래도 아직 Tistory 블로그는 잊혀지지 않았나 봅니다. (다음에는 개발 포스트를 반드시 여기에 게시하도록 할게요 ㅠㅠ)
+최근 저는 C++ 언어에 다시 몰두하기 시작했습니다. 작년까지는 학부 수업에서 두 개 이상 Java 언어로 수업을 받았었(?)&amp;hellip; 사실 OpenCV는 C++ 언어로 진행하긴 했습니다만 Java 언어로 수업받았던 두 과목이 프로젝트로 진행되는 과목이어서 어쩌다보니 Java에 몰두하게 되어버렸습니다.
+다시 C++ 언어를 시작하려니 너무 어려운게 익숙하지가 않아 블로그에 조금 정리해보려 합니다.</description>
+    </item>
+    
+    <item>
+      <title>OpenCV Trackbar 주무르기</title>
+      <link>https://neonkid.github.io/post/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</link>
+      <pubDate>Wed, 01 Mar 2017 09:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/post/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</guid>
+      <description>안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.
+오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.
+Trackbar OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만&amp;hellip;) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.
+위 사진은 Trackbar를 움직여서 가운데에 원을 그려놓고 그 크기를 점점 늘리고 줄이고 할 수 있는 이미지입니다. 간단한 소스 코드를 공개해보도록 하겠습니다.</description>
+    </item>
+    
+  </channel>
+</rss>

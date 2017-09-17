@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Welcome !</title>
+    <link>https://neonkid.github.io/categories/</link>
+    <description>Recent content in Categories on Welcome !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>Copyright (c) 2017, Neon K.I.D; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 01 Aug 2017 20:30:20 +0900</lastBuildDate>
+    
+	<atom:link href="https://neonkid.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android</title>
+      <link>https://neonkid.github.io/categories/android/</link>
+      <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/categories/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Boost</title>
+      <link>https://neonkid.github.io/categories/boost/</link>
+      <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/categories/boost/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Opencv</title>
+      <link>https://neonkid.github.io/categories/opencv/</link>
+      <pubDate>Wed, 01 Mar 2017 09:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/categories/opencv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://neonkid.github.io/categories/unix/</link>
+      <pubDate>Sun, 25 Jun 2017 00:15:20 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/categories/unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>https://neonkid.github.io/categories/web/</link>
+      <pubDate>Tue, 14 Mar 2017 02:15:40 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/categories/web/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
