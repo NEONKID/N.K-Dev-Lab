@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Android 에서 MQTT를 사용하는 방법</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="Neon K.I.D" />
+  <meta name="description" content="안녕하세요. 요즘 취업 시즌이 한창이다보니, 블로그에 글쓰는게 또 게을러지게 되었네요. ㅜㅜ
+오늘은 지난 포스트에 이어서, 프로그래밍 코드를 이용한 MQTT 메시지 교환 - 안드로이드 편을 포스트하고자 합니다.
+혹시 아직 MQTT에 대한 개념이나, Broker를 설치하지 않으신 분들은 아래 링크를 통해, 이전 글을 반드시 구독해주신 후, 이 포스트를 참조하시기 바랍니다.
+http://blog.neonkid.xyz/127
+Eclipse Paho MQTT 프로토콜을 사용해 메시지 교환을 하기 위해서는 MQTT 통신이 가능한 라이브러리가 필요합니다. 그 중에서도 저희는 Java와 아주 궁합이 좋은 Eclipse Paho를 사용하고자 합니다." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@clax1412" />
+    <meta name="twitter:title" content="Android 에서 MQTT를 사용하는 방법" />
+    <meta name="twitter:description" content="안녕하세요. 요즘 취업 시즌이 한창이다보니, 블로그에 글쓰는게 또 게을러지게 되었네요. ㅜㅜ
+오늘은 지난 포스트에 이어서, 프로그래밍 코드를 이용한 MQTT 메시지 교환 - 안드로이드 편을 포스트하고자 합니다.
+혹시 아직 MQTT에 대한 개념이나, Broker를 설치하지 않으신 분들은 아래 링크를 통해, 이전 글을 반드시 구독해주신 후, 이 포스트를 참조하시기 바랍니다.
+http://blog.neonkid.xyz/127
+Eclipse Paho MQTT 프로토콜을 사용해 메시지 교환을 하기 위해서는 MQTT 통신이 가능한 라이브러리가 필요합니다. 그 중에서도 저희는 Java와 아주 궁합이 좋은 Eclipse Paho를 사용하고자 합니다." />
+    <meta name="twitter:image" content="https://neonkid.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/" />
+<link rel="alternative" href="https://neonkid.github.io/index.xml" title="Welcome !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Welcome !" />
+<meta name="msapplication-tooltip" content="Welcome !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neonkid.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neonkid.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neonkid.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neonkid.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neonkid.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neonkid.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neonkid.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neonkid.github.io/img/nk.png" alt="Avatar">
+  
+  <h2 class="title">Welcome !</h2>
+  
+  <p class="subtitle">~ NEONKID&#39;s Hugo Blog ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://neonkid.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://neonkid.github.io/links/">Links</a></li>
+      
+        <li class="menu-item "><a href="https://neonkid.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/neonkid" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/clax1412" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//www.facebook.com/NK.4869" title="Facebook"><span class="icon icon-facebook"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neonkid.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Android 에서 MQTT를 사용하는 방법</h1>
+      <p class="post-meta">@Neon K.I.D · Oct 1, 2017 · 5 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>안녕하세요. 요즘 취업 시즌이 한창이다보니, 블로그에 글쓰는게 또 게을러지게 되었네요. ㅜㅜ</p>
+
+<p>오늘은 지난 포스트에 이어서, 프로그래밍 코드를 이용한 MQTT 메시지 교환 - 안드로이드 편을 포스트하고자 합니다.</p>
+
+<p>혹시 아직 MQTT에 대한 개념이나, Broker를 설치하지 않으신 분들은 아래 링크를 통해, 이전 글을 반드시 구독해주신 후, 이 포스트를 참조하시기 바랍니다.</p>
+
+<p><a href="http://blog.neonkid.xyz/127">http://blog.neonkid.xyz/127</a></p>
+
+<h2 id="eclipse-paho">Eclipse Paho</h2>
+
+<p>MQTT 프로토콜을 사용해 메시지 교환을 하기 위해서는 MQTT 통신이 가능한 라이브러리가 필요합니다. 그 중에서도 저희는 Java와 아주 궁합이 좋은 Eclipse Paho를 사용하고자 합니다.</p>
+
+<pre><code>implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
+</code></pre>
+
+<pre><code>compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
+</code></pre>
+
+<p>Gradle 3.0 버전을 사용하신다면, implementation을, Gradle 2.x 버전을 사용하신다면, compile 코드를 build.gradle에 삽입합니다.</p>
+
+<h2 id="using-paho">Using Paho</h2>
+
+<p>자 이제 그럼 Paho를 사용해서 MQTT를 사용해보도록 하겠습니다. MQTT가 기본적으로 하는 일에는 Publish, Subscribe가 있는데요. 그 전에 우리는 MQTT Broker와 연결해줘야 합니다.</p>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">MqttClient</span><span class="p">(</span><span class="n">ip_addr</span><span class="p">,</span> <span class="n">clientID</span><span class="p">,</span> <span class="n">MemoryPersistece</span><span class="p">())</span>
+<span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">MqttClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MqttClient</span><span class="o">(</span><span class="n">ip_addr</span><span class="o">,</span> <span class="n">clientID</span><span class="o">,</span> <span class="k">new</span> <span class="n">MemoryPersistence</span><span class="o">());</span>
+<span class="n">client</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+</code></pre></div>
+
+<p>MqttClient 라는 객체를 생성하여, 생성자에 브로커의 IP 주소와 해당 브로커에서 사용할 ID 그리고 채팅 내용이 들어갈 여유의 MemoryPersistence 객체를 MqttClient 생성자에게 넘겨줍니다.</p>
+
+<p>마지막으로 connect 메소드를 사용하여 연결을 시도합니다.</p>
+
+<p>위 형태가 기본형입니다. 통신 서비스이기 때문에 연결이 실패할 경우도 있을 수 있으므로, 반드시 예외 처리를 해주도록 합시다. 연결이 끝나면, disconnect 메소드를 이용해 연결을 끊으시면 됩니다.</p>
+
+<h3 id="publish">Publish</h3>
+
+<p>이제 연결을 하였으니, 메시지를 보내보도록 하겠습니다.</p>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">try</span> <span class="p">{</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">()</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">publish</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">MqttMessage</span><span class="p">(</span><span class="s">&quot;Hello MQTT !&quot;</span><span class="p">.</span><span class="n">toByteArray</span><span class="p">()))</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ex</span><span class="p">:</span> <span class="n">MqttException</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">ex</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">try</span> <span class="o">{</span>
+  <span class="n">client</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+  <span class="n">client</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="k">new</span> <span class="n">MqttMessage</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&quot;Hello MQTT !&quot;</span><span class="o">).</span><span class="na">getBytes</span><span class="o">()));</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">MqttException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">ex</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>Message를 보내는 것도 어렵지 않습니다. 연결을 할 떄, 반드시 위와 같이 오류 처리를 해주시면 됩니다. 다만 publish를 할 때 보낼 메시지는 String이 아닌 ByteArray 형태로 전송되어야 합니다. 이 부분은 Java/Kotlin 언어에서 지원하는 String 객체의 메소드를 사용하여 쉽게 변환할 수 있습니다.</p>
+
+<h3 id="subscribe">Subscribe</h3>
+
+<p>메시지를 발행하는 방법을 알았으니 다음은 이제 메시지를 구독하는 방법을 알아보겠습니다.</p>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">try</span> <span class="p">{</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">()</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">subscribeWithResponse</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">IMqttMessageListener</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ex</span><span class="p">:</span> <span class="n">MqttException</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">ex</span><span class="p">.</span><span class="n">printStrackTrace</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">try</span> <span class="o">{</span>
+  <span class="n">client</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+  <span class="n">client</span><span class="o">.</span><span class="na">subscribeWithResponse</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="k">new</span> <span class="n">IMqttMessageListener</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">MqttException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">ex</span><span class="o">.</span><span class="na">printStaceTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>메시지를 구독을 할 떄는 단순히 메소드 호출로만 이루어지기 힘들겠죠? 단순 subscribe 메소드도 있긴 하지만, 이는 진짜 메시지를 구독만 할 것일 뿐 이를 프로그램에서 소화하려면 콜백 함수 인터페이스를 사용해야 합니다. 그래서, IMqttMessageListener를 사용합니다.</p>
+
+<p>코틀린 언어에서는 다음과 같은 코드로도 사용하실 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">try</span> <span class="p">{</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">()</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">subscribeWithResponse</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="p">{</span> <span class="n">topic</span><span class="p">,</span> <span class="n">message</span> <span class="p">-&gt;</span> <span class="p">...</span> <span class="p">})</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ex</span><span class="p">:</span> <span class="n">MqttException</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">ex</span><span class="p">.</span><span class="n">printStrackTrace</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Lambda 방법이 생소하신 분들을 위해 조금 설명을 드리자면, 매우 쉽습니다. No-Lambda에서는 함수 이름을 붙여야 했지만, Lambda 방법을 사용하면 메소드의 인자값을 주고, 화살표만 넣어주신 다음 메소드의 액션을 넣으시면 됩니다. 얼핏보면 Java 8 에서 지원하는 Lambda 사용법이랑 비슷합니다.</p>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">override</span> <span class="k">fun</span> <span class="nf">messageArrived</span><span class="p">(</span><span class="n">topic</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="n">message</span><span class="p">:</span> <span class="n">MqttMessage</span><span class="p">?)</span> <span class="p">{</span>
+  <span class="c1">// Todo: 여기에서 메시지를 처리합니다. 메시지는 MqttMessage 객체로 받습니다.</span>
+  <span class="n">Log</span><span class="p">.</span><span class="n">i</span><span class="p">(</span><span class="n">topic</span> <span class="p">+</span> <span class="s">&quot;: &quot;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="n">message</span><span class="o">!!</span><span class="p">.</span><span class="n">payload</span><span class="p">))</span>	<span class="c1">// String 값으로 받으려면 이렇게....</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">messageArrived</span><span class="o">(</span><span class="n">String</span> <span class="n">topic</span><span class="o">,</span> <span class="n">MqttMessage</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// Todo: 여기에서 메시지를 처리합니다. 메시지는 MqttMessage 객체로 받습니다.</span>
+  <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">topic</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">()));</span>	<span class="c1">// Java 에서...</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>콜백 함수에 들어있는 인자 값을 이용해 String 생성자를 이용하여 간단히 String 형태로 바꾸어 사용하실 수 있습니다</p>
+
+<p>그리고, 가운데 인자인 2는 QoS를 의미합니다. MQTT의 QoS는 다음과 같습니다.</p>
+
+<ul>
+<li>QoS = 0 : 수신 측 확인 없이 1회 전송합니다.</li>
+<li>QoS = 1 : 수신 측의 ACK를 확인하고 ACK가 오지 않으면 재전송합니다. (여가서 재전송할 때, 수신측에서는 중복 메시지를 받을 수 없습니다)</li>
+<li>QoS = 2 : 송신/수신 측 모두 ACK 를 확인합니다</li>
+</ul>
+
+<p>QoS는 여러분이 원하시는 번호로 하시면 됩니다. 사실 테스트 전송에는 많은 영향을 받지 않습니다. 실제 QoS 동작을 확인해보시려면 직접 패킷 캡처링을 해보시기 바랍니다.</p>
+
+<h2 id="android-kotlin-example">Android / Kotlin Example</h2>
+
+<p>그럼 이제 안드로이드 앱으로 만들어보도록 하겠습니다. 중간에 Broker를 놓고, 클라이언트 두개가 서로 메시지를 주고 받는 것에 대해 간단한 예제를 담아봤습니다.</p>
+
+<p>이 예제 프로그램은 안드로이드 앱에서 특정 메시지를 전송하면, 더 이상 그들 둘 사이의 메시지 교환이 이루어지지 않는 프로그램으로 메시지를 통한 인증 프로그램과 유사한 앱을 만들어봤습니다.</p>
+
+<p><img src="https://neonkid.github.io/media/images/android/MQTT-1.gif" alt="MQTT-1" /></p>
+
+<p>겉보기에는 MQTT를 이용해 통신하고 있다는 모습처럽 보이지는 않죠? 포스트를 하면서 여러모로 많은 고민을 해봤지만 가장 간단한 예제로 접할 수 있는 것이 이것밖에 생각나지 않았습니다.. ㅠㅠ</p>
+
+<p><img src="https://neonkid.github.io/media/images/android/MQTT-2.png" alt="MQTT-2" /></p>
+
+<p>간단히 다이어그램으로 알아보자면, 위와 같습니다. 서버에서도 동일한 MQTT 통신 코드를 가지고 있습니다. 해당 서버에서 메시지를 받았을 때, 올바른 키가 전송되었으면 그에 해당하는 응답을 주고, 그렇지 않으면 실패 코드를 안드로이드 앱에게 부여합니다.</p>
+
+<p>코드를 통해 살펴보도록 하겠습니다.</p>
+
+<h3 id="server-code">Server Code</h3>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="n">client</span><span class="p">.</span><span class="n">subscribeWithResponse</span><span class="p">(</span><span class="s">&quot;mqttKotlin_send&quot;</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="p">{</span> <span class="n">topic</span><span class="p">,</span> <span class="n">message</span> <span class="p">-&gt;</span>
+  <span class="c1">// Java 의 Switch - case 문..</span>
+  <span class="k">when</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">payload</span><span class="p">).</span><span class="n">trim</span><span class="p">())</span> <span class="p">{</span>
+    <span class="s">&quot;IMNKID&quot;</span> <span class="p">-&gt;</span> <span class="p">{</span>
+      <span class="n">client</span><span class="p">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&quot;mqttKotlin_recv&quot;</span><span class="p">,</span> <span class="n">MqttMessage</span><span class="p">(</span><span class="s">&quot;Congratulations Key !!!&quot;</span><span class="p">.</span><span class="n">toByteArray</span><span class="p">()))</span>
+      <span class="n">client</span><span class="p">.</span><span class="n">disconnect</span><span class="p">()</span>
+      <span class="n">exitProcess</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">-&gt;</span> <span class="p">{</span>
+      <span class="n">println</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">payload</span><span class="p">))</span>
+      <span class="n">client</span><span class="p">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&quot;mqttKotlin_recv&quot;</span><span class="p">,</span> <span class="n">MqttMessage</span><span class="p">(</span><span class="s">&quot;FAILED.....&quot;</span><span class="p">.</span><span class="n">toByteArray</span><span class="p">()))</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>서버 코드는 간단합니다. 올바른 키를 받았을 떄의 상황을 Switch - case 문을 사용하였고, 서로가 주고 받는 메시지의 Topic을 다르게 주었습니다. 이 부분은 다르게 주는 것을 권장합니다. 메시지가 섞이는 경우, 통계나 관리가 힘들어지게 됩니다.</p>
+
+<h3 id="client-code">Client Code</h3>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">?)</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+      <span class="n">client</span><span class="p">.</span><span class="n">subscribeWithResponse</span><span class="p">(</span><span class="n">topic_recv</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="p">{</span> <span class="n">topic</span><span class="p">,</span> <span class="n">msg</span> <span class="p">-&gt;</span>
+        <span class="n">Log</span><span class="p">.</span><span class="n">i</span><span class="p">(</span><span class="s">&quot;[RECV]&quot;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">when</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">payload</span><span class="p">).</span><span class="n">contains</span><span class="p">(</span><span class="s">&quot;Congratulations&quot;</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">true</span> <span class="p">-&gt;</span> <span class="p">{</span>
+            <span class="n">runOnUiThread</span><span class="p">({</span>
+              <span class="n">action_image</span><span class="p">.</span><span class="n">setImageDrawable</span><span class="p">(</span><span class="n">getDrawable</span><span class="p">(</span><span class="s">&quot;DRAWABLE_SRC&quot;</span><span class="p">))</span>
+              <span class="n">message</span><span class="p">.</span><span class="n">setHint</span><span class="p">(</span><span class="s">&quot;Congratulations, This is correct key ! &quot;</span><span class="p">)</span>
+              <span class="n">setToastMessage</span><span class="p">(</span><span class="s">&quot;Wow.............&quot;</span><span class="p">)</span>
+              <span class="n">sendBtn</span><span class="p">.</span><span class="n">isEnabled</span> <span class="p">=</span> <span class="k">false</span>
+           	<span class="p">})</span>
+            <span class="n">client</span><span class="p">.</span><span class="n">disconnect</span><span class="p">()</span>
+          <span class="p">}</span>
+          <span class="k">false</span> <span class="p">-&gt;</span> <span class="n">setToastMessage</span><span class="p">(</span><span class="s">&quot;Cheer up ! Please Try again......&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ex</span><span class="p">:</span> <span class="n">MqttException</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">setToastMessage</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">message</span><span class="p">)</span>
+      <span class="n">ex</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>맨 처음 Activity가 만들어지는 부분에 Broker 연결과 Subscribe 를 추가해줍니다. Subscribe를 Activity가 생성되는 부분에 추가하여 메시지가 구독될 경우, 콜백/쓰레드를 통해 실시간으로 받을 수 있도록 합니다.</p>
+
+<p>(어? 여기서 Thread 따로 생성안했는데? 아, MQTT 라이브러리는 별도로 Thread 객체를 사용안하셔도 됩니다&hellip;)</p>
+<div class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="n">sendBtn</span><span class="p">.</span><span class="n">setOnClickListener</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+
+<span class="k">override</span> <span class="k">fun</span> <span class="nf">onClick</span><span class="p">(</span><span class="n">p0</span><span class="p">:</span> <span class="n">View</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="n">client</span><span class="p">.</span><span class="n">publish</span><span class="p">(</span><span class="n">topic_send</span><span class="p">,</span> <span class="n">MqttMessage</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">toString</span><span class="p">().</span><span class="n">toByteArray</span><span class="p">()))</span>
+      <span class="n">message</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ex</span><span class="p">:</span> <span class="n">MqttException</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">setToastMessage</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">message</span><span class="p">)</span>
+      <span class="n">ex</span><span class="p">.</span><span class="n">printStrackTrace</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">setToastMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">String</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="n">runOnUiThread</span><span class="p">({</span>
+        <span class="n">Toast</span><span class="p">.</span><span class="n">makeText</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">Toast</span><span class="p">.</span><span class="n">LENGTH_SHORT</span><span class="p">).</span><span class="n">show</span><span class="p">()</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>키를 서버에게 주는 방법 또한 위에서 얘기한 Publish의 간단한 예제를 조금만 응용하면 됩니다.</p>
+
+<h2 id="마치며">마치며&hellip;.</h2>
+
+<p>여기까지 Java, Kotlin 언어를 사용하여 간단한 MQTT 앱을 만들어보는 것과 예제를 다뤄봤습니다.</p>
+
+<p>저도 처음 다뤄보는 Kotlin이라 그런지 많이 헷갈립니다. ㅋㅋ.. Kotlin 에 대해 짧게나마 얘기 드리자면, 수다를 엄청 좋아하는 Java에 비하면 정말 10배는 좋은 것 같습니다. 코드의 줄 수도 많이 줄고, 그만큼 독해(?) 하는 데 있어서 많이 완화된 모습을 보여줍니다.</p>
+
+<p>다만 지금 Kotlin이 안드로이드 공식 언어가 되었다고 하여, 무작정 Kotlin으로 나가는 것은 개인적으로 추천드리진 않습니다. Java를 확실하게 익혀두신 후, Kotlin에 접해보시기 바랍니다.</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://neonkid.github.io/tags/kotlin"><span class="tag">Kotlin</span></a></li>
+        
+          <li><a href="https://neonkid.github.io/tags/mqtt"><span class="tag">MQTT</span></a></li>
+        
+          <li><a href="https://neonkid.github.io/tags/android"><span class="tag">Android</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        Copyright (c) 2017, Neon K.I.D; all rights reserved.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 Welcome !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://neonkid.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

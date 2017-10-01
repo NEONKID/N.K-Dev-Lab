@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</loc>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</loc>
     <lastmod>2017-08-01T20:30:20+09:00</lastmod>
   </url>
@@ -49,13 +54,13 @@
   
   <url>
     <loc>https://neonkid.github.io/tags/android/</loc>
-    <lastmod>2017-08-01T20:30:20+09:00</lastmod>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://neonkid.github.io/categories/android/</loc>
-    <lastmod>2017-08-01T20:30:20+09:00</lastmod>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -79,7 +84,7 @@
   
   <url>
     <loc>https://neonkid.github.io/categories/</loc>
-    <lastmod>2017-08-01T20:30:20+09:00</lastmod>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -92,6 +97,18 @@
   <url>
     <loc>https://neonkid.github.io/tags/customview/</loc>
     <lastmod>2017-08-01T20:30:20+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://neonkid.github.io/tags/kotlin/</loc>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://neonkid.github.io/tags/mqtt/</loc>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -115,7 +132,7 @@
   
   <url>
     <loc>https://neonkid.github.io/post/</loc>
-    <lastmod>2017-08-01T20:30:20+09:00</lastmod>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -127,7 +144,7 @@
   
   <url>
     <loc>https://neonkid.github.io/tags/</loc>
-    <lastmod>2017-08-01T20:30:20+09:00</lastmod>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
