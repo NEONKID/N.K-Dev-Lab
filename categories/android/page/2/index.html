@@ -2,6 +2,8 @@
 
 
     
+        
+    
 
 
 
@@ -11,7 +13,7 @@
 <html>
     <head>
         
-            <title>Pthread - NEONKID&#39;s Hugo Blog...</title>
+            <title>Android Posts - NEONKID&#39;s Hugo Blog...</title>
         
 
         <meta charset="utf-8" />
@@ -25,18 +27,18 @@
             
         
 
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Pthread"/>
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Android"/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@clax1412"/>
 
-        <meta property="og:title" content="Pthread" />
+        <meta property="og:title" content="Android" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://neonkid.github.io/tags/pthread/" />
+<meta property="og:url" content="https://neonkid.github.io/categories/android/" />
 
 
 
-<meta property="og:updated_time" content="2017-06-25T00:15:20&#43;09:00"/>
+<meta property="og:updated_time" content="2017-06-22T02:15:40&#43;09:00"/>
 
 
 
@@ -48,7 +50,7 @@
 
 
         
-<meta itemprop="name" content="Pthread">
+<meta itemprop="name" content="Android">
 <meta itemprop="description" content="">
 
 
@@ -201,13 +203,14 @@
 
     
     <div id="main">
+        <h1>Android</h1>
         
         
             <article class="post">
     <header>
     <div class="title">
         
-            <h2><a href="https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/">Unix Thread의 기본을 다져보자</a></h2>
+            <h2><a href="https://neonkid.github.io/post/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/">Android AIDL 을 사용한 Activity 와 Service 통신</a></h2>
         
         
     </div>
@@ -215,11 +218,11 @@
         
 
         <time class="published"
-            datetime='2017-06-25'>
-            June 25, 2017</time>
+            datetime='2017-06-22'>
+            June 22, 2017</time>
         <span class="author"></span>
         
-            <p>5 minute read</p>
+            <p>4 minute read</p>
         
         
     </div>
@@ -227,12 +230,12 @@
 
     
 
-    <p>개발 글을 써온지 벌써 4개월이 지났지만, 학교 생활과 성적 관리 등으로 인해 컨텐츠가 많이 부족하여 이리저리 생각해 본 결과, 이 개발 블로그에 제가 알고 있는 모든 개발 지식들을 올리려고 합니다. 물론 용도는 여러 가지가 있겠지만, 주 용도는 사람의 기본적인 특성인 망각 특성 때문이겠죠? ㅎㅎ
-오늘은 Unix Programming에 대한 카테고리를 새로 추가하여, pthread부터 시작해보려 합니다. 왜 쓰레드부터 시작하냐고요? 그렇군요. 올해는 유난히 제 프로젝트, 과제 등에서 모두 쓰레드를 사용했기 떄문이라고 이야기 하고 싶네요.</p>
+    <p>안녕하세요. 처음으로 Android 포스트를 쓰게 되었네요. 안드로이드 포스트를 커리큘럼별로 포스팅을 해볼까 라는 생각도 했었지만, 커리큘럼에 대한 내용은 다른 블로그에서도 많이 찾아볼 수 있는 내용이고 또 어렵지 않은 내용이기에 커리큘럼이기 보다는 자주 사용하면서도 쉽게 이해하기 어려운 부분을 정리해보고자 처음 포스트를 AIDL로 삼게 되었습니다.
+AIDL ? AIDL은 Android Interface Definition Language의 약자로, 인터페이스를 정의한 언어입니다. 본래는 Android IDL은 Corba의 IDL 기능을 그대로 묘사한 것이며 RPC 통신할 때 많이 사용합니다. 우리가 이 포스트에서 다룰 주제도, Activity와 Service 간의 통신으로 프로세스 간의 통신을 구현하기 위한 목적으로 사용합니다.</p>
 
     <footer>
         <ul class="actions">
-            <li><a href="https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/" class="button big">Continue Reading</a></li>
+            <li><a href="https://neonkid.github.io/post/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/" class="button big">Continue Reading</a></li>
         </ul>
         <ul class="stats">
     
@@ -261,7 +264,7 @@
 
     
     
-        <li><a href='/categories/unix'>unix</a></li>
+        <li><a href='/categories/android'>android</a></li>
     
 </ul>
 
@@ -273,7 +276,8 @@
         
 <ul class="actions pagination">
     
-        <li><a href="#" class="disabled button big previous">Previous Page</a></li>
+        <li><a href="/categories/android/"
+                class="button big previous">Previous Page</a></li>
     
 
     
@@ -301,7 +305,7 @@
             
             <ul class="icons">
                 
-                    <li><a href="https://neonkid.github.io/tags/pthread/index.xml" type="application/rss+xml"
+                    <li><a href="https://neonkid.github.io/categories/android/index.xml" type="application/rss+xml"
                         target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
@@ -511,7 +515,7 @@
         <section id="footer">
             <ul class="icons">
                 
-                    <li><a href="https://neonkid.github.io/tags/pthread/index.xml" type="application/rss+xml"
+                    <li><a href="https://neonkid.github.io/categories/android/index.xml" type="application/rss+xml"
                         target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 

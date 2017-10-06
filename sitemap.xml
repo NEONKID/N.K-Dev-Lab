@@ -3,16 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://neonkid.github.io/links/</loc>
-    <lastmod>2017-09-17T09:39:39+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://neonkid.github.io/about/</loc>
-    <lastmod>2017-09-17T10:14:29+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</loc>
     <lastmod>2017-10-01T13:27:19+09:00</lastmod>
   </url>
@@ -50,6 +40,11 @@
   <url>
     <loc>https://neonkid.github.io/post/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</loc>
     <lastmod>2017-03-01T09:15:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://neonkid.github.io/about/</loc>
+    <lastmod>2014-04-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -113,6 +108,12 @@
   </url>
   
   <url>
+    <loc>https://neonkid.github.io/</loc>
+    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://neonkid.github.io/tags/opencv/</loc>
     <lastmod>2017-03-01T09:15:40+09:00</lastmod>
     <priority>0</priority>
@@ -163,12 +164,6 @@
   <url>
     <loc>https://neonkid.github.io/categories/web/</loc>
     <lastmod>2017-03-14T02:15:40+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://neonkid.github.io/</loc>
-    <lastmod>2017-09-17T09:39:39+09:00</lastmod>
     <priority>0</priority>
   </url>
   

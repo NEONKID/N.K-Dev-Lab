@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Welcome !</title>
+    <title>Tags on NEONKID&#39;s Hugo Blog...</title>
     <link>https://neonkid.github.io/tags/</link>
-    <description>Recent content in Tags on Welcome !</description>
+    <description>Recent content in Tags on NEONKID&#39;s Hugo Blog...</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language>
-    <copyright>Copyright (c) 2017, Neon K.I.D; all rights reserved.</copyright>
+    <language>en-us</language>
     <lastBuildDate>Sun, 01 Oct 2017 13:27:19 +0900</lastBuildDate>
     
 	<atom:link href="https://neonkid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -40,7 +39,7 @@
     </item>
     
     <item>
-      <title>Customedittext</title>
+      <title>CustomEditText</title>
       <link>https://neonkid.github.io/tags/customedittext/</link>
       <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
       
@@ -49,7 +48,7 @@
     </item>
     
     <item>
-      <title>Customview</title>
+      <title>CustomView</title>
       <link>https://neonkid.github.io/tags/customview/</link>
       <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
       
@@ -67,7 +66,7 @@
     </item>
     
     <item>
-      <title>Mqtt</title>
+      <title>MQTT</title>
       <link>https://neonkid.github.io/tags/mqtt/</link>
       <pubDate>Sun, 01 Oct 2017 13:27:19 +0900</pubDate>
       
@@ -76,7 +75,7 @@
     </item>
     
     <item>
-      <title>Opencv</title>
+      <title>OpenCV</title>
       <link>https://neonkid.github.io/tags/opencv/</link>
       <pubDate>Wed, 01 Mar 2017 09:15:40 +0900</pubDate>
       
@@ -85,7 +84,7 @@
     </item>
     
     <item>
-      <title>Posix Thread</title>
+      <title>POSIX thread</title>
       <link>https://neonkid.github.io/tags/posix-thread/</link>
       <pubDate>Sun, 25 Jun 2017 00:15:20 +0900</pubDate>
       

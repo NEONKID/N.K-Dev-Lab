@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posix Thread on Welcome !</title>
+    <title>POSIX thread on NEONKID&#39;s Hugo Blog...</title>
     <link>https://neonkid.github.io/tags/posix-thread/</link>
-    <description>Recent content in Posix Thread on Welcome !</description>
+    <description>Recent content in POSIX thread on NEONKID&#39;s Hugo Blog...</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language>
-    <copyright>Copyright (c) 2017, Neon K.I.D; all rights reserved.</copyright>
+    <language>en-us</language>
     <lastBuildDate>Sun, 25 Jun 2017 00:15:20 +0900</lastBuildDate>
     
 	<atom:link href="https://neonkid.github.io/tags/posix-thread/index.xml" rel="self" type="application/rss+xml" />

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Boost on Welcome !</title>
+    <title>Boost on NEONKID&#39;s Hugo Blog...</title>
     <link>https://neonkid.github.io/tags/boost/</link>
-    <description>Recent content in Boost on Welcome !</description>
+    <description>Recent content in Boost on NEONKID&#39;s Hugo Blog...</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language>
-    <copyright>Copyright (c) 2017, Neon K.I.D; all rights reserved.</copyright>
+    <language>en-us</language>
     <lastBuildDate>Sun, 05 Mar 2017 02:15:40 +0900</lastBuildDate>
     
 	<atom:link href="https://neonkid.github.io/tags/boost/index.xml" rel="self" type="application/rss+xml" />

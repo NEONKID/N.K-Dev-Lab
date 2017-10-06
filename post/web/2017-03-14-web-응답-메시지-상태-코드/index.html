@@ -1,199 +1,303 @@
-<!DOCTYPE html>
-<html lang="ko-kr">
-<head>
+<!DOCTYPE HTML>
 
-  <meta charset="utf-8" />
-
-  
-  <title>Web 응답 메시지 상태 코드</title>
-
-  
-  
-
-
-
-
-  
-  <meta name="author" content="Neon K.I.D" />
-  <meta name="description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
-상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다." />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@clax1412" />
-    <meta name="twitter:title" content="Web 응답 메시지 상태 코드" />
-    <meta name="twitter:description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
-상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다." />
-    <meta name="twitter:image" content="https://neonkid.github.io/img/avatar.jpg" />
-  
-
-
-
-
-<meta name="generator" content="Hugo 0.27.1" />
-
-
-<link rel="canonical" href="https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/" />
-<link rel="alternative" href="https://neonkid.github.io/index.xml" title="Welcome !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Welcome !" />
-<meta name="msapplication-tooltip" content="Welcome !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://neonkid.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://neonkid.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://neonkid.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://neonkid.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://neonkid.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://neonkid.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://neonkid.github.io/css/bundle.css" />
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
-
-</head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
+<html>
+    <head>
         
+            
+                <title>Web 응답 메시지 상태 코드</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.27.1" />
+        
+
+
+        
+        
+            
+        
+
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Web 응답 메시지 상태 코드"/>
+<meta name="twitter:description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
+상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다."/>
+<meta name="twitter:site" content="@clax1412"/>
+
+        <meta property="og:title" content="Web 응답 메시지 상태 코드" />
+<meta property="og:description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
+상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/" />
+
+
+
+<meta property="article:published_time" content="2017-03-14T02:15:40&#43;09:00"/>
+<meta property="article:modified_time" content="2017-03-14T02:15:40&#43;09:00"/>
+
+
+
+
+
+
+
+
+
+
+
+        
+<meta itemprop="name" content="Web 응답 메시지 상태 코드">
+<meta itemprop="description" content="최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
+상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다.">
+
+
+<meta itemprop="dateModified" content="2017-03-14T02:15:40&#43;09:00" />
+<meta itemprop="wordCount" content="483">
+
+
+
+<meta itemprop="keywords" content="Web," />
+
+        
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+            <link rel="stylesheet" href="/css/main.css">
+            <link rel="stylesheet" href="/css/add-on.css">
+        
+
+        
+
+        
+            
+        
+    </head>
+    <body>
+
       
-    </div>
+      <div id="wrapper">
+
     
     
-  <header class="site-header">
-  <img class="avatar" src="https://neonkid.github.io/img/nk.png" alt="Avatar">
-  
-  <h2 class="title">Welcome !</h2>
-  
-  <p class="subtitle">~ NEONKID&#39;s Hugo Blog ~</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
+<header id="header">
+    
       
+          <h1><a href="/">post</a></h1>
       
-      
-      
-        <li class="menu-item  is-active"><a href="https://neonkid.github.io/">Home</a></li>
-      
-        <li class="menu-item "><a href="https://neonkid.github.io/links/">Links</a></li>
-      
-        <li class="menu-item "><a href="https://neonkid.github.io/about/">About</a></li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+    
 
-      
-
-      
-      <li class="social-item">
-        <a href="//github.com/neonkid" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/clax1412" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//www.facebook.com/NK.4869" title="Facebook"><span class="icon icon-facebook"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://neonkid.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/">
+                            <i class="fa fa-home">&nbsp;</i>Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                            <i class="fa fa-id-card-o">&nbsp;</i>About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                            <i class="fa fa-sitemap">&nbsp;</i>Categories
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
 </header>
 
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Web 응답 메시지 상태 코드</h1>
-      <p class="post-meta">@Neon K.I.D · Mar 14, 2017 · 3 min read</p>
-    </header>
-    <article class="post-content">
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="q" value="site:https://neonkid.github.io/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/">
+                            <h3>
+                                <i class="fa fa-home">&nbsp;</i>Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                <i class="fa fa-id-card-o">&nbsp;</i>About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                <i class="fa fa-sitemap">&nbsp;</i>Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    <li>
+                        <a href="https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/"><p>Android 에서 MQTT를 사용하는 방법</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/"><p>Android CustomView를 만들어보자</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/"><p>Unix Thread의 기본을 다져보자</p></a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f&text=Web%20%ec%9d%91%eb%8b%b5%20%eb%a9%94%ec%8b%9c%ec%a7%80%20%ec%83%81%ed%83%9c%20%ec%bd%94%eb%93%9c&via=clax1412" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f&title=Web%20%ec%9d%91%eb%8b%b5%20%eb%a9%94%ec%8b%9c%ec%a7%80%20%ec%83%81%ed%83%9c%20%ec%bd%94%eb%93%9c" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f&title=Web%20%ec%9d%91%eb%8b%b5%20%eb%a9%94%ec%8b%9c%ec%a7%80%20%ec%83%81%ed%83%9c%20%ec%bd%94%eb%93%9c" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f&title=Web%20%ec%9d%91%eb%8b%b5%20%eb%a9%94%ec%8b%9c%ec%a7%80%20%ec%83%81%ed%83%9c%20%ec%bd%94%eb%93%9c" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fneonkid.github.io%2fpost%2fweb%2f2017-03-14-web-%25EC%259D%2591%25EB%258B%25B5-%25EB%25A9%2594%25EC%258B%259C%25EC%25A7%2580-%25EC%2583%2581%25ED%2583%259C-%25EC%25BD%2594%25EB%2593%259C%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+    <header>
+    <div class="title">
+        
+            <h1><a href="https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/">Web 응답 메시지 상태 코드</a></h1>
+            
+        
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2017-03-14'>
+            March 14, 2017</time>
+        <span class="author"></span>
+        
+            <p>3 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+    
+
+    
+
+    <div id="content">
+        
 
 <p>최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다.
 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.</p>
@@ -314,43 +418,376 @@
 <li><strong>503 Service Unavailable</strong>
 웹서버는 클라이언트의 요청에 대해 정상적으로 응답할 수 있으나 서버에서 구동 중인 애플리케이션이 응답을 하지 못할 때 나타난다. 503 상태 코드의 경우 클라이언트가 요청을 잘못해서 발생했는지 아니면 서버에 있는 애플리케이션이 문제가 있는지 잘 확인해야 한다.</li>
 </ul>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
+
+    </div>
+
+    <footer>
+        <ul class="stats">
+    
         
-          <li><a href="https://neonkid.github.io/tags/web"><span class="tag">Web</span></a></li>
+
         
-      </ul>
-      
-      <p class="post-copyright">
-        Copyright (c) 2017, Neon K.I.D; all rights reserved.This post was published <strong>201</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
+        
+            <li>
+                
+                
+                    
+
+                    
+
+                    
+                        <i class="fa fa-sitemap">&nbsp;</i>
+                    
+
+                    
+                        Category
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/web'>Web</a></li>
+    
+</ul>
+
     </footer>
+</article>
+<ul class="actions pagination">
     
+        <li><a href="https://neonkid.github.io/post/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/"
+                class="button big previous">Boost Library 설치와 사용</a></li>
+    
+
+    
+        <li><a href="https://neonkid.github.io/post/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/"
+                class="button big next">Android AIDL 을 사용한 Activity 와 Service 통신</a></li>
+    
+</ul>
+
+
+
+
+
+    </div>
+    
+<section id="sidebar">
+
+    
+        <section id="intro">
+            
+            
+                
+                    <img src="/img/nk.png" class="intro-circle" width="150" alt="NK, Created by. KHK" />
+                
+            
+            
+                <header>
+                    <h2>Neon K.I.D</h2>
+                    <p>Hi, I'm NEONKID...</p>
+                </header>
+            
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
+
+
+
+<li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <ul class="posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-10-01'>
+                                    October 1, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-08-01'>
+                                    August 1, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/">Unix Thread의 기본을 다져보자</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-06-25'>
+                                    June 25, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+
+                
+                    <li>
+                        <ul class="actions">
+                            <li><a href=
+                            
+                                /blog/
+                            
+                            class="button">View more posts</a></li>
+                        </ul>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+    
+    
+    
+        <section id="categories">
+            <ul class="posts">
+                <header>
+                    <h3><a href="/categories/">Categories</a></h3>
+                </header>
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/android/">android</a>
+                                <span style="float:right;">4</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/web/">Web</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/boost/">boost</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/opencv/">opencv</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/unix/">unix</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+            </ul>
+        </section>
+    
+
+    
+        
+        <section class="blurb">
+            <h2>About</h2>
+            <p>Neon K.I.D's Development Story...</p>
+
+            <ul class="actions">
+                <li><a href="/about/" class="button">Learn More</a></li>
+            </ul>
+        </section>
+        
+
+    
+        <section id="footer">
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
+
+
+
+<li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+                
+            </ul>
+
+            <p class="copyright">&copy; 2017 NEONKID&#39;s Hugo Blog.... Powered by <a href="//gohugo.io" target="_blank">Hugo</a></p>
+        </section>
+
+</section>
+
+      </div>
+      <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
       
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2017 Welcome !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
 
+      
+        
+      
 
+      
+      
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
+        <script src="/js/util.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/backToTop.js"></script>
+      
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
-});
-</script>
+      
 
-<script src="https://neonkid.github.io/js/bundle.js"></script>
-
-
-
-
-  </body>
+      
+      <script>hljs.initHighlightingOnLoad();</script>
+    </body>
 </html>
+

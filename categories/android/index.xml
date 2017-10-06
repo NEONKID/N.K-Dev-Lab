@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Android on Welcome !</title>
+    <title>Android on NEONKID&#39;s Hugo Blog...</title>
     <link>https://neonkid.github.io/categories/android/</link>
-    <description>Recent content in Android on Welcome !</description>
+    <description>Recent content in Android on NEONKID&#39;s Hugo Blog...</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language>
-    <copyright>Copyright (c) 2017, Neon K.I.D; all rights reserved.</copyright>
+    <language>en-us</language>
     <lastBuildDate>Sun, 01 Oct 2017 13:27:19 +0900</lastBuildDate>
     
 	<atom:link href="https://neonkid.github.io/categories/android/index.xml" rel="self" type="application/rss+xml" />
@@ -21,7 +20,7 @@
       <description>안녕하세요. 요즘 취업 시즌이 한창이다보니, 블로그에 글쓰는게 또 게을러지게 되었네요. ㅜㅜ
 오늘은 지난 포스트에 이어서, 프로그래밍 코드를 이용한 MQTT 메시지 교환 - 안드로이드 편을 포스트하고자 합니다.
 혹시 아직 MQTT에 대한 개념이나, Broker를 설치하지 않으신 분들은 아래 링크를 통해, 이전 글을 반드시 구독해주신 후, 이 포스트를 참조하시기 바랍니다.
-http://blog.neonkid.xyz/127
+MQTT 프로토콜 개념과 이해 
 Eclipse Paho MQTT 프로토콜을 사용해 메시지 교환을 하기 위해서는 MQTT 통신이 가능한 라이브러리가 필요합니다. 그 중에서도 저희는 Java와 아주 궁합이 좋은 Eclipse Paho를 사용하고자 합니다.</description>
     </item>
     
