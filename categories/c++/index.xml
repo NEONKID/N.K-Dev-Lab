@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; on NEONKID&#39;s Hugo Blog...</title>
+    <link>https://neonkid.github.io/categories/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on NEONKID&#39;s Hugo Blog...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Oct 2017 03:27:19 +0900</lastBuildDate>
+    
+	<atom:link href="https://neonkid.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C&#43;&#43; 언어에서 MQTT 사용해보기</title>
+      <link>https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/</link>
+      <pubDate>Sun, 29 Oct 2017 03:27:19 +0900</pubDate>
+      
+      <guid>https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/</guid>
+      <description>오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C++ 언어를 사용해보도록 하죠.
+
+libmosquitto C++ 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다.
+$ sudo apt install libmosquitto  우분투 리눅스에서는 기본적으로 레포지터리에서 제공하는 libmosquitto 패키지가 있습니다. 해당 패키지를 사용해서 libmosquitto를 쉽게 설치해보실 수 있습니다.
+윈도우 운영체제에서는 아래의 버튼을 클릭하셔서 설치하실 수 있습니다.
+Windows 용 libmosquitto 다운로드</description>
+    </item>
+    
+  </channel>
+</rss>

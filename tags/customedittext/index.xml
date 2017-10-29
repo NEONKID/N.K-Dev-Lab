@@ -13,10 +13,10 @@
     
     <item>
       <title>Android CustomView를 만들어보자</title>
-      <link>https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</link>
+      <link>https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</link>
       <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</guid>
+      <guid>https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</guid>
       <description>벌써 8월이 시작됐네요. 올해 장마는 무척 길었던 것 같습니다.
 오늘은 안드로이드의 CustomView를 제작하는 간단한 방법을 적어보고자 합니다.
 저는 사실 디자인에 많이 약합니다. 제가 현재 맡고 있는 졸업 작품에서도 클라이언트로 안드로이드 앱 개발을 담당하고 있지만, 앱 디자인에 코드를 여러 번 뜯어고쳤습니다. 처음에는 그다지 디자인에 많이 신경도 쓰지 않았고, Android, android-support, material design에서 기본적으로 제공해주는 View, Widget을 가져다가 쓰는 것이 전부이고, 그 이상은 생각하지 않았습니다.

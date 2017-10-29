@@ -1,0 +1,895 @@
+
+
+
+    
+
+
+
+
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            <title>C&#43;&#43; 언어에서 MQTT 사용해보기 - NEONKID&#39;s Hugo Blog...</title>
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.27.1" />
+        
+
+
+        
+        
+            
+        
+
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="C&#43;&#43; 언어에서 MQTT 사용해보기"/>
+<meta name="twitter:description" content="오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C&#43;&#43; 언어를 사용해보도록 하죠.
+
+libmosquitto C&#43;&#43; 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다.
+$ sudo apt install libmosquitto  우분투 리눅스에서는 기본적으로 레포지터리에서 제공하는 libmosquitto 패키지가 있습니다. 해당 패키지를 사용해서 libmosquitto를 쉽게 설치해보실 수 있습니다.
+윈도우 운영체제에서는 아래의 버튼을 클릭하셔서 설치하실 수 있습니다.
+Windows 용 libmosquitto 다운로드"/>
+<meta name="twitter:site" content="@clax1412"/>
+
+        <meta property="og:title" content="C&#43;&#43; 언어에서 MQTT 사용해보기" />
+<meta property="og:description" content="오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C&#43;&#43; 언어를 사용해보도록 하죠.
+
+libmosquitto C&#43;&#43; 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다.
+$ sudo apt install libmosquitto  우분투 리눅스에서는 기본적으로 레포지터리에서 제공하는 libmosquitto 패키지가 있습니다. 해당 패키지를 사용해서 libmosquitto를 쉽게 설치해보실 수 있습니다.
+윈도우 운영체제에서는 아래의 버튼을 클릭하셔서 설치하실 수 있습니다.
+Windows 용 libmosquitto 다운로드" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://neonkid.github.io/blog/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/" />
+
+
+
+<meta property="article:published_time" content="2017-10-29T03:27:19&#43;09:00"/>
+<meta property="article:modified_time" content="2017-10-29T03:27:19&#43;09:00"/>
+
+
+
+
+
+
+
+
+
+
+
+        
+<meta itemprop="name" content="C&#43;&#43; 언어에서 MQTT 사용해보기">
+<meta itemprop="description" content="오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C&#43;&#43; 언어를 사용해보도록 하죠.
+
+libmosquitto C&#43;&#43; 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다.
+$ sudo apt install libmosquitto  우분투 리눅스에서는 기본적으로 레포지터리에서 제공하는 libmosquitto 패키지가 있습니다. 해당 패키지를 사용해서 libmosquitto를 쉽게 설치해보실 수 있습니다.
+윈도우 운영체제에서는 아래의 버튼을 클릭하셔서 설치하실 수 있습니다.
+Windows 용 libmosquitto 다운로드">
+
+
+<meta itemprop="dateModified" content="2017-10-29T03:27:19&#43;09:00" />
+<meta itemprop="wordCount" content="901">
+
+
+
+<meta itemprop="keywords" content="c&#43;&#43;,MQTT," />
+
+        
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://neonkid.github.io/css/main.css">
+            <link rel="stylesheet" href="https://neonkid.github.io/css/add-on.css">
+        
+
+        
+            
+                
+            
+        
+
+        
+            
+        
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+<header id="header">
+    
+      <h1><a href="/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/">
+                            <i class="fa fa-home">&nbsp;</i>Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                            <i class="fa fa-id-card-o">&nbsp;</i>About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                            <i class="fa fa-sitemap">&nbsp;</i>Categories
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/">
+                            <h3>
+                                <i class="fa fa-home">&nbsp;</i>Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                <i class="fa fa-id-card-o">&nbsp;</i>About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                <i class="fa fa-sitemap">&nbsp;</i>Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://neonkid.github.io/post/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-10-29'>
+                                    October 29, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-10-01'>
+                                    October 1, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-08-01'>
+                                    August 1, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    
+    <div id="main">
+        <article class="post">
+            
+            <header>
+    <div class="title">
+        
+            <h1><a href="https://neonkid.github.io/blog/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a></h1>
+            
+        
+        
+    </div>
+</header>
+
+            <div id="content">
+                
+
+<p>오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C++ 언어를 사용해보도록 하죠.</p>
+
+<p><br /></p>
+
+<h2 id="libmosquitto">libmosquitto</h2>
+
+<p>C++ 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다.</p>
+
+<pre><code class="language-bash">$ sudo apt install libmosquitto
+</code></pre>
+
+<p>우분투 리눅스에서는 기본적으로 레포지터리에서 제공하는 libmosquitto 패키지가 있습니다. 해당 패키지를 사용해서 libmosquitto를 쉽게 설치해보실 수 있습니다.</p>
+
+<p>윈도우 운영체제에서는 아래의 버튼을 클릭하셔서 설치하실 수 있습니다.</p>
+
+<div markdown="0"><a href="https://www.eclipse.org/downloads/download.php?file=/mosquitto/binary/win32/mosquitto-1.4.14-install-win32.exe" class="button">Windows 용 libmosquitto 다운로드</a></div>
+
+<p><br /></p>
+
+<h2 id="using-cmake">Using CMake</h2>
+
+<p>C++ 언어를 사용할 때에는 두 가지의 빌드 도구를 사용하실 수 있습니다. 1번째는 Unix 계열 운영체제에서 제공하는 CMake, libc 컴파일러를 사용한 프로그래밍입니다. 물론 Windows 에서도 사용하실 수 없는 것은 아니지만, Windows 에서 사용하실 경우에는 Unix 계열의 표준 POSIX Thread 라이브러리를 별도로 설치해야 하고, Unix 환경인 Cygwin이나 MinGW32 의 환경이 별도로 필요하기 때문에 이 포스트에서는 별도로 다루지는 않을 것입니다.</p>
+
+<p>그럼 CMake를 사용해서 실습에 들어가보도록 하겠습니다.</p>
+
+<p>혹시 CMake가 설치되어 있지 않다면 아래의 명령어를 이용해서 CMake를 설치합니다.</p>
+
+<pre><code class="language-bash">$ sudo apt install cmake
+</code></pre>
+
+<p>CMake가 설치되었다면 이제 본격적인 코딩에 들어가보도록 하겠습니다. 먼저 프로젝트 폴더를 하나 만들어보도록 하죠.</p>
+
+<pre><code class="language-bash">$ mkdir mqttProject
+</code></pre>
+
+<p>프로젝트 디렉터리를 만드신 후,</p>
+
+<pre><code class="language-bash">$ touch CMakeLists.txt
+</code></pre>
+
+<p>CMake 파일을 한 개 만들어줍니다.</p>
+
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.7)	# CMake 최소 버전 선택
+project(mqttProject)	# 프로젝트 이름 결정
+
+set(CMAKE_CXX_STANDARD 17)	# 사용할 C++ 언어 버전 선택
+set(SOURCE_FILES main.cc)	# SOURCE_FILES 변수 설정
+set(Mosquitto_libs
+        /usr/lib/x86_64-linux-gnu/libmosquitto.so
+        /usr/lib/x86_64-linux-gnu/libmosquitto.so.1)	# 사용할 라이브러리 설정
+        
+add_executable(mqttBinary ${SOURCE_FILES})	# 바이너리 파일 이름 선택
+target_link_libraries(mqttProject ${Mosquitto_libs})
+</code></pre>
+
+<p>위와 CMake 파일은 적절한 예시입니다. 주석에 달은 부분을 적절히 참고하셔서 여러분의 프로젝트에 맞게 수정해주시면 됩니다.</p>
+
+<p>이해가 잘 안되시거나, 어려운 부분이 있다면 아래의 CMake 포스트를 참고해보시기 바랍니다.</p>
+
+<div markdown="0"><a href="http://blog.neonkid.xyz/112" class="button">CMake를 이용한 C/C++ 프로젝트 빌드</a></div>
+
+<p>CMake 파일을 작성하셨으면, 이제 소스 코드를 생성하여 아무런 코드를 짜봅니다.</p>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+
+using std::cout;
+using std::endl;
+
+int main(int argc, char **argv)
+{
+  cout &lt;&lt; &quot;Welcome to Mosquitto !&quot; &lt;&lt; endl;
+  return 0;
+}
+</code></pre>
+
+<p>코드를 정상적으로 짜셨다면 아래의 명령어를 이용해서 빌드해봅니다.</p>
+
+<pre><code class="language-bash">$ make
+</code></pre>
+
+<p>make 명령어를 사용하였을 때, 자신이 지정한 바이너리 파일 이름이 나왔으면 성공입니다.</p>
+
+<p>Next Using libmosquitto&hellip;</p>
+
+<p><br /></p>
+
+<h2 id="using-visual-studio">Using Visual Studio</h2>
+
+<p>Visual Studio 를 사용한 코딩 방법은 차후에 적도록 하겠습니다 ^^;
+(CMake 를 사용하신 분들은 이 과정을 생략하셔도 됩니다.)</p>
+
+<p><br /></p>
+
+<h2 id="using-libmosquitto">Using libmosquitto</h2>
+
+<p>그럼 이제 코딩을 시작해보도록 하죠. 기본적으로 MQTT 의 구조에서 봤듯이, MQTT 통신을 위해서는 기본적으로 IP 주소와 포트 주소가 필요합니다. Broker의 IP 주소와, 포트 주소를 파악한 뒤 진행해주시기 바랍니다.</p>
+
+<pre><code class="language-c++">#include &lt;mosquitto.h&gt;
+#include &lt;cstring&gt;
+#include &lt;unistd.h&gt;
+
+#define	mqtt_host	&quot;127.0.0.1&quot;
+#define	mqtt_port	1883
+
+void connect_callback(struct mosquitto *mosq, void *obj, int result)
+{
+  // Todo: 연결을 시도할 경우의 Callback 함수...
+}
+
+int main(int argc, char **argv)
+{
+  struct mosquitto *mosq;
+  mosquitto_lib_init();
+  char clientid[24];	// nullptr을 사용해도 상관 없음..
+  int rc = 0;
+  
+  memset(clientid, NULL, sizeof(clientid));
+  snprintf(clientid, sizeof(clientid) - 1, &quot;mqttPRAC&quot;, getpid());
+  mosq = mosquitto_new(clientid, true, nullptr);
+  
+  if(mosq)
+  {
+    mosquitto_connect_callback(mosq, connect_callback);
+    rc = mosquitto_connect(mosq, mqtt_host, mqtt_port, 10);
+    
+    /* 
+      .... 
+    */
+    
+    mosquitto_destroy(mosq);	// 반드시 구조체 소멸...!
+  }
+  mosquitto_lib_cleanup();	// 라이브러리도 깔끔히 정리...
+  return rc;
+}
+</code></pre>
+
+<p>C++ 언어에서 MQTT 통신을 위해 사용해야 하는 헤더 파일입니다.  이 헤더 파일을 통해 여러분들이 라이브러리에 접근하고 MQTT 통신 프로그램을 개발하실 수 있습니다.</p>
+
+<p>통신 방법은 Unix Socket 사용 방법과 매우 흡사합니다. mosquitto 라는 구조체를 하나 생성한 후, 초기화를 진행합니다. 그리고 mosquitto_connect 함수를 통해 연결을 시도하게 되는데, 여기서 한 가지 다른 점이 있다면 Socket은 connect 함수를 호출하고 소켓 구조체와 스트림 종류를 인자로 넘겨주지만, 여기서는 Callback 함수를 넘겨줘야 합니다.</p>
+
+<p>ClientID는 MQTT Broker 에서 사용자를 구별하기 위한 ID입니다. nullptr을 사용해도 됩니다.</p>
+
+<p>Java나 Kotlin 의 경우도 콜백 함수가 존재하긴 하지만, Overriding 되어서 제공되는데, C++ 언어의 경우에는 개발자가 직접 함수를 만들어줘야 합니다. 그렇기 때문에 함수의 이름 결정도 자유롭습니다. 저런 형태가 C++ 언어에서 사용하는 MQTT 통신의 기본형입니다.</p>
+
+<p>MQTT 통신이 모두 끝나고 난 다음에는 반드시 구조체를 소멸해주도록 해야 합니다. JVM 에서는 GC가 존재하기 때문에 이 과정을 거치지 않아도 되지만 C++ 에서 소멸 과정을 거치지 않으면 메모리 누수가 발생하기 때문에 서버가 다운되거나 하는 문제를 발생시킬 수 있습니다.</p>
+
+<p><br /></p>
+
+<h3 id="publish">Publish</h3>
+
+<p>이제 연결을 하였으니, 메시지를 보내보도록 하겠습니다.</p>
+
+<pre><code class="language-c++">void message_callback(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg)
+{
+  mosquitto_publish(mosq, nullptr, &quot;TOPIC_NAME&quot;, msg-&gt;payloadlen, (char*)msg-&gt;payload, msg-&gt;qos, msg-&gt;retain);
+}
+
+int main(int argc, char **argv)
+{
+  /*
+   ...
+  */
+  
+  mosquitto_message_callback_set(mosq, message_callback);
+  
+  /*
+   ...
+  */
+}
+</code></pre>
+
+<p>C++ 에서는 publish 도 콜백 함수의 처리를 통해 이루어집니다. 연결된 mosquitto 구조체를 callback_set 함수에 전달해준 후, callback 함수에서 publish 함수를 호출하여 메시지를 발행하시면 됩니다.</p>
+
+<p><br /></p>
+
+<h3 id="subscribe">Subscribe</h3>
+
+<p>메시지를 발행하는 방법을 알았으니, 이제는 메시지를 구독을 해보도록 하겠습니다.</p>
+
+<pre><code class="language-c++">void message_callback(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg)
+{
+  bool match = false;
+  
+  printf(&quot;got message '%.*s' for topic '%s' \n&quot;, msg-&gt;payloadlen, (char*)msg-&gt;payload, msg-&gt;topic);
+  mosquitto_topic_matches_sub(&quot;TOPIC_NAME&quot;, msg-&gt;topic, &amp;match);
+  
+  if(match)
+    printf(&quot;got message for TOPIC_NAME topic \n&quot;);
+}
+
+int main(int argc, char **argv)
+{
+  /*
+   ...
+  */
+  mosquitto_message_callback_set(mosq, message_callback);
+  mosquitto_subscribe(mosq, nullptr, &quot;TOPIC_NAME&quot;, 0);
+  
+  /*
+   ...
+  */
+}
+</code></pre>
+
+<p>방법은 여러가지가 존재하지만, Publish 하는 방법이랑 조금 다르게 코딩을 해봤습니다. Publish 에서는 Publish 명령이 되는 순간 콜백 함수에서 이를 처리하도록 하였지만, Subscribe 는 해당 TOPIC의 메시지가 도착하면 일단 메시지를 받고, subscribe 함수에서 지정한 TOPIC 이름과 일치하면 &ldquo;got message for TOPIC_NAME topic&rdquo;을 출력하도록 하였습니다.</p>
+
+<p><br /></p>
+
+<h2 id="마치며">마치며&hellip;</h2>
+
+<p>계속 java만 쭉 해오다가 갑자기 C++ 하려니 어지간히 헷갈리는 부분이 많네요.. Java는 어노테이션이나 이런 부분들이 조금 귀찮게해서 예외 처리 안하면 바로 알려주지만 C++ 언어는 그렇지가 않다는 점. 하지만 개발자가 잘 익숙해져 있고, 잘 알고 있다면 아마 본능적으로 손이 가지 않지 않나 생각합니다..</p>
+
+<p>제가 생각하는 건 C++ 언어도 짜다보면 코드가 지저분해지기 마련입니다. 그래서 항상 OOP 기법으로 프로그래밍을 하게 되고요. 하지만 블로그 포스팅에 있어서 이런 부분을 어떻게 하면 쉽고 간략하게 할지는 아직 떠오르지 않아 블로그에 작성하는 포스트 만큼은 절차적으로 조금 지저분하게 짜는 편입니다. (아마 이게 생각이 나지 않는다는 것은 기본 베이스는 누군가가 제공해줄 수 있되, 뒷마무리와 다듬는 작업은 본인의 몫이 아닐까&hellip;)</p>
+
+<p>여기까지, C++ 를 사용한 MQTT 프로그래밍이었구요. 마지막으로 시간이 된다면, 여태까지 포스트한 것을 종합적으로 이용해, Android Push Service를 개발하는 방법에 대해 포스팅하도록 하겠습니다.</p>
+
+<p><br /></p>
+
+<p>P.S: 가능한한 빠른 시일 내에&hellip; Visual Studio 부분 채울 수 있도록 하겠습니다. ㅜㅜ</p>
+
+            </div>
+        </article>
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <img src="/img/nk.png" class="intro-circle" width="150" alt="NK, Created by. KHK">
+      
+    
+    
+      <header>
+        <h2>Neon K.I.D</h2>
+        <p>Hi, I'm NEONKID...</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          <li>
+            <a href="" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a>
+          </li>
+        
+        
+  <li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section id="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://neonkid.github.io/post/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a>
+              </h3>
+              
+              <time class="published" datetime='2017-10-29'>
+                October 29, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a>
+              </h3>
+              
+              <time class="published" datetime='2017-10-01'>
+                October 1, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a>
+              </h3>
+              
+              <time class="published" datetime='2017-08-01'>
+                August 1, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/android/">android</a>
+                <span style="float:right;">8</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/c&#43;&#43;/">c&#43;&#43;</a>
+                <span style="float:right;">2</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/web/">Web</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/boost/">boost</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/opencv/">opencv</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/unix/">unix</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+
+  
+  
+    <section id="mini-bio">
+      <h3>About</h1>
+      <p>Neon K.I.D's Development Story...</p>
+      <a href="/about/" class="button">Learn More</a>
+    </section>
+  
+
+  
+  <section id="footer">
+    
+      <ul class="icons">
+        
+          <li>
+            <a href="" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a>
+          </li>
+        
+        
+  <li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    
+    <p class="copyright">
+      
+        &copy; 2017
+        
+          NEONKID&#39;s Hugo Blog...
+        
+      .
+      Powered by <a href="//gohugo.io" target="_blank">Hugo</a>
+    </p>
+  </section>
+</section>
+
+</div>
+<a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+
+
+
+  
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+  <script src="https://neonkid.github.io/js/util.js"></script>
+  <script src="https://neonkid.github.io/js/main.js"></script>
+  <script src="https://neonkid.github.io/js/backToTop.js"></script>
+
+
+
+
+      
+  
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
+

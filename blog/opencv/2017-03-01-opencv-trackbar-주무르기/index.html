@@ -1,0 +1,842 @@
+
+
+
+    
+
+
+
+
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            <title>OpenCV Trackbar 주무르기 - NEONKID&#39;s Hugo Blog...</title>
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.27.1" />
+        
+
+
+        
+        
+            
+        
+
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="OpenCV Trackbar 주무르기"/>
+<meta name="twitter:description" content="안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.
+오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.
+Trackbar OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만&hellip;) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.
+위 사진은 Trackbar를 움직여서 가운데에 원을 그려놓고 그 크기를 점점 늘리고 줄이고 할 수 있는 이미지입니다. 간단한 소스 코드를 공개해보도록 하겠습니다."/>
+<meta name="twitter:site" content="@clax1412"/>
+
+        <meta property="og:title" content="OpenCV Trackbar 주무르기" />
+<meta property="og:description" content="안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.
+오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.
+Trackbar OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만&hellip;) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.
+위 사진은 Trackbar를 움직여서 가운데에 원을 그려놓고 그 크기를 점점 늘리고 줄이고 할 수 있는 이미지입니다. 간단한 소스 코드를 공개해보도록 하겠습니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://neonkid.github.io/blog/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/" />
+
+
+
+<meta property="article:published_time" content="2017-03-01T09:15:40&#43;09:00"/>
+<meta property="article:modified_time" content="2017-03-01T09:15:40&#43;09:00"/>
+
+
+
+
+
+
+
+
+
+
+
+        
+<meta itemprop="name" content="OpenCV Trackbar 주무르기">
+<meta itemprop="description" content="안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.
+오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.
+Trackbar OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만&hellip;) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.
+위 사진은 Trackbar를 움직여서 가운데에 원을 그려놓고 그 크기를 점점 늘리고 줄이고 할 수 있는 이미지입니다. 간단한 소스 코드를 공개해보도록 하겠습니다.">
+
+
+<meta itemprop="dateModified" content="2017-03-01T09:15:40&#43;09:00" />
+<meta itemprop="wordCount" content="692">
+
+
+
+<meta itemprop="keywords" content="OpenCV,C&#43;&#43;," />
+
+        
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://neonkid.github.io/css/main.css">
+            <link rel="stylesheet" href="https://neonkid.github.io/css/add-on.css">
+        
+
+        
+            
+                
+            
+        
+
+        
+            
+        
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+<header id="header">
+    
+      <h1><a href="/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/">
+                            <i class="fa fa-home">&nbsp;</i>Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                            <i class="fa fa-id-card-o">&nbsp;</i>About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                            <i class="fa fa-sitemap">&nbsp;</i>Categories
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/">
+                            <h3>
+                                <i class="fa fa-home">&nbsp;</i>Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                <i class="fa fa-id-card-o">&nbsp;</i>About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                <i class="fa fa-sitemap">&nbsp;</i>Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-10-29'>
+                                    October 29, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-10-01'>
+                                    October 1, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-08-01'>
+                                    August 1, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    
+    <div id="main">
+        <article class="post">
+            
+            <header>
+    <div class="title">
+        
+            <h1><a href="https://neonkid.github.io/blog/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/">OpenCV Trackbar 주무르기</a></h1>
+            
+        
+        
+    </div>
+</header>
+
+            <div id="content">
+                
+
+<p>안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.</p>
+
+<p>오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.</p>
+
+<h2 id="trackbar">Trackbar</h2>
+
+<p>OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만&hellip;) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.</p>
+
+<p><img src="/media/images/opencv/trackbar-1.png" alt="Trackbar_example-1" /></p>
+
+<p>위 사진은 Trackbar를 움직여서 가운데에 원을 그려놓고 그 크기를 점점 늘리고 줄이고 할 수 있는 이미지입니다. 간단한 소스 코드를 공개해보도록 하겠습니다.</p>
+
+<pre><code class="language-c++">#include &lt;opencv2/opencv.hpp&gt;
+
+#define WINDOW_NAME	&quot;circledImage&quot;
+
+using namespace std;
+using namespace cv;
+
+void onCircleSizeChange(int pos, void *param)
+{
+  Mat dstImage = *(Mat*)param;
+  Mat newImage = dstImage.clone();
+  Point center = Point(dstImage.size().width / 2, dstImage.size().height / 2);
+
+  dstImage.copyTo(newImage);
+  if(pos == 0) { return; }
+  circle(newImage, center, pos, Scalar(255, 128, 64), 2);
+
+  imshow(WINDOW_NAME, newImage);
+}
+
+int main(int argc, char **argv)
+{
+  Mat srcImage = imread(&quot;/home/neonkid/Pictures/bigban.png&quot;);
+  int size = 1;
+  if(srcImage.empty()) { return -1; }
+  imshow(WINDOW_NAME, srcImage);
+  createTrackbar(&quot;Circle size&quot;, WINDOW_NAME, &amp;size, srcImage.size().width / 2, onCircleSizeChange, (void*)&amp;srcImage);
+  waitKey();
+
+  return 0;
+}
+</code></pre>
+
+<p>음 쓰다보니, 가독성이 조금 별로네요.. (다음에는 조금 더 가독성에 고려를 해보도록 하겠습니다.)</p>
+
+<p>코드를 작성하는 것은 그다지 어렵지 않습니다. 여러분이 원하는 이미지나 영상을 한 개 준비하시고, Mat 클래스를 사용해서 영상을 하나 띄웁니다.</p>
+
+<p>그리고, createTrackbar 함수를 사용해 Trackbar를 만들어줍니다. createTrackbar의 인자값은 다음과 같습니다.</p>
+
+<pre><code class="language-c++">createTrackbar(trackbarName, windowsName, *min_size, max_size, func, image)
+</code></pre>
+
+<ul>
+<li>trackbarName: trackbar 왼쪽에 있는 이름입니다.</li>
+<li>windowName: 여러분이 다루고자 하는 영상의 윈도우 이름입니다. (이름이 다르면, 다른 창에 trackbar가 입혀집니다.)</li>
+<li>min_size: 최소 Trackbar 크기입니다.</li>
+<li>max_size: 최대 Trackbar 크기입니다. (최대 trackbar 크기를 잘못 지정할 경우, 프로그램이 느려질 수 있습니다.)</li>
+<li>func: 영상을 처리할 함수입니다.</li>
+<li>image: 처리할 이미지입니다.</li>
+</ul>
+
+<h2 id="multiple-trackbar">Multiple Trackbar</h2>
+
+<p>이번에는 Trackbar를 여러개 사용해서, 영상을 다뤄보겠습니다.</p>
+
+<p><img src="/media/images/opencv/trackbar-2.png" alt="Trackbar_example-2" /></p>
+
+<p>위 Trackbar는 색상 Red, Green, Blue를 놓고, 각각의 Trackbar를 움직이면 각 색상이 입혀지는 코드입니다. 소스 코드를 한 번 보겠습니다.</p>
+
+<p>{% highlight cpp %}</p>
+
+<p>#include <opencv2/opencv.hpp></p>
+
+<p>#define WINDOW_NAME &ldquo;image&rdquo;</p>
+
+<p>using namespace cv;
+using namespace std;</p>
+
+<p>int rgb[3] = {0,0,0};</p>
+
+<p>void onChange(int pos, void* param)
+{
+    Mat <em>pMat = (Mat</em>)param;
+    Mat srcImage = Mat(pMat[0]);
+    Mat dstImage = Mat(pMat[1]);</p>
+
+<pre><code>for(int i = 0; i &lt; srcImage.rows; i++)
+{
+    for(int j = 0; j &lt; srcImage.cols; j++)
+    {
+        Vec3b rgb_temp = srcImage.at&lt;Vec3b&gt;(i,j);
+        Vec3b rgb_sum;
+
+        for(int k = 0; k &lt; 3; k++)
+        {
+            if(rgb_temp[k] + rgb[k] &gt; 255) rgb_sum[k] = 255;
+            else if(rgb_temp[k] + rgb[k] &lt; 0) rgb_sum[k] = 0;
+            else rgb_sum[k] = rgb_temp[k] + rgb[k];
+        }
+
+        rgb_temp = Vec3b(rgb_sum[0], rgb_sum[1], rgb_sum[2]);
+        dstImage.at&lt;Vec3b&gt;(i,j) = rgb_temp;
+    }
+}
+imshow(WINDOW_NAME, dstImage);
+</code></pre>
+
+<p>}</p>
+
+<p>int main(int argc, char **argv)
+{
+    Mat image[2];
+    image[0] = imread(&ldquo;/home/neonkid/Pictures/bigban.png&rdquo;);</p>
+
+<pre><code>if(image[0].empty())
+{
+    return -1;
+}
+
+image[1].create(image[0].size(),CV_8UC3);
+
+onChange(0, (void*)&amp;image);
+
+createTrackbar(&quot;Red&quot;, WINDOW_NAME, &amp;rgb[2], 255, onChange, (void*)&amp;image);
+createTrackbar(&quot;Green&quot;, WINDOW_NAME, &amp;rgb[1], 255, onChange, (void*)&amp;image);
+createTrackbar(&quot;Blue&quot;, WINDOW_NAME, &amp;rgb[0], 255, onChange, (void*)&amp;image);
+
+waitKey();
+
+return 0;
+</code></pre>
+
+<p>}</p>
+
+<p>{% endhighlight %}</p>
+
+<p>Trackbar를 만드는 방법은 비슷합니다. 색상을 나누는 법에 대해서 잠깐만 얘기해보도록 하죠.</p>
+
+<p>보통 저는 RGB 색상을 나눌 때, 한 이미지의 Mat 클래스에서 Trackbar에 이미지를 넣어주고, 그를 3채널로 구성한 다음 색상을 바꿨지만, 결과는 한 이미지에서 색상이 입혀지는 것이 아닌, 색상이 덮어지는 현상이 나타났습니다.</p>
+
+<p><img src="/media/images/opencv/trackbar-3.png" alt="Trackbar_example-3" /></p>
+
+<p>해당 소스 코드에 대해서는 공개하지 않겠습니다. (메모리 오버플로우 문제 등을 일으킴)</p>
+
+<p>간단히 접근한 방법에 대해서만 알려드리자면, Vec3b 자료형을 이용해, 컬러값을 저장한 후, 해당 컬러 값을 단순히 합치기만 한 것입니다. 이렇게 할 경우, 아래와 같은 문제가 발생합니다.</p>
+
+<ol>
+<li>영상 3채널 모두 색상을 덮어씌우기 때문에 기존의 형상이 보이지 않게 됨.</li>
+<li>단순히 합친 결과를 이미지에 씌우므로 255 이상의 컬러 값이 나타나게 될 경우, 오버플로우 발생.</li>
+</ol>
+
+<p>위 2가지 문제로 인해, 저는 Mat 클래스 배열을 사용하여 각 채널에 해당하는 이미지를 create 함수를 통해 만들어준 후, 각각의 이미지를 건드리는 방법을 사용했습니다.</p>
+
+<p>3채널의 이미지를 두 개 만들어, 임시로 원래 모습의 이미지를 Mat 클래스 변수의 srcImage에 저장해놓습니다. 그리고 해당 색상 값을 temp 변수로 만들어, 저장한 후, 그 위에 새로이 움직이는 taskbar의 컬러 값과 합칩니다. 그러면, 색상이 위에 덮어씌워지지 않고, 원래 이미지에 입혀질 수 있겠죠?</p>
+
+<p>그리고 색상값이 255를 넘기지 않도록 해야 합니다. 이 이유는 taskbar에서 이미 255를 제한걸어놨는데, RGB 색상을 동시에 움직이게 될 경우, 색상값이 255를 넘겨버립니다. 이렇게 될 경우, taskbar에서 최소값이 0이라고 하더라도, 실제 영상의 색상 값은 0이 아닐 수도 있기 때문입니다.</p>
+
+<p>합쳐진 색상 값을 dstImage에 씌우면 적용이 완료됩니다.</p>
+
+<p><img src="/media/images/opencv/trackbar-4.png" alt="Trackbar_example-4" /></p>
+
+<p>OpenCV를 최신 버전으로 패치했더니 빨라진 느낌이네요. (원래 색상 조절하는데 처리가 굉장히 느렸던 것으로 기억하는데&hellip;;;)</p>
+
+<h2 id="마치며">마치며&hellip;</h2>
+
+<p>여기까지 trackbar를 이용한 몇 가지 소스 코드를 다뤄봤습니다.</p>
+
+<p>trackbar로 할 수 있는 것은 색상만이 있는 것이 아닙니다. 역투영을 할 수도 있고, 확대/축소도 가능하니, 여러분이 원하는 이미지의 색상을 바꾼다거나 역투영을 해보고 싶다면, 이런 소스 코드도 만들어보는게 어떨까요?</p>
+
+<p>Jekyll 블로그의 첫 OpenCV 포스트는 여기까지였습니다. ^^;</p>
+
+            </div>
+        </article>
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <img src="/img/nk.png" class="intro-circle" width="150" alt="NK, Created by. KHK">
+      
+    
+    
+      <header>
+        <h2>Neon K.I.D</h2>
+        <p>Hi, I'm NEONKID...</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          <li>
+            <a href="" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a>
+          </li>
+        
+        
+  <li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section id="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a>
+              </h3>
+              
+              <time class="published" datetime='2017-10-29'>
+                October 29, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a>
+              </h3>
+              
+              <time class="published" datetime='2017-10-01'>
+                October 1, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a>
+              </h3>
+              
+              <time class="published" datetime='2017-08-01'>
+                August 1, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/android/">android</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/web/">Web</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/boost/">boost</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/c&#43;&#43;/">c&#43;&#43;</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/opencv/">opencv</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/unix/">unix</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+
+  
+  
+    <section id="mini-bio">
+      <h3>About</h1>
+      <p>Neon K.I.D's Development Story...</p>
+      <a href="/about/" class="button">Learn More</a>
+    </section>
+  
+
+  
+  <section id="footer">
+    
+      <ul class="icons">
+        
+          <li>
+            <a href="" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a>
+          </li>
+        
+        
+  <li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    
+    <p class="copyright">
+      
+        &copy; 2017
+        
+          NEONKID&#39;s Hugo Blog...
+        
+      .
+      Powered by <a href="//gohugo.io" target="_blank">Hugo</a>
+    </p>
+  </section>
+</section>
+
+</div>
+<a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+
+
+
+  
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+  <script src="https://neonkid.github.io/js/util.js"></script>
+  <script src="https://neonkid.github.io/js/main.js"></script>
+  <script src="https://neonkid.github.io/js/backToTop.js"></script>
+
+
+
+
+      
+  
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
+

@@ -3,42 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</loc>
+    <loc>https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/</loc>
+    <lastmod>2017-10-29T03:27:19+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</loc>
     <lastmod>2017-10-01T13:27:19+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</loc>
+    <loc>https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/</loc>
     <lastmod>2017-08-01T20:30:20+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/</loc>
+    <loc>https://neonkid.github.io/blog/unix/2017-06-25-unix-thread%EC%9D%98-%EA%B8%B0%EB%B3%B8%EC%9D%84-%EB%8B%A4%EC%A0%B8%EB%B3%B4%EC%9E%90/</loc>
     <lastmod>2017-06-25T00:15:20+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/android/2017-06-23-android-%EB%8B%A4%EB%A5%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%97%90%EC%84%9C-ui-%EC%B2%98%EB%A6%AC%EB%A5%BC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/</loc>
+    <loc>https://neonkid.github.io/blog/android/2017-06-23-android-%EB%8B%A4%EB%A5%B8-%EC%93%B0%EB%A0%88%EB%93%9C%EC%97%90%EC%84%9C-ui-%EC%B2%98%EB%A6%AC%EB%A5%BC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/</loc>
     <lastmod>2017-06-23T01:20:40+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/</loc>
+    <loc>https://neonkid.github.io/blog/android/2017-06-22-android-aidl-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-activity-%EC%99%80-service-%ED%86%B5%EC%8B%A0/</loc>
     <lastmod>2017-06-22T02:15:40+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</loc>
+    <loc>https://neonkid.github.io/blog/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</loc>
     <lastmod>2017-03-14T02:15:40+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</loc>
+    <loc>https://neonkid.github.io/blog/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</loc>
     <lastmod>2017-03-05T02:15:40+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://neonkid.github.io/post/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</loc>
+    <loc>https://neonkid.github.io/blog/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</loc>
     <lastmod>2017-03-01T09:15:40+09:00</lastmod>
   </url>
   
@@ -60,6 +65,12 @@
   </url>
   
   <url>
+    <loc>https://neonkid.github.io/blog/</loc>
+    <lastmod>2017-10-29T03:27:19+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://neonkid.github.io/tags/boost/</loc>
     <lastmod>2017-03-05T02:15:40+09:00</lastmod>
     <priority>0</priority>
@@ -74,6 +85,18 @@
   <url>
     <loc>https://neonkid.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2017-03-05T02:15:40+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://neonkid.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2017-03-05T02:15:40+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://neonkid.github.io/categories/c&#43;&#43;/</loc>
+    <lastmod>2017-10-29T03:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -103,13 +126,13 @@
   
   <url>
     <loc>https://neonkid.github.io/tags/mqtt/</loc>
-    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
+    <lastmod>2017-10-29T03:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://neonkid.github.io/</loc>
-    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
+    <lastmod>2017-10-29T03:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -128,12 +151,6 @@
   <url>
     <loc>https://neonkid.github.io/tags/posix-thread/</loc>
     <lastmod>2017-06-25T00:15:20+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://neonkid.github.io/post/</loc>
-    <lastmod>2017-10-01T13:27:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   

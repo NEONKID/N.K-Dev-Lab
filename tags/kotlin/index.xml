@@ -13,10 +13,10 @@
     
     <item>
       <title>Android 에서 MQTT를 사용하는 방법</title>
-      <link>https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</link>
+      <link>https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</link>
       <pubDate>Sun, 01 Oct 2017 13:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/post/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</guid>
+      <guid>https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/</guid>
       <description>안녕하세요. 요즘 취업 시즌이 한창이다보니, 블로그에 글쓰는게 또 게을러지게 되었네요. ㅜㅜ
 오늘은 지난 포스트에 이어서, 프로그래밍 코드를 이용한 MQTT 메시지 교환 - 안드로이드 편을 포스트하고자 합니다.
 혹시 아직 MQTT에 대한 개념이나, Broker를 설치하지 않으신 분들은 아래 링크를 통해, 이전 글을 반드시 구독해주신 후, 이 포스트를 참조하시기 바랍니다.
