@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Web on NEONKID&#39;s Hugo Blog...</title>
-    <link>https://neonkid.github.io/tags/web/</link>
-    <description>Recent content in Web on NEONKID&#39;s Hugo Blog...</description>
+    <title>Web on N.K</title>
+    <link>/tags/web/</link>
+    <description>Recent content in Web on N.K</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Tue, 14 Mar 2017 02:15:40 +0900</lastBuildDate>
     
-	<atom:link href="https://neonkid.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Web 응답 메시지 상태 코드</title>
-      <link>https://neonkid.github.io/blog/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</link>
+      <link>/posts/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</link>
       <pubDate>Tue, 14 Mar 2017 02:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/blog/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</guid>
+      <guid>/posts/web/2017-03-14-web-%EC%9D%91%EB%8B%B5-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C/</guid>
       <description>최근 졸업 작품에 Node.js를 이용하게 되면서, Web 응답 메시지 상태 코드에 대해 자주 찾아보게 되었습니다. 그래서, 간략하게 개발용 블로그에 Web 응답 메시지 상태 코드를 포스팅하려 합니다.
 상태 코드 구분  1xx : 정보를 제공. 2xx : 요청이 성공적으로 이루어짐. 3xx : 요청한 해당 자원이 다른 곳에 있거나 누락. 4xx : 요청(클라이언트)에 문제가 있음. 5xx : 서버에 오류가 있음.  생각보다 어렵지 않다. 그 중 나는 4 단위와 5 단위만을 암기하고 있었다.</description>
     </item>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Opencv on NEONKID&#39;s Hugo Blog...</title>
-    <link>https://neonkid.github.io/categories/opencv/</link>
-    <description>Recent content in Opencv on NEONKID&#39;s Hugo Blog...</description>
+    <title>Opencv on N.K</title>
+    <link>/categories/opencv/</link>
+    <description>Recent content in Opencv on N.K</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 01 Mar 2017 09:15:40 +0900</lastBuildDate>
     
-	<atom:link href="https://neonkid.github.io/categories/opencv/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/opencv/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>OpenCV Trackbar 주무르기</title>
-      <link>https://neonkid.github.io/blog/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</link>
+      <link>/posts/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</link>
       <pubDate>Wed, 01 Mar 2017 09:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/blog/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</guid>
+      <guid>/posts/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/</guid>
       <description>안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.
 오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.
 Trackbar OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만&amp;hellip;) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.

@@ -1,647 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
 
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="author" content="Neon K.I.D">
+    <meta name="description" content="Neon K.I.D&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="/">
+    <title>
+  Opencv · N.K
+</title>
+
+    <link rel="canonical" href="/tags/opencv/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
 
     
+      <link href="/tags/opencv/index.xml" rel="alternate" type="application/rss+xml" title="N.K" />
+      <link href="/tags/opencv/index.xml" rel="feed" type="application/rss+xml" title="N.K" />
+    
 
+    <meta name="generator" content="Hugo 0.38.1" />
+  </head>
 
-
-
-<!DOCTYPE HTML>
-
-<html>
-    <head>
-        
-            <title>OpenCV - NEONKID&#39;s Hugo Blog...</title>
-        
-
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="generator" content="Hugo 0.25.1" />
-        
-
-
-        
-        
-            
-        
-
-        
-        <meta property="og:title" content="OpenCV" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://neonkid.github.io/tags/opencv/" />
-
-
-
-<meta property="og:updated_time" content="2017-03-01T09:15:40&#43;09:00"/>
-
-
-
-
-
-
-
-
-
-
-        
-<meta itemprop="name" content="OpenCV">
-<meta itemprop="description" content="">
-
-
-        
-
-        
-            
-        
-
-        
-        
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
-            <link rel="stylesheet" href="https://neonkid.github.io/css/main.css">
-            <link rel="stylesheet" href="https://neonkid.github.io/css/add-on.css">
-        
-
-        
-            
-                
-            
-        
-
-        
-            
-        
-    </head>
-    <body>
-
+  <body>
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      N.K
+    </a>
+    
+    <ul class="navigation-list float-right">
       
-      <div id="wrapper">
-
-    
-<header id="header">
-    
-      <h1><a href="/">OpenCV</a></h1>
-    
-
-    <nav class="links">
-        <ul>
-            
-                <li>
-                    <a href="/">
-                            <i class="fa fa-home">&nbsp;</i>Home
-                    </a>
-                </li>
-            
-                <li>
-                    <a href="/about/">
-                            <i class="fa fa-id-card-o">&nbsp;</i>About
-                    </a>
-                </li>
-            
-                <li>
-                    <a href="/categories/">
-                            <i class="fa fa-sitemap">&nbsp;</i>Categories
-                    </a>
-                </li>
-            
-        </ul>
-    </nav>
-    <nav class="main">
-        <ul>
-            
-            <li class="search">
-                <a class="fa-search" href="#search">Search</a>
-                <form id="search" method="get" action="//google.com/search">
-                    <input type="text" name="q" placeholder="Search" />
-                    <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
-                </form>
-            </li>
-            <li class="menu">
-                <a class="fa-bars" href="#menu">Menu</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-
-<section id="menu">
-
-    
-        <section>
-            <form class="search" method="get" action="//google.com/search">
-                <input type="text" name="q" placeholder="Search" />
-                <input type="hidden" name="as_sitesearch" value="https://neonkid.github.io/">
-            </form>
-        </section>
-
-    
-        <section>
-            <ul class="links">
-                
-                    <li>
-                        <a href="/">
-                            <h3>
-                                <i class="fa fa-home">&nbsp;</i>Home
-                            </h3>
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/about/">
-                            <h3>
-                                <i class="fa fa-id-card-o">&nbsp;</i>About
-                            </h3>
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/categories/">
-                            <h3>
-                                <i class="fa fa-sitemap">&nbsp;</i>Categories
-                            </h3>
-                        </a>
-                    </li>
-                
-            </ul>
-        </section>
-
-    
-        <section id="recent-posts">
-            <div class="mini-posts">
-                <header>
-                    <h3>Recent Posts</h3>
-                </header>
-                
-
-                
-                    
-                
-
-                
-                        <article class="mini-post">
-                            <header>
-                                <h3><a href="https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a></h3>
-                                
-                                <time class="published" datetime=
-                                    '2017-10-29'>
-                                    October 29, 2017</time>
-                            </header>
-                            
-
-                        </article>
-                
-                        <article class="mini-post">
-                            <header>
-                                <h3><a href="https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a></h3>
-                                
-                                <time class="published" datetime=
-                                    '2017-10-01'>
-                                    October 1, 2017</time>
-                            </header>
-                            
-
-                        </article>
-                
-                        <article class="mini-post">
-                            <header>
-                                <h3><a href="https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a></h3>
-                                
-                                <time class="published" datetime=
-                                    '2017-08-01'>
-                                    August 1, 2017</time>
-                            </header>
-                            
-
-                        </article>
-                
-
-                
-                    <a href=
-                        
-                            /blog/
-                        
-                        class="button">View more posts</a>
-                
-            </div>
-        </section>
-
-    
-        
-</section>
-
-    
-    <div id="main">
-        
-        
-            
-        
-
-        
-<ul class="actions pagination">
-    
-        <li><a href="#" class="disabled button big previous">Previous Page</a></li>
-    
-
-    
-        <li><a href="#" class="disabled button big next">Next Page</a></li>
-    
-</ul>
-
-    </div>
-    
-<section id="sidebar">
-
-  
-  <section id="intro">
-    
-    
+      <li class="navigation-item">
+        <a class="navigation-link" href="/posts/">Blog</a>
+      </li>
       
-        <img src="/img/nk.png" class="intro-circle" width="150" alt="NK, Created by. KHK">
+      <li class="navigation-item">
+        <a class="navigation-link" href="/about/">About</a>
+      </li>
       
-    
-    
-      <header>
-        <h2>Neon K.I.D</h2>
-        <p>Hi, I'm NEONKID...</p>
-      </header>
-    
-    
-      <ul class="icons">
-        
-          <li>
-            <a href="https://neonkid.github.io/tags/opencv/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a>
-          </li>
-        
-        
-  <li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </ul>
+    </ul>
     
   </section>
+</nav>
 
+
+      <div class="content">
+        
+  <section class="container list">
+  <h1 class="title">Opencv</h1>
+  <ul>
+    
+    <li>
+      <span>March 1, 2017</span><a href="/posts/opencv/2017-03-01-opencv-trackbar-%EC%A3%BC%EB%AC%B4%EB%A5%B4%EA%B8%B0/">OpenCV Trackbar 주무르기</a>
+    </li>
+    
+  </ul>
   
-  <section id="recent-posts">
-    <div class="mini-posts">
-      <header>
-        <h3>Recent Posts</h3>
-      </header>
-      <div class="posts-container">
-        
 
-        
-          
-        
 
-        
-          <article class="mini-post">
-            <header>
-              <h3>
-                <a href="https://neonkid.github.io/blog/c&#43;&#43;/2017-10-27-c&#43;&#43;-%EC%96%B8%EC%96%B4%EC%97%90%EC%84%9C-mqtt-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0/">C&#43;&#43; 언어에서 MQTT 사용해보기</a>
-              </h3>
-              
-              <time class="published" datetime='2017-10-29'>
-                October 29, 2017
-              </time>
-            </header>
-            
 
-          </article>
-        
-          <article class="mini-post">
-            <header>
-              <h3>
-                <a href="https://neonkid.github.io/blog/android/2017-10-01-android-%EC%97%90%EC%84%9C-mqtt-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90/">Android 에서 MQTT를 사용하는 방법</a>
-              </h3>
-              
-              <time class="published" datetime='2017-10-01'>
-                October 1, 2017
-              </time>
-            </header>
-            
 
-          </article>
-        
-          <article class="mini-post">
-            <header>
-              <h3>
-                <a href="https://neonkid.github.io/blog/android/2017-08-01-android-custom-view-%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90/">Android CustomView를 만들어보자</a>
-              </h3>
-              
-              <time class="published" datetime='2017-08-01'>
-                August 1, 2017
-              </time>
-            </header>
-            
 
-          </article>
-        
+
+</section>
+
+
       </div>
 
-      
-        <a href=
-          
-            /blog/
-          
-        class="button">View more posts</a>
-      
-    </div>
+      <footer class="footer">
+  <section class="container">
+    © 2017 · Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
   </section>
+</footer>
 
-  
-  
-  
-  
-    <section id="categories">
-      <header>
-        <h3>
-          <a href="/categories/">Categories</a>
-        </h3>
-      </header>
-        
-          
-        
+    </main>
 
-        
-        <p>
-          <article>
-            <header>
-              
-                <a href="/categories/android/">android</a>
-                <span style="float:right;">4</span>
-              
-            </header>
-          </article>
-        </p>
-        
-        <p>
-          <article>
-            <header>
-              
-                <a href="/categories/web/">Web</a>
-                <span style="float:right;">1</span>
-              
-            </header>
-          </article>
-        </p>
-        
-        <p>
-          <article>
-            <header>
-              
-                <a href="/categories/boost/">boost</a>
-                <span style="float:right;">1</span>
-              
-            </header>
-          </article>
-        </p>
-        
-        <p>
-          <article>
-            <header>
-              
-                <a href="/categories/c&#43;&#43;/">c&#43;&#43;</a>
-                <span style="float:right;">1</span>
-              
-            </header>
-          </article>
-        </p>
-        
-        <p>
-          <article>
-            <header>
-              
-                <a href="/categories/opencv/">opencv</a>
-                <span style="float:right;">1</span>
-              
-            </header>
-          </article>
-        </p>
-        
-        <p>
-          <article>
-            <header>
-              
-                <a href="/categories/unix/">unix</a>
-                <span style="float:right;">1</span>
-              
-            </header>
-          </article>
-        </p>
-        
-    </section>
-  
-
-  
-  
-    <section id="mini-bio">
-      <h3>About</h1>
-      <p>Neon K.I.D's Development Story...</p>
-      <a href="/about/" class="button">Learn More</a>
-    </section>
-  
-
-  
-  <section id="footer">
     
-      <ul class="icons">
-        
-          <li>
-            <a href="https://neonkid.github.io/tags/opencv/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a>
-          </li>
-        
-        
-  <li><a href="//github.com/neonkid" target="_blank" title="GitHub" class="fa fa-github"></a></li>
 
+  </body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <li><a href="//facebook.com/NK.4869" target="_blank" title="Facebook" class="fa fa-facebook"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <li><a href="//twitter.com/clax1412" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </ul>
-    
-    <p class="copyright">
-      
-        &copy; 2017
-        
-          NEONKID&#39;s Hugo Blog...
-        
-      .
-      Powered by <a href="//gohugo.io" target="_blank">Hugo</a>
-    </p>
-  </section>
-</section>
-
-</div>
-<a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
-
-
-
-  
-
-
-
-
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
-  <script src="https://neonkid.github.io/js/util.js"></script>
-  <script src="https://neonkid.github.io/js/main.js"></script>
-  <script src="https://neonkid.github.io/js/backToTop.js"></script>
-
-
-
-
-      
-  
-
-
-
-<script>hljs.initHighlightingOnLoad();</script>
-</body>
 </html>
-

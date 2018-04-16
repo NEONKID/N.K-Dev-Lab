@@ -1,121 +1,112 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on NEONKID&#39;s Hugo Blog...</title>
-    <link>https://neonkid.github.io/tags/</link>
-    <description>Recent content in Tags on NEONKID&#39;s Hugo Blog...</description>
+    <title>Tags on N.K</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on N.K</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 01 Oct 2017 13:27:19 +0900</lastBuildDate>
     
-	<atom:link href="https://neonkid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Android</title>
-      <link>https://neonkid.github.io/tags/android/</link>
+      <link>/tags/android/</link>
       <pubDate>Sun, 01 Oct 2017 13:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/android/</guid>
+      <guid>/tags/android/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Boost</title>
-      <link>https://neonkid.github.io/tags/boost/</link>
+      <link>/tags/boost/</link>
       <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/boost/</guid>
+      <guid>/tags/boost/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C&#43;&#43;</title>
-      <link>https://neonkid.github.io/tags/c&#43;&#43;/</link>
-      <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
+      <link>/tags/c&#43;&#43;/</link>
+      <pubDate>Sun, 29 Oct 2017 03:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/c&#43;&#43;/</guid>
+      <guid>/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>C&#43;&#43;</title>
-      <link>https://neonkid.github.io/tags/c&#43;&#43;/</link>
-      <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
-      
-      <guid>https://neonkid.github.io/tags/c&#43;&#43;/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CustomEditText</title>
-      <link>https://neonkid.github.io/tags/customedittext/</link>
+      <title>Customedittext</title>
+      <link>/tags/customedittext/</link>
       <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/customedittext/</guid>
+      <guid>/tags/customedittext/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>CustomView</title>
-      <link>https://neonkid.github.io/tags/customview/</link>
+      <title>Customview</title>
+      <link>/tags/customview/</link>
       <pubDate>Tue, 01 Aug 2017 20:30:20 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/customview/</guid>
+      <guid>/tags/customview/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kotlin</title>
-      <link>https://neonkid.github.io/tags/kotlin/</link>
+      <link>/tags/kotlin/</link>
       <pubDate>Sun, 01 Oct 2017 13:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/kotlin/</guid>
+      <guid>/tags/kotlin/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>MQTT</title>
-      <link>https://neonkid.github.io/tags/mqtt/</link>
+      <title>Mqtt</title>
+      <link>/tags/mqtt/</link>
       <pubDate>Sun, 29 Oct 2017 03:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/mqtt/</guid>
+      <guid>/tags/mqtt/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>OpenCV</title>
-      <link>https://neonkid.github.io/tags/opencv/</link>
+      <title>Opencv</title>
+      <link>/tags/opencv/</link>
       <pubDate>Wed, 01 Mar 2017 09:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/opencv/</guid>
+      <guid>/tags/opencv/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>POSIX thread</title>
-      <link>https://neonkid.github.io/tags/posix-thread/</link>
+      <title>Posix Thread</title>
+      <link>/tags/posix-thread/</link>
       <pubDate>Sun, 25 Jun 2017 00:15:20 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/posix-thread/</guid>
+      <guid>/tags/posix-thread/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pthread</title>
-      <link>https://neonkid.github.io/tags/pthread/</link>
+      <link>/tags/pthread/</link>
       <pubDate>Sun, 25 Jun 2017 00:15:20 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/pthread/</guid>
+      <guid>/tags/pthread/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Web</title>
-      <link>https://neonkid.github.io/tags/web/</link>
+      <link>/tags/web/</link>
       <pubDate>Tue, 14 Mar 2017 02:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/tags/web/</guid>
+      <guid>/tags/web/</guid>
       <description></description>
     </item>
     

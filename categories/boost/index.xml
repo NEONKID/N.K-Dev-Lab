@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Boost on NEONKID&#39;s Hugo Blog...</title>
-    <link>https://neonkid.github.io/categories/boost/</link>
-    <description>Recent content in Boost on NEONKID&#39;s Hugo Blog...</description>
+    <title>Boost on N.K</title>
+    <link>/categories/boost/</link>
+    <description>Recent content in Boost on N.K</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 05 Mar 2017 02:15:40 +0900</lastBuildDate>
     
-	<atom:link href="https://neonkid.github.io/categories/boost/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/boost/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Boost Library 설치와 사용</title>
-      <link>https://neonkid.github.io/blog/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</link>
+      <link>/posts/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</link>
       <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/blog/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</guid>
+      <guid>/posts/boost/2017-03-05-boost-library-%EC%84%A4%EC%B9%98%EC%99%80-%EC%82%AC%EC%9A%A9/</guid>
       <description>음 생각해보니, CMake에 관한 포스트를 Tistory에 게시를 해버렸네요. 이 개발자 페이지에 신경을 썼음에도 불구하고, 아무래도 아직 Tistory 블로그는 잊혀지지 않았나 봅니다. (다음에는 개발 포스트를 반드시 여기에 게시하도록 할게요 ㅠㅠ)
 최근 저는 C++ 언어에 다시 몰두하기 시작했습니다. 작년까지는 학부 수업에서 두 개 이상 Java 언어로 수업을 받았었(?)&amp;hellip; 사실 OpenCV는 C++ 언어로 진행하긴 했습니다만 Java 언어로 수업받았던 두 과목이 프로젝트로 진행되는 과목이어서 어쩌다보니 Java에 몰두하게 되어버렸습니다.
 다시 C++ 언어를 시작하려니 너무 어려운게 익숙하지가 않아 블로그에 조금 정리해보려 합니다.</description>

@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on NEONKID&#39;s Hugo Blog...</title>
-    <link>https://neonkid.github.io/categories/</link>
-    <description>Recent content in Categories on NEONKID&#39;s Hugo Blog...</description>
+    <title>Categories on N.K</title>
+    <link>/categories/</link>
+    <description>Recent content in Categories on N.K</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 01 Oct 2017 13:27:19 +0900</lastBuildDate>
     
-	<atom:link href="https://neonkid.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Android</title>
-      <link>https://neonkid.github.io/categories/android/</link>
+      <link>/categories/android/</link>
       <pubDate>Sun, 01 Oct 2017 13:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/categories/android/</guid>
+      <guid>/categories/android/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Boost</title>
-      <link>https://neonkid.github.io/categories/boost/</link>
+      <link>/categories/boost/</link>
       <pubDate>Sun, 05 Mar 2017 02:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/categories/boost/</guid>
+      <guid>/categories/boost/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C&#43;&#43;</title>
-      <link>https://neonkid.github.io/categories/c&#43;&#43;/</link>
+      <link>/categories/c&#43;&#43;/</link>
       <pubDate>Sun, 29 Oct 2017 03:27:19 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/categories/c&#43;&#43;/</guid>
+      <guid>/categories/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Opencv</title>
-      <link>https://neonkid.github.io/categories/opencv/</link>
+      <link>/categories/opencv/</link>
       <pubDate>Wed, 01 Mar 2017 09:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/categories/opencv/</guid>
+      <guid>/categories/opencv/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Unix</title>
-      <link>https://neonkid.github.io/categories/unix/</link>
+      <link>/categories/unix/</link>
       <pubDate>Sun, 25 Jun 2017 00:15:20 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/categories/unix/</guid>
+      <guid>/categories/unix/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Web</title>
-      <link>https://neonkid.github.io/categories/web/</link>
+      <link>/categories/web/</link>
       <pubDate>Tue, 14 Mar 2017 02:15:40 +0900</pubDate>
       
-      <guid>https://neonkid.github.io/categories/web/</guid>
+      <guid>/categories/web/</guid>
       <description></description>
     </item>
     
