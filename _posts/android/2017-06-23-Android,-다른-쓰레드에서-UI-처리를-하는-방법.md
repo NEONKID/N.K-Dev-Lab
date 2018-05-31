@@ -1,0 +1,296 @@
+---
+layout: post
+title: "Android, 다른 쓰레드에서 UI 처리를 하는 방법"
+date: 2017-06-23 01:20:40 +0900
+categories: ["android"]
+tags: [android]
+type: post
+---
+
+오늘 포스트는 어제에 이어서, 쓰레드에 대한 이야기를 계속해보려 합니다. 
+
+아무래도 UI 프로그래밍에 대한 이야기다보니, UI 프로그래밍에 많이 유명하다고 생각되는 Windows 쪽의 이야기를 많이 섞어보자 합니다. 읽으실 때, 이해가 조금 안되시는 부분도 있을테니 참고하시기 바랍니다.
+
+
+
+## UI 리소스를 Sub Thread에서 직접 사용할 경우.
+
+안드로이드 앱에는 UI가 존재합니다. UI라고 하는 것은 사용자들이 터치하는 버튼, 텍스트 박스 등의 컴포넌트를 말하는데요. 주로 간단한 애플리케이션에서는 이 UI를 메인 쓰레드에서 처리합니다. 
+
+하지만 앱이 커지게 되면, 쓰레드가 생기게 될 수 있고, 해당 쓰레드에서 UI를 처리할 수도 있습니다. 하지만 과연 이렇게 하는 프로그래밍이 올바른 프로그래밍 방법일까요?
+
+만일 메인 쓰레드에서 계속 UI를 잡고 있는데, 서브 쓰레드에서 이를 접근하려고 한다면? 이런 경우에는 두 쓰레드가 한 자원을 계속 확보하려고 하므로 동기화 이슈가 발생합니다. 동기화 이슈라는 것은 한 자원을 가지고, 두 사람 혹은 객체가 서로 쓰려고 시도한다는 것이죠. 실제 프로그래밍에서 이런 일로 버그가 생기기 쉽상입니다.
+
+![uiThread-1](/media/images/android/uiThread-1.png)
+
+위 이미지는 UI 자원을 두고, UI Thread와 Sub Thread가 사용하려고 하는 경우를 그림으로 나타낸 것입니다. 보다시피 Android에서는 이를 허용하지 않습니다. 
+
+```java
+// 새로운 쓰레드를 생성해, Activity의 함수를 실행.
+new Thread(new Runnable() {
+  @Override
+  public void run() {
+    mCallback.recvToastMessage("Good");
+  }
+}).start();
+```
+
+지난 포스트에서 작성한 것을 그대로 본떠 서비스에 Thread를 하나 생성한 후, Activity 함수를 실행하는 코드를 작성해봤습니다. 
+
+```java
+// Service에서 선언한 ICallback 객체를 생성해 추상으로 정의한 함수를 구현합니다.
+private aidlService.Icallback mCallback = new aidlService.Icallback() {
+  @Override
+  public void recvToastMessage(String message) {
+    // Todo: Activity에서 처리합니다.
+    final String msg = message;
+    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+  }
+};
+```
+
+recvToastMessage에서 ToastMessage를 생성하고 보여주는 함수가 정의되어 있습니다. Toast는 UI 컴포넌트에 해당됩니다. 서브 쓰레드에서 Toast를 건드리는 것이 되므로 디버깅 시 Exception이 나타나게 됩니다.
+
+다른 예시로, 서비스에서 직접적으로 Toast 등의 UI 객체를 생성하여 실행한다는 등도 허용하지 않습니다.
+
+
+
+## Sub Thread에서 UI 리소스 접근하는 방법
+
+그렇다면 Sub Thread에서 UI 변경은 못하는 것일까요? 그렇지 않습니다. 방법은 여러가지 있으니, 1개씩 살펴보도록 하겠습니다.
+
+먼저 UI 관련 처리를 하는 방법에 대해서 알아보겠습니다.
+
+![uiThread-2](/media/images/android/uiThread-2.png)
+
+서브 쓰레드에서 직접 UI 자원을 사용/요청할 수가 없기 때문에, UI Thread로부터 "우리 이 자원에 대한 변경이 필요하니 협조해 달라." 라는 방법으로 접근하여야 합니다. 그러면 UI Thread는 그 요청에 따라 UI 처리를 대신 해주는 것이죠.
+
+### 1. HandlerThread
+
+HandlerThread는 UI 스레드에 접근하도록 하는 방법 중에 하나입니다. 어떤 방식으로 접근하는 것일까요? 지난 포스트에서도 봤다시피 윈도우 메시지 구조를 이해하셨다면, 굉장히 쉬운 구조라는 것을 알 수 있습니다. 
+
+안드로이드에도 Message라는 것이 존재합니다. 쓰레드는 여기서 Runnable 객체죠? Handler는 바로, Message나 Runnable 객체를 받아와 다른 곳으로 전달해주는 역할을 하며 그것의 쓰레드 형태가 바로 HandlerThread입니다. 
+
+그림을 보도록 하죠.
+
+![uiThread-3](/media/images/android/uiThread-3.png)
+
+간단한 그림은 아니지만, 차근차근 이해해보죠. 먼저 UI Thread에는 Message Queue와 Looper가 존재하며 그를 처리하는 Handler도 존재합니다. 가각 무슨 역할을 하는지 알아보겠습니다.
+
+- Message Queue: Sub Thread에서 오는 메시지를 담는 큐입니다.
+- Looper: MessageQueue에서 Loop() 메소드를 이용해, 반복적으로 처리할 메시지를 Handler에 전달하는 녀석입니다. 
+  메시지 큐가 empty 상태이면 아무 일도 하지 않으며 쓰레드당 오직 하나만 존재할 수 있는 녀석입니다.
+- Handler: handleMessage() 메소드를 이용해 들어온 메시지를 처리하는 녀석입니다.
+
+이제 조금 감이 오셨나요? Handler는 그저 처리만 하는 녀석이기 때문에 요청을 보내고 받는 것은 메시지 큐가 있어야만 가능합니다. 실제로 안드로이드 프로그래밍에서 MainActivity의 Main Thread에는 이 Handler와 Message Queue를 모두 지니고 있습니다. 그래서, onCreate 함수에 Handler만 선언해도 아주 잘 동작이 되는 것이죠 :)
+
+동작하는 코드를 한 번 구현해보도록 하겠습니다.
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+
+  new Thread(new Runnable() {
+    @Override
+    public void run() {
+      Looper.prepare();   // MessageQueue 준비.
+      handler = new Handler();
+      Looper.loop();
+    }
+  }).start();
+}
+
+@Override
+protected void onDestroy() {
+  super.onDestroy();
+  handler.getLooper().quit(); // 액티비티가 종료되는 경우, Looper 또한 소멸해줘야 함.
+}
+```
+
+만약, Handler만 생성하고, Looper를 주지 않을 경우, 위에서 얘기했다시피 Handler는 아무런 처리도 행동도 취하지 못하는 상태가 됩니다. 반드시 Looper를 생성해야 한다는 점이 바로 기존 Java와 Android에서 사용한 방법입니다.
+
+그런데, Looper를 굳이 생성하지 않고도 사용하는 방법이 있습니다. 실제 Java에서는 저렇게 하지만, Android에서는 HandlerThread가 자체적으로 존재하여 굳이 Looper를 생성하지 않고도 Looper와 같이 만들어주는 HandlerThread가 존재합니다.
+
+```java
+HandlerThread handlerThread = new HandlerThread("android_handler");
+handlerThread.start();
+Handler handler = new Handler(handlerThread.getLooper());
+handler.post(new Runnable() {
+  @Override
+  public void run() {
+	// Todo: 여기에 처리할 UI 코드를 입력하시면 됩니다.
+  }
+});
+```
+
+HandleThread 객체를 생성한 후, 이 쓰레드의 Looper를 getLooper 메소드를 이용해 가져와서 Handler에 넣어주면, Looper가 존재하게 됩니다.
+
+
+
+### 2. View.post()
+
+다른 방법으로 응용하자면, 이렇게도 사용할 수 있습니다.
+
+```java
+handler = new Handler();
+new Thread(new Runnable() {
+  @Override
+  public void run() {
+    handler.post(new Runnable() {
+      @Override
+      public void run() {
+        // Todo: 여기에 UI 작업할 코드를 입력하시면 됩니다.
+      }
+    });
+  }
+}).start();
+```
+
+Main Thread에는 기본적으로 Looper와 MessageQueue가 존재합니다. MainActivity에서 위 코드를 이용해 Handler 객체를 하나 생성 후, 바로 쓰레드를 실행시키면 정상적으로 동작합니다 :)
+
+
+
+### 3. runOnUiThread
+
+그 역할을 해주는 메소드 중에 하나가 바로 runOnUiThread 메소드입니다. 이 메소드만 사용하면, UI 처리에 대한 문제는 바로 해결하실 수 있습니다.
+
+```java
+// Service에서 선언한 ICallback 객체를 생성해 추상으로 정의한 함수를 구현합니다.
+private aidlService.Icallback mCallback = new aidlService.Icallback() {
+  @Override
+  public void recvToastMessage(String message) {
+    // Todo: Activity에서 처리합니다.
+    runOnUiThread(new Runnable() {	// UI Thread 자원 사용 이벤트 큐에 저장.
+      @Override
+      public void run() {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+      }
+    });
+  }
+};
+```
+
+Android Developer Manual에는 이렇게 나와 있습니다. 현재 쓰레드가 UI Thread라면, UI 자원을 사용하는 행동에 대해서 즉시 실행 되나, 그렇지 않은 경우에는 UI Thread의 자원 사용 이벤트 큐에 적재되어 하나씩 실행되도록 한다.
+
+```java
+public final void runOnUiThread(Runnable action) {
+  if (Thread.currentThread() != mUiThread) {
+    mHandler.post(action);
+  } else {
+    action.run();
+  }
+}
+```
+
+실제 runOnUiThread 코드입니다. 현재 Thread를 가져와서 UI Thrread가 아니면, Handler를 사용해 처리하고 있습니다.
+
+
+
+### 4. AsyncTask
+
+마지막 방법은 바로 AsyncTask 클래스를 이용하는 것입니다. 여태까지의 방법을 사용하기 위해서는 Android의 Thread나 Message Loop의 그림을 그려가면서 까지 이해하여야만 사용할 수 있지만, 이 클래스는 굳이 개념을 이해하지 않고도 쉽게 UI 작업이 가능하기 때문에, runOnUiThread 다음으로 적용하기 쉬우므로 가장 많이 사용하는 방법이기도 합니다.
+
+먼저 AsyncTask의 동작 원리부터 알아보도록 하겠습니다.
+
+![uiThread-4](/media/images/android/uiThread-4.png)
+
+그림을 보면, Main Thread와 Background Thread가 존재합니다. Background Thread는 Sub Thread라고 봐도 무방합니다. 
+
+메인 쓰레드에서 asynctask.execute() 함수를 부르면, 초기에 진행하는 콜백 함수는 onPreExecute() 메소드입니다. 실제 이 메소드는 Asynctask가 실행하기 전에 처리되는 콜백 메소드로 예를 들어서, 어떤 파일이나 리소스를 띄우기 전에 사용자에게 상태를 보여줄 수 있는 ProgressBar 작업 등이 여기에 해당됩니다.
+
+새로 만든 Thread에서 백그라운드 작업을 수행합니다. execute() 메소드를 호출할 때, 사용된 매개 변수를 전달 받습니다.
+
+doInBackground()에서 중간 중간 진행 상태를 UI로 표현하려면, publishProgress() 메소드를 호출하시면 됩니다. onProgressUpdate() 메소드는 publishProgress() 메소드를 호출할 때 나타나므로, 주기적인 처리를 여기서 해주시면 됩니다.
+
+위 메소드( doInBackground() ) 작업이 끝나면, onPostExecuted() 메소드로 결과 매개 변수를 반환하면서 해당 반환 값을 통해 Thread 작업이 끝났을 때의 동작을 구현하시면 됩니다.
+
+자 그러면 정리를 해볼까요? AsyncTask 클래스는 UI Thread랑 전혀 상관없는 것 같은데, 실제 저들 콜백 메소드에서 UI 리소스를 자유롭게 건드려도 무방한 이유는 무엇일까요? 그것은 onPreExecuted(), onProgressUpdate(), onPostExecuted() 이 3개의 메소드가 Main Thread에서 실행된다는 것입니다. 
+
+간단한 예제를 통해 알아보겠습니다.
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+
+  // new Object 부분에 인자로 넘기고 싶은 값을 아무거나 넣어준다.
+  new BackgroundTask().execute(new Object());
+}
+
+private class BackgroundTask extends AsyncTask {
+  @Override
+  protected void onPreExecute() {
+    super.onPreExecute();
+    // Todo: execute() 메소드 실행하기 전에 처리해야 할 일 정의
+  }
+
+  @Override
+  protected void onPostExecute(Object o) {
+    super.onPostExecute(o);
+    // Todo: doInBackground() 메소드 작업 끝난 후 처리해야할 작업..
+  }
+
+  // 실제 params 부분에는 execute 함수에서 넣은 인자 값이 들어 있다.
+  @Override
+  protected Object doInBackground(Object[] params) {
+    publishProgress(params);    // 중간 중간에 진행 상태 UI 를 업데이트 하기 위해 사용..
+    return null;
+  }
+
+  @Override
+  protected void onProgressUpdate(Object[] values) {
+    super.onProgressUpdate(values);
+    // Todo: publishProgress() 메소드 호출시 처리할 작업..
+  }
+
+  @Override
+  protected void onCancelled() {
+    super.onCancelled();
+    // Todo: 사용자 임의로 취소되었거나 오류로 인해 취소될 경우, 해야할 작업..
+  }
+
+  @Override
+  protected void onCancelled(Object o) {
+    super.onCancelled(o);
+    // Todo: 취소 된 이후, 결과 매개 변수 값이 있는 경우..
+  }
+}
+```
+
+실제로 제가 위에서 설명하지 않은 onCancelled() 콜백 메소드도 포함되어 있지만, 주석에 설명을 붙였으므로 이에 맞게 사용하시면 됩니다.
+
+매개 변수는 여러분들이 원하시는 String, Object 아니면 여러분이 직접 만든 클래스를 넣으셔서 처리하시면 됩니다. 더 자유롭고 쉬워진 느낌이죠?
+
+그런데, AsyncTask를 사용할 때는 여러가지 제약 사항이 있습니다.
+
+
+
+#### AsyncTask 제약 사항과 단점
+
+AsyncTask의 사용은 비교적 그 처리가 오래 걸리지 않은 작업, 작업 취소가 쉽고 로직과 UI 조작이 동시에 이루어져야 하는 경우에 유용하게 사용할 수 있는 최적의 클래스 입니다. 하지만 그에 따른 제약 사항과 단점이 존재하기 때문에 이를 참고하시고 사용하시기 바랍니다.
+
+##### 제약 사항
+
+1. Android 4.1.2 (API 16) 미만의 버전에서는 AsyncTask 클래스 선언을 UI Thread에서 해주지 않으면 오류가 발생합니다. 
+   (그 이상 버전에서는 어디에서든 사용해도 무방.)
+2. execute() 메소드는 UI Thread에서 직접 호출하셔야 합니다.
+3. Task 작업은 오직 한 번만 실행될 수 있습니다.
+
+
+
+##### 단점
+
+1. 하나의 객체이기 때문에, 재사용은 안됩니다. (객체를 새로 생성하면 됩니다. 하지만 그만큼 메모리를 사용.)
+2. AsyncTask를 구현한 Activity가 종료될 경우, 별도의 종료 메소드나 소멸 메소드가 없을 경우 외에는 종료되지 않습니다. (메모리 누수 유의)
+3. Activity 종료 후에 재시작할 경우, (onCreate() 콜백 메소드가 호출될 경우) AsyncTask의 Reference는 무효화 되며 onPostExecute() 메소드는 새로운 Activity에 어떠한 영향도 없습니다.
+4. AsyncTask의 기본 처리 작업 수는 1개입니다. 
+
+
+
+본래 AsyncTask는 순차적으로 하나의 쓰레드에서 실행되었지만, Android 2.0 버전인 도넛부터 병렬 처리 가능한 Thread Pool이 되었으나 Android 3.0 허니컴 버전에서부터 병렬 처리의 오류를 피하기 위해 다시 싱글 쓰레드로 실행하게 되었습니다. 
+
+AsyncTask를 병렬 처리하고 싶다면, executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR) 함수를 호출하시면 됩니다.
+

@@ -1,0 +1,67 @@
+# Site settings
+
+author: Neon K.I.D
+email: contact@neonkid.xyz
+twitter_username: clax1412
+github_username:  neonkid
+#googleplus_username: google
+
+head-title: "N.K Dev Lab"
+title: "N.K :: Thought -> [Code]"
+
+baseurl: ""    # the subpath of your site, "/blog"
+url: "/"
+
+# footer 
+description: "Patience is worn out, but its fruit is sweet."
+
+favo: "N.K Dev Lab..."
+descrpt: "안녕하세요. Neon K.I.D 입니다. "
+
+
+#
+# Build settings
+#
+
+#exclude: [vendor]
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  highlight: true
+  auto_ids:  true
+
+sass:
+  style: compressed
+
+permalink: /posts/:categories/:title.html
+
+paginate: 7
+#paginate_path: 'page/:num'
+
+plugins_dir: [jekyll-paginate, jekyll-last-modified-at, jemoji]
+gems: [jekyll-paginate]
+
+#
+# Custom
+#
+
+# Color
+# All css class, see: http://materializecss.com/color.html
+header-color: "blue lighten-1"
+head-theme-color: "#42a5f5"     # MUST in hex format, may the same as header-color. This color is for android chrome browser.
+
+footer-color: "blue"
+footer-button-color: "blue lighten-2"
+footer-link-color: "blue-text text-accent-1"
+
+share-button-color: "blue lighten-3"
+share-button-small-color: ""
+
+
+##
+#excerpt_separator: <!-- excerpt_end -->       # for post.excerpt
+
