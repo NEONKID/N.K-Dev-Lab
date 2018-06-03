@@ -15,8 +15,8 @@ url: "/"
 # footer 
 description: "Patience is worn out, but its fruit is sweet."
 
-favo: "N.K Dev Lab..."
-descrpt: "안녕하세요. Neon K.I.D 입니다. "
+favo: "What is N.K Dev Lab ?"
+descrpt: "N.K Dev Lab은 제가 공부한 소프트웨어 개발과 관련된 글을 포스팅하고 이야기 하는 공간입니다."
 
 
 #
@@ -58,7 +58,7 @@ footer-color: "blue"
 footer-button-color: "blue lighten-2"
 footer-link-color: "blue-text text-accent-1"
 
-share-button-color: "blue lighten-3"
+share-button-color: "blue lighten-2"
 share-button-small-color: ""
 
 
