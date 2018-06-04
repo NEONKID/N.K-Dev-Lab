@@ -196,6 +196,57 @@ dependencies {
 }
 ```
 
+```kotlin
+package com.midas2018mobile5.realmexample.activities
+
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.widget.Button
+import android.widget.EditText
+import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MainActivityUI().setContentView(this)
+    }
+
+    class MainActivityUI : AnkoComponent<MainActivity> {
+        private lateinit var name : EditText
+        private lateinit var clickmeBtn : Button
+
+        override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
+            verticalLayout {
+                padding = dip(8)
+
+                name = editText {
+                    hint = "Enter your name"
+                    textSize = 10f
+                }
+
+                clickmeBtn = button("Click me") {
+                    textSize = 10f
+                    onClick {
+                        toast(name.text.toString()).show()
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+```
+
+Anko Compat을 상속한 MainActivityUI 클래스를 별도로 생성 혹은 inner class 형태로 만들어주게 되면 아래와 같이 Preview를 보실 수 있습니다.
+
+![Anko_Preview](/media/images/android/ankoPreview.png)
+
+
+
+
+
 더 자세한 Anko 사용법은 아래의 Github Repo에서 확인하실 수 있습니다.
 
 <div markdown="0"><a href="https://github.com/Kotlin/anko" class="btn btn-info">Anko Github</a></div>
