@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="English, Korean">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C++ 언어를 사용해보도록 하죠.  libmosquittoC++ 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다. 1$ sudo apt">
+<meta name="keywords" content="MQTT,c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 언어에서 MQTT 사용해보기">
+<meta property="og:url" content="http://devlab.neonkid.xyz/2017/10/28/c++/2017-10-27-C++-언어에서-MQTT-사용해보기/index.html">
+<meta property="og:site_name" content="N.K Dev Lab">
+<meta property="og:description" content="오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C++ 언어를 사용해보도록 하죠.  libmosquittoC++ 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다. 1$ sudo apt">
+<meta property="og:locale" content="English, Korean">
+<meta property="og:updated_time" content="2019-09-27T04:39:30.651Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ 언어에서 MQTT 사용해보기">
+<meta name="twitter:description" content="오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C++ 언어를 사용해보도록 하죠.  libmosquittoC++ 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다. 1$ sudo apt">
+
+
+
+
+
+
+  <link rel="canonical" href="http://devlab.neonkid.xyz/2017/10/28/c++/2017-10-27-C++-언어에서-MQTT-사용해보기/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>C++ 언어에서 MQTT 사용해보기 | N.K Dev Lab</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Korean">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">N.K Dev Lab</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-timeline">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Timeline</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/NEONKID" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://devlab.neonkid.xyz/2017/10/28/c++/2017-10-27-C++-언어에서-MQTT-사용해보기/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kwang Soo Jeong">
+      <meta itemprop="description" content="Junior Data Engineer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="N.K Dev Lab">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ 언어에서 MQTT 사용해보기
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-10-28 18:27:19" itemprop="dateCreated datePublished" datetime="2017-10-28T18:27:19+00:00">2017-10-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-27 04:39:30" itemprop="dateModified" datetime="2019-09-27T04:39:30+00:00">2019-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>오늘은 지난 포스트에 이어서, 프로그래밍 언어를 활용한 MQTT 사용에 대해 적어보고자 합니다. 오늘은 C++ 언어를 사용해보도록 하죠.</p>
+<p><br></p>
+<h2 id="libmosquitto"><a href="#libmosquitto" class="headerlink" title="libmosquitto"></a>libmosquitto</h2><p>C++ 언어에서 사용할 MQTT 라이브러리로 libmosquitto를 사용하려 합니다. 그럼 libmosquitto 라이브러리를 설치해야겠죠? 그럼 설치부터 시작해보겠습니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install libmosquitto</span><br></pre></td></tr></table></figure>
+<p>우분투 리눅스에서는 기본적으로 레포지터리에서 제공하는 libmosquitto 패키지가 있습니다. 해당 패키지를 사용해서 libmosquitto를 쉽게 설치해보실 수 있습니다.</p>
+<p>윈도우 운영체제에서는 아래의 버튼을 클릭하셔서 설치하실 수 있습니다.</p>
+<div markdown="0"><a href="https://www.eclipse.org/downloads/download.php?file=/mosquitto/binary/win32/mosquitto-1.4.14-install-win32.exe" class="button" target="_blank" rel="noopener">Windows 용 libmosquitto 다운로드</a></div>
+
+<p><br></p>
+<h2 id="Using-CMake"><a href="#Using-CMake" class="headerlink" title="Using CMake"></a>Using CMake</h2><p>C++ 언어를 사용할 때에는 두 가지의 빌드 도구를 사용하실 수 있습니다. 1번째는 Unix 계열 운영체제에서 제공하는 CMake, libc 컴파일러를 사용한 프로그래밍입니다. 물론 Windows 에서도 사용하실 수 없는 것은 아니지만, Windows 에서 사용하실 경우에는 Unix 계열의 표준 POSIX Thread 라이브러리를 별도로 설치해야 하고, Unix 환경인 Cygwin이나 MinGW32 의 환경이 별도로 필요하기 때문에 이 포스트에서는 별도로 다루지는 않을 것입니다. </p>
+<p>그럼 CMake를 사용해서 실습에 들어가보도록 하겠습니다.</p>
+<p>혹시 CMake가 설치되어 있지 않다면 아래의 명령어를 이용해서 CMake를 설치합니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install cmake</span><br></pre></td></tr></table></figure>
+<p>CMake가 설치되었다면 이제 본격적인 코딩에 들어가보도록 하겠습니다. 먼저 프로젝트 폴더를 하나 만들어보도록 하죠.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir mqttProject</span><br></pre></td></tr></table></figure>
+<p>프로젝트 디렉터리를 만드신 후,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch CMakeLists.txt</span><br></pre></td></tr></table></figure>
+<p>CMake 파일을 한 개 만들어줍니다.</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.7</span>)	<span class="comment"># CMake 최소 버전 선택</span></span><br><span class="line"><span class="keyword">project</span>(mqttProject)	<span class="comment"># 프로젝트 이름 결정</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)	<span class="comment"># 사용할 C++ 언어 버전 선택</span></span><br><span class="line"><span class="keyword">set</span>(SOURCE_FILES main.cc)	<span class="comment"># SOURCE_FILES 변수 설정</span></span><br><span class="line"><span class="keyword">set</span>(Mosquitto_libs</span><br><span class="line">        /usr/lib/x86_64-linux-gnu/libmosquitto.so</span><br><span class="line">        /usr/lib/x86_64-linux-gnu/libmosquitto.so.<span class="number">1</span>)	<span class="comment"># 사용할 라이브러리 설정</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">add_executable</span>(mqttBinary <span class="variable">$&#123;SOURCE_FILES&#125;</span>)	<span class="comment"># 바이너리 파일 이름 선택</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(mqttBinary <span class="variable">$&#123;Mosquitto_libs&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>위와 CMake 파일은 적절한 예시입니다. 주석에 달은 부분을 적절히 참고하셔서 여러분의 프로젝트에 맞게 수정해주시면 됩니다. </p>
+<p>이해가 잘 안되시거나, 어려운 부분이 있다면 아래의 CMake 포스트를 참고해보시기 바랍니다.</p>
+<div markdown="0"><a href="http://blog.neonkid.xyz/112" class="button" target="_blank" rel="noopener">CMake를 이용한 C/C++ 프로젝트 빌드</a></div>
+
+<p>CMake 파일을 작성하셨으면, 이제 소스 코드를 생성하여 아무런 코드를 짜봅니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"Welcome to Mosquitto !"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>코드를 정상적으로 짜셨다면 아래의 명령어를 이용해서 빌드해봅니다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make</span><br></pre></td></tr></table></figure>
+<p>make 명령어를 사용하였을 때, 자신이 지정한 바이너리 파일 이름이 나왔으면 성공입니다.</p>
+<p>Next Using libmosquitto…</p>
+<p><br></p>
+<h2 id="Using-Visual-Studio"><a href="#Using-Visual-Studio" class="headerlink" title="Using Visual Studio"></a>Using Visual Studio</h2><p>Visual Studio 를 사용한 코딩 방법은 차후에 적도록 하겠습니다 ^^;<br>(CMake 를 사용하신 분들은 이 과정을 생략하셔도 됩니다.)</p>
+<p><br></p>
+<h2 id="Using-libmosquitto"><a href="#Using-libmosquitto" class="headerlink" title="Using libmosquitto"></a>Using libmosquitto</h2><p>그럼 이제 코딩을 시작해보도록 하죠. 기본적으로 MQTT 의 구조에서 봤듯이, MQTT 통신을 위해서는 기본적으로 IP 주소와 포트 주소가 필요합니다. Broker의 IP 주소와, 포트 주소를 파악한 뒤 진행해주시기 바랍니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mosquitto.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	mqtt_host	<span class="meta-string">"127.0.0.1"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	mqtt_port	1883</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">connect_callback</span><span class="params">(struct mosquitto *mosq, <span class="keyword">void</span> *obj, <span class="keyword">int</span> result)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// Todo: 연결을 시도할 경우의 Callback 함수...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">mosquitto</span> *<span class="title">mosq</span>;</span></span><br><span class="line">  mosquitto_lib_init();</span><br><span class="line">  <span class="keyword">char</span> clientid[<span class="number">24</span>];	<span class="comment">// nullptr을 사용해도 상관 없음..</span></span><br><span class="line">  <span class="keyword">int</span> rc = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">memset</span>(clientid, <span class="literal">NULL</span>, <span class="keyword">sizeof</span>(clientid));</span><br><span class="line">  <span class="built_in">snprintf</span>(clientid, <span class="keyword">sizeof</span>(clientid) - <span class="number">1</span>, <span class="string">"mqttPRAC"</span>, getpid());</span><br><span class="line">  mosq = mosquitto_new(clientid, <span class="literal">true</span>, <span class="literal">nullptr</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(mosq)</span><br><span class="line">  &#123;</span><br><span class="line">    mosquitto_connect_callback(mosq, connect_callback);</span><br><span class="line">    rc = mosquitto_connect(mosq, mqtt_host, mqtt_port, <span class="number">10</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">      .... </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    </span><br><span class="line">    mosquitto_destroy(mosq);	<span class="comment">// 반드시 구조체 소멸...!</span></span><br><span class="line">  &#125;</span><br><span class="line">  mosquitto_lib_cleanup();	<span class="comment">// 라이브러리도 깔끔히 정리...</span></span><br><span class="line">  <span class="keyword">return</span> rc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>C++ 언어에서 MQTT 통신을 위해 사용해야 하는 헤더 파일입니다.  이 헤더 파일을 통해 여러분들이 라이브러리에 접근하고 MQTT 통신 프로그램을 개발하실 수 있습니다.</p>
+<p>통신 방법은 Unix Socket 사용 방법과 매우 흡사합니다. mosquitto 라는 구조체를 하나 생성한 후, 초기화를 진행합니다. 그리고 mosquitto_connect 함수를 통해 연결을 시도하게 되는데, 여기서 한 가지 다른 점이 있다면 Socket은 connect 함수를 호출하고 소켓 구조체와 스트림 종류를 인자로 넘겨주지만, 여기서는 Callback 함수를 넘겨줘야 합니다.</p>
+<p>ClientID는 MQTT Broker 에서 사용자를 구별하기 위한 ID입니다. nullptr을 사용해도 됩니다.</p>
+<p>Java나 Kotlin 의 경우도 콜백 함수가 존재하긴 하지만, Overriding 되어서 제공되는데, C++ 언어의 경우에는 개발자가 직접 함수를 만들어줘야 합니다. 그렇기 때문에 함수의 이름 결정도 자유롭습니다. 저런 형태가 C++ 언어에서 사용하는 MQTT 통신의 기본형입니다. </p>
+<p>MQTT 통신이 모두 끝나고 난 다음에는 반드시 구조체를 소멸해주도록 해야 합니다. JVM 에서는 GC가 존재하기 때문에 이 과정을 거치지 않아도 되지만 C++ 에서 소멸 과정을 거치지 않으면 메모리 누수가 발생하기 때문에 서버가 다운되거나 하는 문제를 발생시킬 수 있습니다.</p>
+<p><br></p>
+<h3 id="Publish"><a href="#Publish" class="headerlink" title="Publish"></a>Publish</h3><p>이제 연결을 하였으니, 메시지를 보내보도록 하겠습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">message_callback</span><span class="params">(struct mosquitto *mosq, <span class="keyword">void</span> *obj, <span class="keyword">const</span> struct mosquitto_message *msg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  mosquitto_publish(mosq, <span class="literal">nullptr</span>, <span class="string">"TOPIC_NAME"</span>, msg-&gt;payloadlen, (<span class="keyword">char</span>*)msg-&gt;payload, msg-&gt;qos, msg-&gt;retain);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  </span><br><span class="line">  mosquitto_message_callback_set(mosq, message_callback);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>C++ 에서는 publish 도 콜백 함수의 처리를 통해 이루어집니다. 연결된 mosquitto 구조체를 callback_set 함수에 전달해준 후, callback 함수에서 publish 함수를 호출하여 메시지를 발행하시면 됩니다.</p>
+<p><br></p>
+<h3 id="Subscribe"><a href="#Subscribe" class="headerlink" title="Subscribe"></a>Subscribe</h3><p>메시지를 발행하는 방법을 알았으니, 이제는 메시지를 구독을 해보도록 하겠습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">message_callback</span><span class="params">(struct mosquitto *mosq, <span class="keyword">void</span> *obj, <span class="keyword">const</span> struct mosquitto_message *msg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">bool</span> match = <span class="literal">false</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"got message '%.*s' for topic '%s' \n"</span>, msg-&gt;payloadlen, (<span class="keyword">char</span>*)msg-&gt;payload, msg-&gt;topic);</span><br><span class="line">  mosquitto_topic_matches_sub(<span class="string">"TOPIC_NAME"</span>, msg-&gt;topic, &amp;match);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(match)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"got message for TOPIC_NAME topic \n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  mosquitto_message_callback_set(mosq, message_callback);</span><br><span class="line">  mosquitto_subscribe(mosq, <span class="literal">nullptr</span>, <span class="string">"TOPIC_NAME"</span>, <span class="number">0</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>방법은 여러가지가 존재하지만, Publish 하는 방법이랑 조금 다르게 코딩을 해봤습니다. Publish 에서는 Publish 명령이 되는 순간 콜백 함수에서 이를 처리하도록 하였지만, Subscribe 는 해당 TOPIC의 메시지가 도착하면 일단 메시지를 받고, subscribe 함수에서 지정한 TOPIC 이름과 일치하면 “got message for TOPIC_NAME topic”을 출력하도록 하였습니다.</p>
+<p><br></p>
+<h2 id="마치며…"><a href="#마치며…" class="headerlink" title="마치며…"></a>마치며…</h2><p>계속 java만 쭉 해오다가 갑자기 C++ 하려니 어지간히 헷갈리는 부분이 많네요.. Java는 어노테이션이나 이런 부분들이 조금 귀찮게해서 예외 처리 안하면 바로 알려주지만 C++ 언어는 그렇지가 않다는 점. 하지만 개발자가 잘 익숙해져 있고, 잘 알고 있다면 아마 본능적으로 손이 가지 않지 않나 생각합니다..</p>
+<p>제가 생각하는 건 C++ 언어도 짜다보면 코드가 지저분해지기 마련입니다. 그래서 항상 OOP 기법으로 프로그래밍을 하게 되고요. 하지만 블로그 포스팅에 있어서 이런 부분을 어떻게 하면 쉽고 간략하게 할지는 아직 떠오르지 않아 블로그에 작성하는 포스트 만큼은 절차적으로 조금 지저분하게 짜는 편입니다. (아마 이게 생각이 나지 않는다는 것은 기본 베이스는 누군가가 제공해줄 수 있되, 뒷마무리와 다듬는 작업은 본인의 몫이 아닐까…)</p>
+<p>여기까지, C++ 를 사용한 MQTT 프로그래밍이었구요. 마지막으로 시간이 된다면, 여태까지 포스트한 것을 종합적으로 이용해, Android Push Service를 개발하는 방법에 대해 포스팅하도록 하겠습니다. </p>
+<p><br></p>
+<p>P.S: 가능한한 빠른 시일 내에… Visual Studio 부분 채울 수 있도록 하겠습니다. ㅜㅜ</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MQTT/" rel="tag"># MQTT</a>
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/01/android/2017-10-01-Android-에서-MQTT-를-사용해보자/" rel="next" title="Android 에서 MQTT를 사용하는 방법">
+                <i class="fa fa-chevron-left"></i> Android 에서 MQTT를 사용하는 방법
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/31/spring/2018-05-31-Spring-boot에서-REST-API-개발-시작해보기/" rel="prev" title="Spring boot에서 REST API 개발 시작해보기">
+                Spring boot에서 REST API 개발 시작해보기 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kwang Soo Jeong</p>
+              <p class="site-description motion-element" itemprop="description">Junior Data Engineer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/NEONKID" title="GitHub &rarr; https://github.com/NEONKID" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:contact@neonkid.xyz" title="E-Mail &rarr; mailto:contact@neonkid.xyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/clax1412" title="Twitter &rarr; https://twitter.com/clax1412" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/NK.4869" title="Facebook &rarr; https://www.facebook.com/NK.4869" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#libmosquitto"><span class="nav-number">1.</span> <span class="nav-text">libmosquitto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-CMake"><span class="nav-number">2.</span> <span class="nav-text">Using CMake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Visual-Studio"><span class="nav-number">3.</span> <span class="nav-text">Using Visual Studio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-libmosquitto"><span class="nav-number">4.</span> <span class="nav-text">Using libmosquitto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Publish"><span class="nav-number">4.1.</span> <span class="nav-text">Publish</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscribe"><span class="nav-number">4.2.</span> <span class="nav-text">Subscribe</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마치며…"><span class="nav-number">5.</span> <span class="nav-text">마치며…</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Neon K.I.D</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'deff617b90416ac3ab91',
+    clientSecret: '252a116f6555abbf6720cb0701491d2d9cf75038',
+    repo: 'neonkid.github.io',
+    owner: 'neonkid',
+    admin: ['neonkid'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="English, Korean">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="개발 글을 써온지 벌써 4개월이 지났지만, 학교 생활과 성적 관리 등으로 인해 컨텐츠가 많이 부족하여 이리저리 생각해 본 결과, 이 개발 블로그에 제가 알고 있는 모든 개발 지식들을 올리려고 합니다. 물론 용도는 여러 가지가 있겠지만, 주 용도는 사람의 기본적인 특성인 망각 특성 때문이겠죠? ㅎㅎ 오늘은 Unix Programming에 대한 카테고리를 새로">
+<meta name="keywords" content="POSIX thread,pthread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unix Thread의 기본을 다져보자">
+<meta property="og:url" content="http://devlab.neonkid.xyz/2017/06/24/unix/2017-06-25-Unix-Thread의-기본을-다져보자/index.html">
+<meta property="og:site_name" content="N.K Dev Lab">
+<meta property="og:description" content="개발 글을 써온지 벌써 4개월이 지났지만, 학교 생활과 성적 관리 등으로 인해 컨텐츠가 많이 부족하여 이리저리 생각해 본 결과, 이 개발 블로그에 제가 알고 있는 모든 개발 지식들을 올리려고 합니다. 물론 용도는 여러 가지가 있겠지만, 주 용도는 사람의 기본적인 특성인 망각 특성 때문이겠죠? ㅎㅎ 오늘은 Unix Programming에 대한 카테고리를 새로">
+<meta property="og:locale" content="English, Korean">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/unix/pthread-2.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/unix/pthread-2.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/unix/pthread-1.png">
+<meta property="og:updated_time" content="2019-09-27T04:39:30.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unix Thread의 기본을 다져보자">
+<meta name="twitter:description" content="개발 글을 써온지 벌써 4개월이 지났지만, 학교 생활과 성적 관리 등으로 인해 컨텐츠가 많이 부족하여 이리저리 생각해 본 결과, 이 개발 블로그에 제가 알고 있는 모든 개발 지식들을 올리려고 합니다. 물론 용도는 여러 가지가 있겠지만, 주 용도는 사람의 기본적인 특성인 망각 특성 때문이겠죠? ㅎㅎ 오늘은 Unix Programming에 대한 카테고리를 새로">
+<meta name="twitter:image" content="http://devlab.neonkid.xyz/media/images/unix/pthread-2.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://devlab.neonkid.xyz/2017/06/24/unix/2017-06-25-Unix-Thread의-기본을-다져보자/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Unix Thread의 기본을 다져보자 | N.K Dev Lab</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Korean">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">N.K Dev Lab</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-timeline">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Timeline</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/NEONKID" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://devlab.neonkid.xyz/2017/06/24/unix/2017-06-25-Unix-Thread의-기본을-다져보자/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kwang Soo Jeong">
+      <meta itemprop="description" content="Junior Data Engineer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="N.K Dev Lab">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Unix Thread의 기본을 다져보자
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-06-24 15:15:20" itemprop="dateCreated datePublished" datetime="2017-06-24T15:15:20+00:00">2017-06-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-27 04:39:30" itemprop="dateModified" datetime="2019-09-27T04:39:30+00:00">2019-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/unix/" itemprop="url" rel="index"><span itemprop="name">unix</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>개발 글을 써온지 벌써 4개월이 지났지만, 학교 생활과 성적 관리 등으로 인해 컨텐츠가 많이 부족하여 이리저리 생각해 본 결과, 이 개발 블로그에 제가 알고 있는 모든 개발 지식들을 올리려고 합니다. 물론 용도는 여러 가지가 있겠지만, 주 용도는 사람의 기본적인 특성인 망각 특성 때문이겠죠? ㅎㅎ</p>
+<p>오늘은 Unix Programming에 대한 카테고리를 새로 추가하여, pthread부터 시작해보려 합니다. 왜 쓰레드부터 시작하냐고요? 그렇군요. 올해는 유난히 제 프로젝트, 과제 등에서 모두 쓰레드를 사용했기 떄문이라고 이야기 하고 싶네요..</p>
+<p>이 글을 읽어보시기 전에, Thread에 대한 기초적인 개념이 숙지된 상황에서 읽기를 권장합니다.</p>
+<h2 id="Typical-Thread"><a href="#Typical-Thread" class="headerlink" title="Typical Thread"></a>Typical Thread</h2><p>Typical Thread는 Unix, System V 의 쓰레드로, POSIX Thread의 모태가 된 쓰레드입니다. 아마 지금은 pthread라고 불리우는 것이 제가 보기엔 이 쓰레드이지 않나 생각합니다. </p>
+<h2 id="POSIX-Thread"><a href="#POSIX-Thread" class="headerlink" title="POSIX Thread"></a>POSIX Thread</h2><p>쓰레드에는 여러 가지 쓰레드가 있습니다. Windows 운영체제에서 사용하는 WindowThread, Mac OS X 에서 사용하는 NSThread 등 여러 가지가 있는데요. 오늘은 그 중에서 POSIX Thread에 대한 이야기를 해보고자 합니다.</p>
+<p>POSIX Thread는 병렬 프로그래밍을 하기 위한 C 의 표준 API 입니다. 실제 Unix 계열 운영체제에서 쓰던 쓰레드 함수이며 이를 표준 쓰레드 API로 삼은 것이죠. 이는 Mac OS X도 마찬가지입니다. Mac OS X 에는 NSThread가 존재하지만, Objective C 언어를 사용해 pthread와 병행해서 사용할 수 있으며 Unix 시스템과 전혀 다른 Windows 에서도 pthread를 사용할 수 있습니다.</p>
+<p>자세한 레퍼런스 문서는 아래 버튼을 눌러서 참고하시기 바랍니다.</p>
+<div markdown="0"><a href="https://www.joinc.co.kr/w/Site/Thread/Beginning/PthreadApiReference" class="btn btn-info" target="_blank" rel="noopener">Pthread API Reference </a></div>
+
+
+
+<h2 id="pthread-기본-사용법"><a href="#pthread-기본-사용법" class="headerlink" title="pthread 기본 사용법"></a>pthread 기본 사용법</h2><p>레퍼런스 문서를 충분히 읽어보셨다면, 바로 기본 사용법으로 넘어가도록 하겠습니다. (워낙 레퍼런스가 잘 되어 있는지라…)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">User</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> *id;</span><br><span class="line">    <span class="keyword">char</span> *pwd;</span><br><span class="line">&#125; User;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Todo: 여기에 쓰레드가 해야할 처리를 코딩합니다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> thread;</span><br><span class="line">    User user;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> thread_check = <span class="number">0</span>;   <span class="comment">// Thread 생성 시, 결과를 반환할 변수입니다.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Thread 생성 결과가 양수면 정상, 음수이면, 오류가 발생한 것입니다.</span></span><br><span class="line">    <span class="keyword">if</span>((thread_check = pthread_create(&amp;thread, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)&amp;user) &lt; <span class="number">0</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"Thread create error !"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>아마 Java, C# 언어에서 Thread 코딩을 하셨던 분들이라면, 조금 생소할 수도 있습니다. Java의 경우, Looper가 존재하는데, 여기는 Looper가 별도로 존재하지 않습니다. Thread를 계속 실행하기 원한다면, while 문으로 코딩하셔야 합니다.</p>
+<p>그런데, 위 방식으로 코딩을 하면, scanf, 심지어 커널 함수인 read() 함수를 호출해도 프로그램이 Blocking 되지 않고, 바로 종료가 되어버립니다. 이유는 쓰레드로 분리 시켰기 때문이죠. </p>
+<p><img src="/media/images/unix/pthread-2.png" alt="pthread-2"></p>
+<p>위 그림을 보면, 실제 메인 프로세스에서 pthread_create() 함수를 사용해, Thread를 생성하면, Main Process와 분리된 형태의 Sub Thread의 모양이 나타나게 됩니다. 그러면 Thread 함수에서 생성된 read() 함수 등의 호출은 사실상 Main Process가 return 0; 을 만나기 때문에 부모 프로세스가 소멸함으로써 Sub Thread 또한 종료되고, read() 함수는 무시되는 것입니다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">User</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> *id;</span><br><span class="line">    <span class="keyword">char</span> *pwd;</span><br><span class="line">&#125; User;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Todo: 여기에 쓰레드가 해야할 처리를 코딩합니다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> thread;</span><br><span class="line">    User user;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> thread_check = <span class="number">0</span>;   <span class="comment">// Thread 생성 시, 결과를 반환할 변수입니다.</span></span><br><span class="line">    <span class="keyword">int</span> status; <span class="comment">// Thread 종료 시, 결과를 반환할 변수입니다.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Thread 생성 결과가 양수면 정상, 음수이면, 오류가 발생한 것입니다.</span></span><br><span class="line">    <span class="keyword">if</span>((thread_check = pthread_create(&amp;thread, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)&amp;user) &lt; <span class="number">0</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"Thread create error !"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Thread 가 종료될 때 까지 기다리다가, 그 반환 값을 status에 저장한다.</span></span><br><span class="line">    pthread_join(thread, (<span class="keyword">void</span>**)&amp;status);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>만약, 쓰레드가 종료될 때 까지 Main Thread를 종료하고 싶지 않은 경우, (즉, Thread에서 read() 함수 등을 실행시켰을 떄, 종료하지 않도록 하고 싶은 경우.) pthread_join() 함수를 사용해서 해당 쓰레드가 종료될 때 까지 대기하도록 할 수 있습니다.</p>
+<p>다만 이 함수를 사용하게 되면, 비동기 처리가 되지 않습니다. pthread_join() 함수 호출 후, 정지하기 때문에 해당 코드 밑으로 정의된 코드들은 이 쓰레드가 종료될 때 까지 처리되지 않으므로 반드시 필요한 경우에만 사용하시기 바랍니다.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 처리해야 할 값을 받아오지 못했다면, 쓰레드 종료.</span></span><br><span class="line">    <span class="keyword">if</span>(arg == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Todo: 여기에 쓰레드가 해야할 처리를 코딩합니다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>pthread_exit() 함수는 현재 쓰레드를 종료시키는 함수입니다. 쓰레드 함수 내에서 사용하는 함수이며 return을 사용해도 되지만, 공식적으로는 pthreax_exit() 함수를 사용하는 것을 권장하고 있는 듯합니다. </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">User</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> *id;</span><br><span class="line">    <span class="keyword">char</span> *pwd;</span><br><span class="line">&#125; User;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 처리해야 할 값을 받아오지 못했다면, 쓰레드 종료.</span></span><br><span class="line">    <span class="keyword">if</span>(arg == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Todo: 여기에 쓰레드가 해야할 처리를 코딩합니다.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> thread;</span><br><span class="line">    User user;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> thread_check = <span class="number">0</span>;   <span class="comment">// Thread 생성 시, 결과를 반환할 변수입니다.</span></span><br><span class="line">    <span class="keyword">int</span> status; <span class="comment">// Thread 종료 시, 결과를 반환할 변수입니다.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Thread 생성 결과가 양수면 정상, 음수이면, 오류가 발생한 것입니다.</span></span><br><span class="line">    <span class="keyword">if</span>((thread_check = pthread_create(&amp;thread, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)&amp;user) &lt; <span class="number">0</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"Thread create error !"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  	sleep(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Thread가 종료되었을 때, 사용했던 자원을 모두 반납한다.</span></span><br><span class="line">    pthread_detach(thread);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>pthread_detach() 함수는 pthread_join() 과 비슷합니다. pthread_join()은 쓰레드가 종료될 때까지 기다리다가 반환 값을 받고, 쓰레드에서 사용했던 모든 자원을 해제합니다. 하지만 detach() 함수는 비동기 처리를 함과 동시에 쓰레드가 종료되면, 자원을 반납하도록 하는 함수입니다. 차이점은 join() 함수는 쓰레드가 종료될 때 까지 기다렸다가 자원을 해제하지만, pthread_detach() 함수는 비동기 처리를 계속하다가 쓰레드가 종료되면, 쓰레드 자원을 반납해주는 함수입니다.</p>
+<p>정확히는 Main Thread와 Sub Thread를 분리시키는 함수인데, 그림을 통해 알아보도록 하겠습니다.</p>
+<p><img src="/media/images/unix/pthread-2.png" alt="pthread-2"></p>
+<p>최초에 Main Thread에서 pthread_create() 함수를 이용해 Thread를 생성하면, 위 그림과 같은 관계를 가지게 됩니다. Sub Thread의 부모 프로세스는 Main Thread이고, 그들은 연결 고리를 물고 있어 자식 쓰레드인 Sub Thread의 자원을 Main Thread가 안고 갑니다. 따라서 Sub Thread가 썼던 자원은 Main Thread가 소멸될 때 까지 메모리에 계속 남게 됩니다.</p>
+<p><img src="/media/images/unix/pthread-1.png" alt="pthread-1"></p>
+<p>하지만 pthread_detach() 함수를 사용하면, 이 둘은 서로 분리됩니다. 그래서, Sub Thread가 소멸하면, Sub Thread에서 사용했던 메모리의 자원은 모두 해제되고, Main Thread에서는 이를 1도 관여하지 않습니다.</p>
+<h2 id="마치며…"><a href="#마치며…" class="headerlink" title="마치며…"></a>마치며…</h2><p>여기까지 pthread에 대해 간단한 몇 가지 예제만을 다뤄봤습니다. 요즘 Thread를 활용한 프로그래밍을 많이 하다보니, 생각나는게 쓰레드 뿐이라서 막상 글을 쓰게 되어서 자연스럽지 못한 부분이 많을 수 있습니다. </p>
+<p>다음 포스트는 Thread Programming 에 대한 중점적인 부분에 대해 적어보도록 하겠습니다.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/POSIX-thread/" rel="tag"># POSIX thread</a>
+          
+            <a href="/tags/pthread/" rel="tag"># pthread</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/22/android/2017-06-23-Android,-다른-쓰레드에서-UI-처리를-하는-방법/" rel="next" title="Android, 다른 쓰레드에서 UI 처리를 하는 방법">
+                <i class="fa fa-chevron-left"></i> Android, 다른 쓰레드에서 UI 처리를 하는 방법
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/01/android/2017-08-01-Android-Custom-View-를-만들어보자/" rel="prev" title="Android CustomView를 만들어보자">
+                Android CustomView를 만들어보자 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kwang Soo Jeong</p>
+              <p class="site-description motion-element" itemprop="description">Junior Data Engineer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/NEONKID" title="GitHub &rarr; https://github.com/NEONKID" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:contact@neonkid.xyz" title="E-Mail &rarr; mailto:contact@neonkid.xyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/clax1412" title="Twitter &rarr; https://twitter.com/clax1412" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/NK.4869" title="Facebook &rarr; https://www.facebook.com/NK.4869" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Typical-Thread"><span class="nav-number">1.</span> <span class="nav-text">Typical Thread</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POSIX-Thread"><span class="nav-number">2.</span> <span class="nav-text">POSIX Thread</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pthread-기본-사용법"><span class="nav-number">3.</span> <span class="nav-text">pthread 기본 사용법</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마치며…"><span class="nav-number">4.</span> <span class="nav-text">마치며…</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Neon K.I.D</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'deff617b90416ac3ab91',
+    clientSecret: '252a116f6555abbf6720cb0701491d2d9cf75038',
+    repo: 'neonkid.github.io',
+    owner: 'neonkid',
+    admin: ['neonkid'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

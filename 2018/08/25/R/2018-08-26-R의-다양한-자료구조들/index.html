@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="English, Korean">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="이제 거의 8월 달도 끝나가는군요. 간만에 비오는 주말입니다. 태풍 솔록이 지나가면서부터 드디어 대한민국에 2018년 첫 여름비가 내린 것 같은 느낌이네요. (혹시 정말 첫 여름비일지도 모르겠군요…) Data Structure in R프로그래밍을 하게 되면 자연스럽게 만날 수 있는 것은 바로 자료구조입니다. 처음 학부시간에 자료구조를 배웠을 때는 ‘왜 이것">
+<meta name="keywords" content="R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R의 다양한 자료구조들">
+<meta property="og:url" content="http://devlab.neonkid.xyz/2018/08/25/R/2018-08-26-R의-다양한-자료구조들/index.html">
+<meta property="og:site_name" content="N.K Dev Lab">
+<meta property="og:description" content="이제 거의 8월 달도 끝나가는군요. 간만에 비오는 주말입니다. 태풍 솔록이 지나가면서부터 드디어 대한민국에 2018년 첫 여름비가 내린 것 같은 느낌이네요. (혹시 정말 첫 여름비일지도 모르겠군요…) Data Structure in R프로그래밍을 하게 되면 자연스럽게 만날 수 있는 것은 바로 자료구조입니다. 처음 학부시간에 자료구조를 배웠을 때는 ‘왜 이것">
+<meta property="og:locale" content="English, Korean">
+<meta property="og:updated_time" content="2019-09-27T04:39:30.651Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R의 다양한 자료구조들">
+<meta name="twitter:description" content="이제 거의 8월 달도 끝나가는군요. 간만에 비오는 주말입니다. 태풍 솔록이 지나가면서부터 드디어 대한민국에 2018년 첫 여름비가 내린 것 같은 느낌이네요. (혹시 정말 첫 여름비일지도 모르겠군요…) Data Structure in R프로그래밍을 하게 되면 자연스럽게 만날 수 있는 것은 바로 자료구조입니다. 처음 학부시간에 자료구조를 배웠을 때는 ‘왜 이것">
+
+
+
+
+
+
+  <link rel="canonical" href="http://devlab.neonkid.xyz/2018/08/25/R/2018-08-26-R의-다양한-자료구조들/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>R의 다양한 자료구조들 | N.K Dev Lab</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Korean">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">N.K Dev Lab</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-timeline">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Timeline</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/NEONKID" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://devlab.neonkid.xyz/2018/08/25/R/2018-08-26-R의-다양한-자료구조들/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kwang Soo Jeong">
+      <meta itemprop="description" content="Junior Data Engineer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="N.K Dev Lab">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R의 다양한 자료구조들
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-25 18:23:10" itemprop="dateCreated datePublished" datetime="2018-08-25T18:23:10+00:00">2018-08-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-27 04:39:30" itemprop="dateModified" datetime="2019-09-27T04:39:30+00:00">2019-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>이제 거의 8월 달도 끝나가는군요. 간만에 비오는 주말입니다. 태풍 솔록이 지나가면서부터 드디어 대한민국에 2018년 첫 여름비가 내린 것 같은 느낌이네요. (혹시 정말 첫 여름비일지도 모르겠군요…)</p>
+<h2 id="Data-Structure-in-R"><a href="#Data-Structure-in-R" class="headerlink" title="Data Structure in R"></a>Data Structure in R</h2><p>프로그래밍을 하게 되면 자연스럽게 만날 수 있는 것은 바로 자료구조입니다. 처음 학부시간에 자료구조를 배웠을 때는 ‘왜 이것을 배워야하지?’라는 의문을 잔득 가졌었습니다. 그 때는 프로그래밍에 대해서 관심이 많지도 않았고 대학에서 가르쳐주는 그저 영어 같았습니다.</p>
+<p>본론으로 넘어가서 자료구조는 컴퓨터에서 자료를 보관하기 위한 한 방법입니다. 코딩을 하게 되면 우리는 필요한 데이터를 저장해야 합니다. 하지만 그것은 우리가 생각하는 것처럼 “이거 필요하니까 그냥 메모리에 저장해 줘”라는 단순한 느낌이 아닙니다. 내가 원하는 데이터를 뽑으려면 어떤 규칙이 정해져 있고 그 규칙에 따라 저장되어 있는 데이터를 가져오는 것이 바로 컴퓨터의 자료구조입니다. </p>
+<p>실제로 이러한 자료구조들에는 배열(Array), 리스트(List), 스택(Stack), 큐(Queue), 그래프(Graph) 등이 있습니다. 실제로 학부 수업 때 까지는 저 위에 있는 자료구조들을 다룰 것이며 실제 구현도 하게 될 것입니다.</p>
+<p>그러나 저 자료구조들을 모두 사용하지는 않을 것입니다. 저의 경우, 보통 C++ 언어에서 자주 사용하는 자료구조라고 하면, Array와 Vector, Pair, Map을 자주 사용합니다. 물론 Pair는 그렇게 크게 쓸 일 없이 구조체로도 충분히 구현 가능한 부분이어서 잘 쓰지도 않구요. Java의 경우 ArrayList, HashMap, Set 을 사용하는 것처럼 수많은 자료구조 중에서 여러분들이 알고리즘을 구현하거나 프로그래밍 하는 데 있어 여러 가지 자료구조를 사용할 것입니다.</p>
+<p>R언어에도 이러한 자료구조들이 존재합니다. 어떠한 자료구조들이 있는지 알아보고 각각의 접근 방법과 장단점에 대해 간단히 적어보도록 하겠습니다.</p>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>1번재는 가장 기본적인 배열입니다. 배열은 프로그래밍 언어를 처음 배울 때 다루는 자료구조 중 하나입니다. 아주 간단하죠. C, C++, Java 어디서든지 사용할 수 있는 기본적인 자료구조입니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr &lt;- array()</span><br></pre></td></tr></table></figure>
+<p>기본적인 선언 방법은 간단하게 array라고만 적어주시면 됩니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr &lt;- array(0:25)</span><br></pre></td></tr></table></figure>
+<p>기본적으로 1차원 배열의 생성은 위와 같이 하게 된다. 그러면 0 ~ 25까지의 데이터가 한 행에 쭈욱 나타나게 된다.<br>그러면 2차원 배열 이상은 어떻게 생성할까?</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 ~ 6까지의 숫자를 2 x 3 형태로..</span></span><br><span class="line">arr &lt;- array(<span class="number">1</span>:<span class="number">6</span>, c(<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 ~ 24까지의 숫자를 2 x 3 형태의 4층짜리로..</span></span><br><span class="line">arr &lt;- array(<span class="number">1</span>:<span class="number">24</span>, c(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<p>감이 오나요? 배열 다음에 나오는 첫번째 인자는 숫자의 범위이고, 두번째는 벡터형을 사용하여 행, 열, 층으로 선언하면 그에 해당하는 배열을 만들어줍니다. 어떤가요? 저는 처음에 안익숙했지만 차라리 저는 C언어의 배열이 더 쉽다고 느껴지는건 모순인걸까요 ㅜㅠ</p>
+<h2 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h2><p>2번째는 벡터라는 자료구조입니다. 아마 벡터라는 이름을 보면 C++ 언어에 존재하는 Vector라고 생각하시는 분들이 계실 것입니다. </p>
+<p>비슷하지만 약간 다른 점이 있습니다. C++ 언어에서의 벡터는 같은 자료형의 데이터만을 적재할 수 있지만 R 언어에서의 벡터는 한 자료구조에 여러개의 자료형을 넣는 것이 가능합니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vec &lt;- c()</span><br></pre></td></tr></table></figure>
+<p>기본적인 선언 방법은 위와 같습니다. 그런데, “아니, 벡터인데 왜 c 라는 알파벳을 쓰는거죠?” 여기서의 c는 Column이라는 뜻을 가지고 있습니다. 차후 매트릭스에 대해 다루게 되면 이해하기 쉬울 것입니다. 밑에 부분에서 자세히 설명하도록 하겠습니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vec &lt;- c(<span class="string">"NEONKID"</span>, <span class="number">1412</span>, <span class="number">0.1011</span>, <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<p>위와 같은 형태로 여러가지 자료형을 넣을 수 있지만 주의해야할 사항이 있습니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>] <span class="string">"NEONKID"</span>	<span class="string">"1412"</span>	<span class="string">"0.1011"</span>	<span class="string">"TRUE"</span></span><br></pre></td></tr></table></figure>
+<p>바로 적재될 때는 모두 character 형태로 적재가 된다는 것입니다. C++의 vector에서는 애시당초에 한 데이터형만 집어넣게 되지만 R에서의 Vector는 다른 자료형을 넣으면<strong><em>모두 character 형태로 들어가게 됨</em></strong>을 적재하실 때 유의하여야 합니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length(vec)</span><br></pre></td></tr></table></figure>
+<p>길이를 구할 때는 length 함수를 사용하시면 됩니다.</p>
+<h2 id="Matrix"><a href="#Matrix" class="headerlink" title="Matrix"></a>Matrix</h2><p>매트릭스는 n * n 형태의 자료구조입니다. 아마 C++, Java 프로그래밍 언어에서 이를 구현하려면 보통 2차원 배열을 만들어야 했습니다. 하지만 R 언어에서는 이러한 자료구조를 기본적으로 제공하며 실제로 이의 조합은 Vector를 여러개 조합한 형태라고 할 수 있습니다. </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 0부터 100까지 10씩 증가하는 정수형 벡터 생성</span></span><br><span class="line">vec &lt;- seq(<span class="number">0</span>, <span class="number">110</span>, by = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 열의 수가 6인 행렬</span></span><br><span class="line">matC &lt;- matrix(vec, ncol = <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 행의 수가 6인 행렬</span></span><br><span class="line">matR &lt;- matrix(vec, nrow = <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>하지만 설령 칼럼 벡터를 하나만 주었다 하더라도 Matrix 생성자의 인자값을 이용해서 행이나 열을 특정 형태로 짤라낼 수 있습니다. </p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>리스트는 벡터와 같은 형태를 지니고 있지만 약간 다릅니다. 벡터는 한 자료형의 한 단일 데이터를 넣을 수 있다고 한다면 리스트는 한 자료구조 전체를 담을 수가 있습니다. 즉, 벡터처럼 한 칼럼의 형태를 가지고는 있지만 넣을 수 있는 데이터의 형태가 단일 데이터를 넘어, 매트릭스, 벡터의 한 자료구조도 담을 수 있다는 것입니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listA &lt;- list()</span><br></pre></td></tr></table></figure>
+<p>기본적인 리스트의 선언은 위와 같이 가능합니다. </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Vector</span></span><br><span class="line">vec &lt;- seq(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Matrix</span></span><br><span class="line">mat &lt;- matrix(<span class="number">1</span>:<span class="number">12</span>, ncol = <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">listA &lt;- list(dataA = vec, dataB = mat)</span><br></pre></td></tr></table></figure>
+<p>위와 같이 다른 자료구조의 형태도 가능하여 별도로 접근할 수 있습니다. 참 편한 자료구조지요. 언제 주로 쓰냐면 여러개의 csv 데이터릃 하나의 자료구조로 불러올 때 매우 유용할 것입니다.</p>
+<h2 id="Data-frame"><a href="#Data-frame" class="headerlink" title="Data frame"></a>Data frame</h2><p>데이터 프레임은 매트릭스와 마찬가지로 n * n 형태의 자료구조입니다. 하지만 매트릭스와 역시 다른 점이 존재합니다. 바로 벡터와 리스트처럼 들어갈 수 있는 데이터 형태가 다르다는 것입니다. 데이터 프레임은 리스트와 마찬가지로 다른 자료형 형태의 여러가지 벡터를 담을 수 있습니다. </p>
+<p>하지만 그에는 조건이 있습니다. 반드시 넣으려고 하는 벡터가 같은 행과 열의 갯수를 가지고 있어야 하며, 벡터가 각각 다른 행과 열의 갯수를 가질 경우 오류가 발생합니다. </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df &lt;- data.frame()</span><br></pre></td></tr></table></figure>
+<p>기본적인 빈 데이터 프레임의 생성은 다른 자료구조와 동일하게 진행됩니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 두 개의 벡터를 생성합니다.</span></span><br><span class="line"><span class="comment"># 벡터의 특성대로 한 벡터당 한 칼럼이 적용됩니다.</span></span><br><span class="line">vecA &lt;- <span class="number">1</span>:<span class="number">100</span></span><br><span class="line">vecB &lt;- <span class="number">101</span>:<span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 이를 리스트에 저장해놓습니다. </span></span><br><span class="line"><span class="comment"># 이렇게 되면 위의 리스트의 정의대로 개별 접근이 가능합니다.</span></span><br><span class="line">myList &lt;- list(vecA, vecB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 이제 리스트 한 개로 데이터 프레임 안에 적재합니다.</span></span><br><span class="line">df &lt;- data.frame(myList)</span><br></pre></td></tr></table></figure>
+<p>데이터 프레임은 매트릭스의 집합으로도 사용할 수 있습니다. 왜냐하면 아까 매트릭스도 봤다시피 행렬을 특정 형태로 변환할 수가 있는데, 이를 같게 만들어놓고 data frame에 적재하게 되면 그것도 가능하겠죠? 하지만 대부분은 벡터의 집합으로 많이 사용합니다. 왜 그러냐구요? 매트릭스에 굳이 넣지 않고 벡터에 그 데이터를 고르게 적재한 다음에 데이터 프레임에 넣기만 하면 바로 들어가지기 때문이죠.</p>
+<p>만약 행과 열의 갯수가 다르게 나올 케이스가 있다면 매트릭스로 정확하게 처리하는 것도 답이겠지만 보통은 로직에서 NULL이 나오지 않도록 설계를 한 후, 바로 데이터 프레임에 넣는 것이 아마 효율적일 것입니다. 만약 그렇게 안된다면? 그 때는 어쩔 수 없이 매트릭스를…</p>
+<h2 id="Factor"><a href="#Factor" class="headerlink" title="Factor"></a>Factor</h2><p>Factor는 제가 제일 싫어하는 R의 자료구조 중 하나입니다. 왜 싫어하냐면, 이놈은 접근이 너무 힘들어요. 물론 다루는 것도 만만치 않죠. 처음에 데이터 프레임에 적재할 때 이 녀석 덕분에 많은 고생을 했답니다.</p>
+<p>Factor는 벡터를 조금 변형하여 개발한 자료구조라 하며 약간 특수한 형태를 지닙니다. 이를 테면 인적성검사에서 볼 수 있는 선택문항의 카테고리를 저장할 수 있는 자료구조라고 보시면 됩니다. </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fac &lt;- factor()</span><br></pre></td></tr></table></figure>
+<p>역시 다른 자료구조와 마찬가지로 선언은 위와 같이 진행합니다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec &lt;- c(<span class="string">"A"</span>, <span class="string">"C"</span>, <span class="string">"B"</span>, <span class="string">"A"</span>, <span class="string">"A"</span>, <span class="string">"C"</span>, <span class="string">"B"</span>)</span><br><span class="line">fac &lt;- factor(xv, levels = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>))</span><br></pre></td></tr></table></figure>
+<p>Factor는 벡터와 그 형태가 비슷하지만 여기에 레벨이라는 추가 형태를 담고 있습니다. 레벨이라는 것은 이 카테고리의 순서를 의미하는 것이죠. 심지어 이 녀석은 R의 내부에서 아주 다른 형태로 취급하며 만약 as.numeric(fac)을 하게 되면 출력값을 레벨 순서대로 1 3 2 1 1 3 2 형태로 출력하게 된다.</p>
+<p>만약 벡터였다면? 무차별하게 “모르는 값입니다. “라고 하면서 NA로 도배를 하게될 것이니…</p>
+<p>그래서 일반적으로 데이터를 저장할 때 Factor를 사용하는 것은 정말 적절치 않다. 이 자료구조의 본래 목적은 안에 있는 데이터들의 레벨을 판단하고 나열하기 위한 자료구조로 실제로 안에 있는 데이터를 무작위로 나열해서 나중에 쉽게 접근하거나 이전하기 위한 용도로 사용한다면 Factor의 사용은 금물. 물론 그렇게 굳이 선언만 한다면 안쓰는 것인데 이 놈은 조금 예외가 있다.</p>
+<p>바로 데이터 프레임에 적재하는 경우이다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 데이터 프레임 선언</span></span><br><span class="line">df &lt;- data.frame()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 벡터에 데이터 적재.. (중간 코드 생략)</span></span><br><span class="line">vecA &lt;- <span class="keyword">...</span></span><br><span class="line">vecB &lt;- <span class="keyword">...</span></span><br><span class="line">vecC &lt;- <span class="keyword">...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 데이터 프레임에 칼럼 데이터 적재</span></span><br><span class="line">df(ListA, ListB, ListC)</span><br></pre></td></tr></table></figure>
+<p>데이터를 넣다보면 이런 일이 있을 수가 있다. 그런데 나는 분명 데이터 프레임에 벡터 데이터형을 넣었음에도 불구하고 나중에 접근해보면 엥? 왠걸, Factor로 삐져나오게 된다. </p>
+<p>그 이유는 바로 데이터 프레임을 생성할 때 등장하는 stringAsFactors 라는 옵션 때문이다. 이 옵션은 외부 데이터(파일, 자료구조 포함)를 읽을 때 문자열(Character)를 Factor Object로 읽는다는 옵션이다. 기본값으로 TRUE라 되어 있으며 내가 적재한 벡터 데이터들이 Factor로 되버리는 어마무시한 일이 발생한다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 데이터 프레임 선언</span></span><br><span class="line">df &lt;- data.frame()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 벡터에 데이터 적재.. (중간 코드 생략)</span></span><br><span class="line">vecA &lt;- <span class="keyword">...</span></span><br><span class="line">vecB &lt;- <span class="keyword">...</span></span><br><span class="line">vecC &lt;- <span class="keyword">...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 데이터 프레임에 칼럼 데이터 적재</span></span><br><span class="line">df(ListA, ListB, ListC, stringAsFactors = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+<p>그래서 반드시 이러한 현상을 방지하기 위해 반드시 stringsAsFactors의 옵션을 FALSE로 바꿔주고 진행한다.</p>
+<h2 id="마치며…"><a href="#마치며…" class="headerlink" title="마치며…"></a>마치며…</h2><p>여기까지 R에서 사용하는 6개의 자료구조에 대해 알아봤습니다. 원래는 Scala를 포함하면 7가지의 자료구조이지만 스칼라는 벡터를 하나의 자료로 표현한 형태이기 때문에 제외하였습니다. 사실 잘 사용하지도 않구요. </p>
+<p>R 언어를 사용한 프로젝트를 진행하면서 가장 많이 사용했던 자료구조는 벡터, 리스트, 데이터 프레임을 주로 사용하였습니다. 특히 외부 데이터들은 대부분 데이터 프레임으로 처리되며 나중에 ETL 과정에서 생겨난 데이터들도 SQL에 적재할 때 모두 데이터 프레임을 사용했습니다.</p>
+<p>확실히 R은 데이터 처리 언어라고 할 정도로 필요 이상으로 쉽게 다룰 수 있는 자료 구조들이 존재합니다. 하지만 저는 그래도 Python이 더 익숙한 것 같습니다. 물론 Python에 있는 자료구조와 조금 상이한 부분들이 있습니다. (같은 이름의 자료구조인데도 왜 이런 차이가 나는 것인지 ㅠㅠ)</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/R/2018-08-04-R-프로그래밍과-데이터-처리/" rel="next" title="R 프로그래밍과 데이터-처리">
+                <i class="fa fa-chevron-left"></i> R 프로그래밍과 데이터-처리
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/29/R/2018-12-30-R에서-RDBMS를-연결하는-3가지-방법/" rel="prev" title="R에서 RDBMS와 연결하는 3가지 방법">
+                R에서 RDBMS와 연결하는 3가지 방법 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kwang Soo Jeong</p>
+              <p class="site-description motion-element" itemprop="description">Junior Data Engineer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/NEONKID" title="GitHub &rarr; https://github.com/NEONKID" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:contact@neonkid.xyz" title="E-Mail &rarr; mailto:contact@neonkid.xyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/clax1412" title="Twitter &rarr; https://twitter.com/clax1412" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/NK.4869" title="Facebook &rarr; https://www.facebook.com/NK.4869" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Structure-in-R"><span class="nav-number">1.</span> <span class="nav-text">Data Structure in R</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array"><span class="nav-number">2.</span> <span class="nav-text">Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vector"><span class="nav-number">3.</span> <span class="nav-text">Vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Matrix"><span class="nav-number">4.</span> <span class="nav-text">Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">5.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-frame"><span class="nav-number">6.</span> <span class="nav-text">Data frame</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Factor"><span class="nav-number">7.</span> <span class="nav-text">Factor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마치며…"><span class="nav-number">8.</span> <span class="nav-text">마치며…</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Neon K.I.D</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'deff617b90416ac3ab91',
+    clientSecret: '252a116f6555abbf6720cb0701491d2d9cf75038',
+    repo: 'neonkid.github.io',
+    owner: 'neonkid',
+    admin: ['neonkid'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

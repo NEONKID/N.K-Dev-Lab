@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="English, Korean">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="안녕하세요. 오늘은 C++ STL에 대한 글을 써보려 합니다. 본래 저는 STL과 같은 기본적인 글은 잘 쓰지 않으려 했습니다. 워낙 Documentation도 잘 되어 있는 편이고, 블로그의 글 주제로 쓰기에는 적합하지 않다고 생각했습니다. 하지만 오늘 이 글을 쓰게 된 계기는 제가 알고리즘 풀이를 몇 번 진행하면서 제가 주로 쓰고 있는 Java 언어와">
+<meta name="keywords" content="Map, STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[STL] C++에서 Map에 대해 알아보자">
+<meta property="og:url" content="http://devlab.neonkid.xyz/2019/08/09/c++/2019-08-09-C-Map/index.html">
+<meta property="og:site_name" content="N.K Dev Lab">
+<meta property="og:description" content="안녕하세요. 오늘은 C++ STL에 대한 글을 써보려 합니다. 본래 저는 STL과 같은 기본적인 글은 잘 쓰지 않으려 했습니다. 워낙 Documentation도 잘 되어 있는 편이고, 블로그의 글 주제로 쓰기에는 적합하지 않다고 생각했습니다. 하지만 오늘 이 글을 쓰게 된 계기는 제가 알고리즘 풀이를 몇 번 진행하면서 제가 주로 쓰고 있는 Java 언어와">
+<meta property="og:locale" content="English, Korean">
+<meta property="og:updated_time" content="2019-09-27T04:39:30.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[STL] C++에서 Map에 대해 알아보자">
+<meta name="twitter:description" content="안녕하세요. 오늘은 C++ STL에 대한 글을 써보려 합니다. 본래 저는 STL과 같은 기본적인 글은 잘 쓰지 않으려 했습니다. 워낙 Documentation도 잘 되어 있는 편이고, 블로그의 글 주제로 쓰기에는 적합하지 않다고 생각했습니다. 하지만 오늘 이 글을 쓰게 된 계기는 제가 알고리즘 풀이를 몇 번 진행하면서 제가 주로 쓰고 있는 Java 언어와">
+
+
+
+
+
+
+  <link rel="canonical" href="http://devlab.neonkid.xyz/2019/08/09/c++/2019-08-09-C-Map/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>[STL] C++에서 Map에 대해 알아보자 | N.K Dev Lab</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Korean">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">N.K Dev Lab</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-timeline">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Timeline</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/NEONKID" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://devlab.neonkid.xyz/2019/08/09/c++/2019-08-09-C-Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kwang Soo Jeong">
+      <meta itemprop="description" content="Junior Data Engineer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="N.K Dev Lab">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[STL] C++에서 Map에 대해 알아보자
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-09 04:20:53" itemprop="dateCreated datePublished" datetime="2019-08-09T04:20:53+00:00">2019-08-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-27 04:39:30" itemprop="dateModified" datetime="2019-09-27T04:39:30+00:00">2019-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>안녕하세요. 오늘은 C++ STL에 대한 글을 써보려 합니다. 본래 저는 STL과 같은 기본적인 글은 잘 쓰지 않으려 했습니다. 워낙 Documentation도 잘 되어 있는 편이고, 블로그의 글 주제로 쓰기에는 적합하지 않다고 생각했습니다.</p>
+<p>하지만 오늘 이 글을 쓰게 된 계기는 제가 알고리즘 풀이를 몇 번 진행하면서 제가 주로 쓰고 있는 Java 언어와 다소 차이가 있는 것으로 확인이 된 자료구조가 몇 있었습니다. 그래서  각 언어에서 비슷한 자료구조의 형태가 STL이나 API로 지원된다하더라도 언어에 따라 사용하는 방법이나 각 함수들에 대한 기능에 대해서는 짚고 넘어가야 할 필요가 있다고 느꼈습니다.</p>
+<h2 id="What-is-STL"><a href="#What-is-STL" class="headerlink" title="What is STL ?"></a>What is STL ?</h2><p>STL은 C++에서 제공하는 Standard Template Library입니다. C++ 언어는 기존의 C언어에서 클래스나 상속, 접근 지정자 등이 추가된 객체 지향 프로그래밍 언어라고 알고 계십니다. 맞습니다. 그런데 그런 좋은 기능 + 표준 템플릿 라이브러리가 포함되어 있습니다.</p>
+<p>실제로 저는 C++ 프로그래밍 했을 때 STL보다는 Boost 라이브러리를 많이 사용했습니다. Boost 라이브러리는 C++ 언어로 제공되는 부가 라이브러리 중 하나로 네트워크 프로그래밍에 유용한 Asio 등을 제공하여 C++를 쉽고 더 강력하게 표현해주는 아주 우수한 라이브러리입니다. </p>
+<p>더욱 좋은 것은 Boost에서 제공하는 시스템 자원 (Thread, Semapore 등)을 System Call 형태가 아닌 Library Call 형태로 제공하여 Linux, Windows 등의 OS의 제약없이 크로스 플랫폼으로 사용할 수 있다는 것도 한몫하고 있죠.</p>
+<p>하지만 이런 라이브러리들은 모두 3rd party 라이브러리라고 해서 프로그래밍 언어 개발사에서 공식적으로 제공해주는 것이 아닌 제3자가 개발한 것이기 때문에 그 기능이 온전하거나 인증받은 코드라고 하기엔 조금 거리가 먼 점이 있습니다. 그래서 이러한 라이브러리를 표준으로 인증받은 모음집을 STL이라고 합니다.</p>
+<blockquote>
+<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><p>컨테이너는 STL에서 제공하는 데이터를 저장하는 객체 (자료구조) 들입니다. 보통 저는 vector, pair, list, map, stack, queue를 주로 많이 사용하는 편입니다. 이 글에서는 map에 대해서 다뤄보도록 하겠습니다.</p>
+</blockquote>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>자료구조 맵(Map)은 &lt;Key, Value&gt; 형태로 되어 있는 자료구조입니다. 주로 매핑하는 용도로 많이 사용하는 자료구조이며 정렬된 형태로 제공한다는 것이 특징입니다. Key 값을 찾을 때 시간복잡도가 O(1)을 자랑할 정도로 매우 성능이 좋습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">map</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>기본적인 사용 방법은 위와 같습니다. 먼저 map 코드를 include하고, 네임스페이스룰 추가해줍니다. 그리고 자신이 원하는 &lt;Key, Value&gt; 형태의 데이터 타입을 선언하고 변수 이름을 선언하면 첫 번째 Map 생성이 완료됩니다.</p>
+<blockquote>
+<h3 id="Key-Point"><a href="#Key-Point" class="headerlink" title="Key Point"></a>Key Point</h3><p>Map을 사용하는 포인트는 바로 좌표 지점을 저장할 때 사용하는 Pair나 Point의 자료를 보관할 때 매우 유리합니다. Map 역시 2차원 배열처럼 2차원 Map으로도 사용할 수 있기 때문에 이러한 자료들을 보관하고 쉽게 꺼내오는 데 있어 팔방미인이라고 할 수 있습니다.</p>
+</blockquote>
+<p>처음 Map 자료구조를 선언하면 아무것도 없습니다. 따라서 값을 넣어줘야 하는데, 값을 넣는 방법에는 두 가지 방법이 있습니다.</p>
+<h2 id="How-to-insert-value"><a href="#How-to-insert-value" class="headerlink" title="How to insert value"></a>How to insert value</h2><p>먼저 첫 번째 방법은 insert 메소드를 사용하는 방법입니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pair&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">map</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::pair;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">    m.insert(pair(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>insert 메소드를 사용할 때는 두 개의 인자가 아닌 1개의 인자를 사용합니다. 그렇다면 이 쌍을 넣을 수 있는 방법으로는 Pair 자료구조를 사용해서 넣는 방법이 있습니다. 혹은 C++에서 제공하는 make_pair 함수를 사용하는 것 또한 방법이 될 수 있습니다.</p>
+<p>두 번째 방법은 C++ 프로그래밍 언어에서 제공하는 operator를 사용하는 방법입니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">map</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">   	m[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>operator는 함수 없이 수식을 사용하는 방법입니다. 오히려 더 깔끔하고 pair를 사용하지 않고도 넣을 수 있기 때문에 이 방법이 더 가독성이 좋다고 할 수 있습니다. 하지만 여기에는 함정이 숨겨져 있습니다.</p>
+<h2 id="Insert-method-vs-Operator"><a href="#Insert-method-vs-Operator" class="headerlink" title="Insert method vs Operator"></a>Insert method vs Operator</h2><p>operator가 존재한다면 Insert 메소드는 deprecated 해도 될 것입니다. 하지만 왜 두 가지 방법이 모두 존재하는 걸까요? 거기에는 아주 미세한 차이가 숨겨져 있습니다.</p>
+<ul>
+<li>Insert Method<ul>
+<li>Map에서 Key와 Value를 넣는 메소드.</li>
+<li><strong>기존의 키값이 중복될 경우, 이 메소드는 무시함</strong></li>
+</ul>
+</li>
+<li>Operator<ul>
+<li><strong>기존의 키값이 중복될 경우, 새로운 값으로 대체</strong></li>
+</ul>
+</li>
+</ul>
+<p>Insert Method를 사용하게 되면, 기존의 키값이 중복되었을 때, 이 메소드는 그저 무시됩니다. 말그대로 기존의 키값을 가지고 있는 value를 지킨다는 것이죠. 즉 키값이 중복될 경우, 기존의 값을 우선한다는 것입니다.</p>
+<p>하지만 operator를 사용할 경우, 기존의 키 값이 존재한다하더라도 현재의 코드를 중시합니다. 따라서 기존의 키에 존재했던 값은 제거되고, 새로운 값으로 대체되는 것입니다.</p>
+<blockquote>
+<p><strong>하지만 Java에서는 그렇지 않습니다.</strong></p>
+<p>맞습니다. Java 언어에서 Map을 사용할 경우, put 메소드를 사용하여 Key, Value를 추가하게 되는데, 이 때는 기존의 키 값이 무시되고, 새로운 값으로 대체가 되죠.</p>
+</blockquote>
+<p>각 언어에서 비슷한 메소드나 방법이 제공되더라도 미세한 차이가 있기 때문에 이 부분은 짚고 넘어가야할 것입니다.</p>
+<h2 id="How-to-get-Value"><a href="#How-to-get-Value" class="headerlink" title="How to get Value"></a>How to get Value</h2><p>그럼 Map에서 값을 가져오려면 어떻게 해야할까요?</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	SIZE	10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">map</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++)</span><br><span class="line">    	m[i] = i + <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">auto</span> it = m.find(i);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"&lt;"</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">","</span> &lt;&lt; it-&gt;second &lt;&lt; <span class="string">"&gt;"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Key의 값을 기준으로 value를 찾을 때는 find 함수를 사용할 수 있다. 이 때, find 메소드로 찾게 되면, iterator로 값을 반환한다. first는 Key, second는 value로 값을 출력시킬 수 있다.</p>
+<blockquote>
+<h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><p>Iterator는 STL에서 제공하는 반복자로 보통 우리가 자료구조를 사요하게 되면 Index 번호를 사용해서 해당 자료구조의 크기나 길이를 반복 길이로 삼고 반복문을 잡곤 한다.</p>
+<p>하지만 STL에서는 반복자인 Iterator가 지원된다.</p>
+<ul>
+<li>input iterators</li>
+<li>output iterators</li>
+<li>forwards iterators</li>
+<li>bidirectional iterators</li>
+<li>random access iterators</li>
+</ul>
+<p>iterator는 총 5개의 종류를 가지고 있다. 시퀀스를 읽기만 할 때는 input, 시퀀스를 쓸 때만 할 때는 output, 읽고 쓰기도 가능하고 앞으로 움직일 수도 있는 forward, 뒤로도 움직일수도 있는 biorectional, 그리고 그것보다도 더 자유로운 random access가 있다.</p>
+</blockquote>
+<p>하지만 Map에서는 Iterator 사용이 좋지만은 않습니다. Set에서도 마찬가지지만 이러한 연관 컨테이너에서 검색을 수행하는 데 보통 사용되는데, 컨테이너에서 직접 호출하는 멤버 함수 대신 Iterator로 함수를 직접 구현해서 쓰는 분들도 계시는데, 이는 지극적으로 비추천합니다. 반복자 자체가 포인터를 사용한다는 면목도 있고, 성능에 대한 인증성이 불투명하기 때문입니다.</p>
+<p>find 메소드로 우리는 key값을 이용해 해당 value를 찾을 수 있었는데요. 그렇다면 반대로 value를 기준으로 key 값을 찾는 메소드가 있을까요?</p>
+<p>결론은 <strong>없습니다.</strong> find 메소드는 오직 key 값으로 value만 찾을 수 있고, 반대로 value를 가지고 key를 찾아내려면 직접 구현해야 하는데, O(n) 시간복잡도로 간단하게 이렇게 구현할 수 있을 것 같습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	SIZE	10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">map</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++)</span><br><span class="line">    	m[i] = i + <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it = m.begin(); it != m.end(); ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(it-&gt;second == val)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; it-&gt;first;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Map의 시작지점에서부터 끝지점까지 반복하고, 해당 second 값을 비교해보면, 간단히 알 수 있겠죠? 알고리즘이 어렵지 않기 때문에, 사실상 구현은 되어 있지 않아도 쉽게 찾을 수 있겠습니다.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Map-STL/" rel="tag"># Map, STL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/10/R/R에서-코드를-병렬처리-하는-방법/" rel="next" title="R에서 코드를 병렬처리 하는 방법">
+                <i class="fa fa-chevron-left"></i> R에서 코드를 병렬처리 하는 방법
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kwang Soo Jeong</p>
+              <p class="site-description motion-element" itemprop="description">Junior Data Engineer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/NEONKID" title="GitHub &rarr; https://github.com/NEONKID" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:contact@neonkid.xyz" title="E-Mail &rarr; mailto:contact@neonkid.xyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/clax1412" title="Twitter &rarr; https://twitter.com/clax1412" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/NK.4869" title="Facebook &rarr; https://www.facebook.com/NK.4869" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-STL"><span class="nav-number">1.</span> <span class="nav-text">What is STL ?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Container"><span class="nav-number">1.1.</span> <span class="nav-text">Container</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map"><span class="nav-number">2.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Point"><span class="nav-number">2.1.</span> <span class="nav-text">Key Point</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-insert-value"><span class="nav-number">3.</span> <span class="nav-text">How to insert value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Insert-method-vs-Operator"><span class="nav-number">4.</span> <span class="nav-text">Insert method vs Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-get-Value"><span class="nav-number">5.</span> <span class="nav-text">How to get Value</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterator"><span class="nav-number">5.1.</span> <span class="nav-text">Iterator</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Neon K.I.D</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'deff617b90416ac3ab91',
+    clientSecret: '252a116f6555abbf6720cb0701491d2d9cf75038',
+    repo: 'neonkid.github.io',
+    owner: 'neonkid',
+    admin: ['neonkid'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

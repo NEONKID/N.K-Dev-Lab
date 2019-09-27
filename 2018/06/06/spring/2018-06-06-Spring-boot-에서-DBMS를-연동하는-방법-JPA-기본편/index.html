@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="English, Korean">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="지난 포스트에서 간단한 REST API 개발에 대해서 알 수 있었습니다. 아주 쉽게 GET 메소드에 대한 것만 정의하였고 나머지에 대한 메소드는 다루지 않았는데요. 오늘은 모든 REST API를 사용해보면서 테스트 또한 진행할 것입니다. 그러면 DBMS 연동에 대한 이야기 시작하도록 하겠습니다. DBMS  Spring bootPHP, Node.js 등에서">
+<meta name="keywords" content="spring boot,JPA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring boot에서 DBMS를 연동하는 방법 - JPA 기본편">
+<meta property="og:url" content="http://devlab.neonkid.xyz/2018/06/06/spring/2018-06-06-Spring-boot-에서-DBMS를-연동하는-방법-JPA-기본편/index.html">
+<meta property="og:site_name" content="N.K Dev Lab">
+<meta property="og:description" content="지난 포스트에서 간단한 REST API 개발에 대해서 알 수 있었습니다. 아주 쉽게 GET 메소드에 대한 것만 정의하였고 나머지에 대한 메소드는 다루지 않았는데요. 오늘은 모든 REST API를 사용해보면서 테스트 또한 진행할 것입니다. 그러면 DBMS 연동에 대한 이야기 시작하도록 하겠습니다. DBMS  Spring bootPHP, Node.js 등에서">
+<meta property="og:locale" content="English, Korean">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-1.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-2.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-3.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-4.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-5.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-6.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-7.png">
+<meta property="og:updated_time" content="2019-09-27T04:39:30.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring boot에서 DBMS를 연동하는 방법 - JPA 기본편">
+<meta name="twitter:description" content="지난 포스트에서 간단한 REST API 개발에 대해서 알 수 있었습니다. 아주 쉽게 GET 메소드에 대한 것만 정의하였고 나머지에 대한 메소드는 다루지 않았는데요. 오늘은 모든 REST API를 사용해보면서 테스트 또한 진행할 것입니다. 그러면 DBMS 연동에 대한 이야기 시작하도록 하겠습니다. DBMS  Spring bootPHP, Node.js 등에서">
+<meta name="twitter:image" content="http://devlab.neonkid.xyz/media/images/spring/JPA-1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://devlab.neonkid.xyz/2018/06/06/spring/2018-06-06-Spring-boot-에서-DBMS를-연동하는-방법-JPA-기본편/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Spring boot에서 DBMS를 연동하는 방법 - JPA 기본편 | N.K Dev Lab</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Korean">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">N.K Dev Lab</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-timeline">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Timeline</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/NEONKID" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://devlab.neonkid.xyz/2018/06/06/spring/2018-06-06-Spring-boot-에서-DBMS를-연동하는-방법-JPA-기본편/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kwang Soo Jeong">
+      <meta itemprop="description" content="Junior Data Engineer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="N.K Dev Lab">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring boot에서 DBMS를 연동하는 방법 - JPA 기본편
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-06 02:23:10" itemprop="dateCreated datePublished" datetime="2018-06-06T02:23:10+00:00">2018-06-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-27 04:39:30" itemprop="dateModified" datetime="2019-09-27T04:39:30+00:00">2019-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>지난 포스트에서 간단한 REST API 개발에 대해서 알 수 있었습니다. 아주 쉽게 GET 메소드에 대한 것만 정의하였고 나머지에 대한 메소드는 다루지 않았는데요. 오늘은 모든 REST API를 사용해보면서 테스트 또한 진행할 것입니다.</p>
+<p>그러면 DBMS 연동에 대한 이야기 시작하도록 하겠습니다.</p>
+<h2 id="DBMS-Spring-boot"><a href="#DBMS-Spring-boot" class="headerlink" title="DBMS  Spring boot"></a>DBMS <--> Spring boot</--></h2><p>PHP, Node.js 등에서 DBMS를 연동하기 위해서는 PDO를 사용하거나 mongoose 등의 라이브러리를 사용하는 방법이 존재합니다. 여기서 mongoose는 Node.js에서 MongoDB를 사용하기 위한 라이브러리이고, PDO는 PHP에서 MySQL 등의 DBMS를 연동하기 위한 객체입니다. </p>
+<p>Spring boot에서는 Spring과 마찬가지로 DBMS를 연동하기 위해 존재하는 2가지 방법이 있습니다.</p>
+<ul>
+<li>JPA</li>
+<li>MyBatis / iBatis</li>
+</ul>
+<p>아마 기존의 개발자 분들이시라면 Mybatis / ibatis가 좀 더 익숙할 것입니다. XML 파일을 이용해서 질의를 정의하고 이를 메소드로 호출하는 방법이지요. </p>
+<p>JPA 또한 비슷합니다. 단, JPA는 XML를 사용하지 않고 인터페이스로 정의하여 질의를 정의하고 역시 이를 메소드로 호출하여 실행하는 방식입니다.</p>
+<p>또 다른 점이 있다면 JPA는 CRUD 등을 종속할 수 있어 여러분들이 직접 CRUD를 만들지 않아도 자동으로 정의되어 있는 형태의 템플릿을 제공합니다. 예를 들어 DBMS에 어떠한 모델링에 해당되는 데이터를 추가하려 한다면 Mybatis에서는 insert 문을 직접 정의하여 메소드를 만들어야 합니다. 하지만 JPA에서는 CRUD가 이미 정의되어 있는 인터페이스가 존재하여 insert, update, delete 등 기본적인 질의문에 대해서는 여러분들이 직접 정의하지 않아도 정해진 메소드만 호출하면 바로 DBMS에 추가, 수정, 삭제가 가능합니다.</p>
+<h2 id="What-is-JPA"><a href="#What-is-JPA" class="headerlink" title="What is JPA ?"></a>What is JPA ?</h2><p>그럼 이 JPA는 무엇이고 어떤 배경으로 탄생한 것일까요?</p>
+<p>JPA는 Java Persistence API의 약자로 Java 언어에서의 프로그래밍 인터페이스 명세사항입니다. 정확하는 Java라기 보단 JVM이라고 해야 맞겠지만 통상 Java 언어를 위해 만들어진 것이기 때문에 Java 언어라고 이야기 하겠습니다. </p>
+<p>즉, Java 플랫폼을 사용하는 애플리케이션 내부 관계형 데이터의 관리를 위해 만들어진 인터페이스라고 볼 수 있죠.</p>
+<h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h2><p>그럼 이제 JPA를 사용하는 방법에 대해 알아봅시다.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    	...</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    </span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">"org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'kotlin-jpa'</span></span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(<span class="string">'org.springframework.boot:spring-boot-starter-data-jpa'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>기존 프로젝트에서 계속 진행하시고자 할 떄는 build.gradle에서 위의 내용만을 추가하시면 됩니다.</p>
+<p><img src="/media/images/spring/JPA-1.png" alt="Spring_initializr-jpa"></p>
+<p>혹은 새 프로젝트를 만들어 JPA를 사용하고자 할 경우에는 위와 같이 SQL 디펜던시에서 JPA를 체크해주시면 됩니다.</p>
+<p>자 그럼 JPA를 추가했으니 이제 여러분들이 사용할 DBMS를 고르셔야 합니다. 저는 MySQL을 주로 사용하므로 MySQL을 예로 들어 설명하도록 하겠습니다.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runtime(<span class="string">'mysql:mysql-connector-java'</span>)</span><br></pre></td></tr></table></figure>
+<p>build.gradle에 MySQL connector를 런타임해줍니다. 이는 Java에서 제공하는 JDBC를 사용하겠다는 이야기입니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server.address=localhost</span><br><span class="line">server.port=5000</span><br><span class="line"></span><br><span class="line"># API 호출시, SQL 문을 콘솔에 출력한다.</span><br><span class="line">spring.jpa.show-sql=true</span><br><span class="line"></span><br><span class="line"># DDL 정의시 데이터베이스의 고유 기능을 사용합니다.</span><br><span class="line"># ex) 테이블 생성, 삭제 등</span><br><span class="line">spring.jpa.generate-ddl=true</span><br><span class="line"></span><br><span class="line"># MySQL 을 사용할 것.</span><br><span class="line">spring.jpa.database=mysql</span><br><span class="line"></span><br><span class="line"># MySQL 설정</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/jpaexampleNK?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;useSSL=true</span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=root</span><br><span class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</span><br><span class="line"></span><br><span class="line"># MySQL 상세 지정</span><br><span class="line">spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect</span><br></pre></td></tr></table></figure>
+<p>이제 서버 애플리케이션에서 DBMS 설정을 하여야 합니다. 여러분들이 사용할 DBMS가 어느 호스트에 있는지, 포트주소는 몇번인지 어떤 DBMS를 사용할 것인지, 사용자 이름과 비밀번호도 지정해야겠죠?</p>
+<p>먼저 맨 위의 address와 port 부분은 지난 포스트에서 다뤘던 호스트 주소와 포트 주소를 설정하는 부분입니다. 만약 외부에서 서비스를 하고자 할 경우, localhost가 아닌 외부에서 사용할 IP를 지정하셔야 합니다. localhost로 지정할 경우 로컬 외에는 접속이 불가능합니다.</p>
+<p>DDL이라는 것은 Data Definition Language의 약자로 데이터베이스의 스키마를 생성하는 CREATE, 변경하는 ALTER, 제거하는 DROP/TRUNCATE(내용만 삭제)의 질의를 사용할 수 있도록 하는 것인데, 이것을 왜 true를 시켰냐면 여러분들이 현재 테스트를 하는 용도로 사용할 것임을 고려한 것입니다. 즉 여러분들이 MySQL에서 수동으로 스키마 생성을 하지 않고 Spring boot에서 스키마가 존재하지 않으면 자동으로 생성하기 위해 주는 것입니다. 만약 이것이 false로 되어 있으면 스키마가 없어 서버 애플리케이션에서 오류가 발생합니다. 스키마 자체가 삭제될 수 있는 위험도 있기 떄문에 테스트 이외 실 서비스에서는 사용하지 않는 것을 권장합니다.</p>
+<p>MySQL의 URL은 여러분들이 사용할 DBMS의 서버 주소와 포트 주소를 URL 형식으로 입력합니다. 프로토콜은 jdbc:mysql 형태의 프로토콜로 뒤에 나오는 파라메터들은 다음과 같습니다.</p>
+<ul>
+<li>createDatabaseIfNotExist: 데이터베이스가 존재하지 않으면 자동으로 생성하는 옵션입니다.</li>
+<li>useUnicode: 유니코드 사용 여부를 설정합니다.</li>
+<li>characterEncoding: 문자열 인코딩 종류를 설정합니다.</li>
+<li>characterSetResult: 결과값의 인코딩 종류를 설정합니다.</li>
+<li>useSSL: SSL 사용 여부에 대한 설정입니다.</li>
+</ul>
+<p>마지막으로 JDBC 사용을 위해 driver class name에 MySQL JDBC 드라이버 패키지 이름을 적어줍니다.</p>
+<p>추가로 MySQL에서는 여러가지 DB Collection을 제공하는 MyISAM 등 여러가지 있습니다. 저는 여기서 InnoDB 형태를 사용할 것이어서 platform에 InnoDB를 정의하였습니다.</p>
+<p>이제 모든 설정이 끝났으니 한 번 실습에 들어가보도록 하겠습니다.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>간단한 모델로 상점에서 파는 Item을 모델링해보도록 하겠습니다. 상품에는 각 상품의 고유번호, 이름, 그리고 가격이 존재합니다. 이를 Spring boot에서 모델링하려면 Java 언어에서와 똑같이 클래스를 생성하고 그에 대한 Getter / Setter를 주거나 필요한 메소드를 생성하면 됩니다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.neonkid.jpaexample.Model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.Column;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GenerationType;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"items"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Item</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Id</span> <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"id"</span>, updatable = <span class="keyword">false</span>, nullable = <span class="keyword">false</span>)</span><br><span class="line">    <span class="keyword">public</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"name"</span>, updatable = <span class="keyword">false</span>, nullable = <span class="keyword">false</span>)</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"price"</span>, updatable = <span class="keyword">false</span>, nullable = <span class="keyword">false</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> price;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.neonkid.jpaexample.Model</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable</span><br><span class="line"><span class="keyword">import</span> javax.persistence.*</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = <span class="meta-string">"items"</span>)</span></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span></span>(<span class="meta">@Column(name = <span class="meta-string">"name"</span>, updatable = false, nullable = false)</span> <span class="keyword">val</span> name: String, <span class="meta">@Column(name = <span class="meta-string">"price"</span>, updatable = false, nullable = false)</span> <span class="keyword">val</span> price: <span class="built_in">Int</span>) : Serializable &#123;</span><br><span class="line">    <span class="meta">@Id</span> <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="meta">@Column(name = <span class="meta-string">"id"</span>, updatable = false, nullable = false)</span></span><br><span class="line">    <span class="keyword">val</span> Id: <span class="built_in">Long</span>? = <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위에는 Java, 밑에는 Kotlin 코드입니다.</p>
+<p>먼저 이 클래스가 DBMS에서 Entity로 사용될 것임을 명시하기 위해 어노테이션 Entity를 사용해줍니다. 이 부분은 Java와 같습니다. 코틀린에서는 Data class를 기본으로 제공하여 getter setter를 만들어줍니다. Java에서는 이를 처리하기 위해 수동으로 Getter / Setter를 만들어주거나 Lombok 라이브러리를 사용해야 했다면 코틀린에서는 이를 기본으로 제공하기 떄문에 조금 귀찮음을 덜어주었죠.</p>
+<p>단, 코틀린에서 Data class를 사용할 떄는 멤버 변수들의 접근 지정자가 반드시 public 이어야 한다는 것입니다. private으로 할 경우 Getter / Setter가 만들어지지 않으므로 참고하시기 바랍니다.</p>
+<p>본론으로 넘어가서 @Column 어노테이션은 DBMS의 칼럼을 설정하는 부분입니다. 기본적으로 필수로 줘야하는 부분은 아니지만 여러분들이 직접 칼럼에 대한 이름, 속성 등을 정의하고 싶다면 이 어노테이션을 사용하여 정의할 수 있습니다.</p>
+<p>@Id 어노테이션은 이 멤버 변수가 DBMS에서 기본키(Primary key)임을 정의하는 것입니다. 이를 사용자가 직접 정의할 수도 있지만 저는 자동으로 Auto increment를 주기 원하여 @GeneratedValue라는 어노테이션을 한 개 더 사용했습니다. </p>
+<p>이제 Entity를 만들었으니 질의를 정의하는 방법에 대해 알아보겠습니다. 이 다음부터는 계속 Kotlin 언어를 사용하여 진행하도록 하겠습니다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.neonkid.jpaexample.Model</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.<span class="keyword">data</span>.repository.CrudRepository</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ItemRepository</span> : <span class="type">CrudRepository</span>&lt;<span class="type">Item, Long</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>여기가 진짜로 JPA를 사용하는 방법이라고 할 수 있는 부분입니다. 먼저 interface를 한 개 만들어준 후 이를 Repository 어노테이션으로 정의해줍니다.</p>
+<p>그리고 CrudRepository를 종속하는 데, 여기서 제네릭은 여러분들이 방금 만드신 상품 모델과 그리고 그를 기준점으로 잡는 기본키의 자료형을 넣어주시면 됩니다.</p>
+<p>이제 REST API를 사용하여 DBMS에 정상적으로 동작하는지를 테스트해보도록 하겠습니다. </p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>이제 예제를 작성한 것이 잘 동작하는지를 테스트해보도록 하겠습니다. 테스트를 위해 저는 Postman이라는 유틸리티를 사용하였으며 curl 등을 사용하여도 무방합니다.</p>
+<p>먼저 서버 애플리케이션을 실행해봅시다.</p>
+<p><img src="/media/images/spring/JPA-2.png" alt="MySQLConnector"></p>
+<p>서버 애플리케이션을 실행하기 전에는 이렇게 아무런 데이터베이스가 생성되어 있지 않습니다.</p>
+<p><img src="/media/images/spring/JPA-3.png" alt="MySQLConnector-2"></p>
+<p>서버 애플리케이션을 실행하고나면 이렇게 새로운 데이터베이스가 생성됩니다. 이는 저희가 application.properties에 DDL을 설정했기 때문입니다.</p>
+<p><img src="/media/images/spring/JPA-4.png" alt="Postman"></p>
+<p>Postman을 이용하여 GET 메소드를 주게 되면 아무런 내용이 없음을 출력합니다. </p>
+<p><img src="/media/images/spring/JPA-5.png" alt="Postman-2"></p>
+<p>JSON을 사용하여 내용을 추가하여 POST 메소드로 보내주면 이렇게 추가되었다는 메시지가 나오게 됩니다.</p>
+<p><img src="/media/images/spring/JPA-6.png" alt="MySQLConnector-3"></p>
+<p>DBMS에서도 아주 잘 추가 되었죠? </p>
+<p><img src="/media/images/spring/JPA-7.png" alt="Postman-3"></p>
+<p>다시 조회를 해보면 이렇게 정보가 나타납니다. </p>
+<p>엇, 그런데, 저는 Controller를 생성하지 않았습니다. 그런데 어떻게 REST API가 동작할 수 있을까요?<br>Spring Data JPA는 JPA가 직접 그 REST API를 만들어줍니다. 정말 쉽죠? 여러분들이 이전에 쓰는 Spring과는 아주 많이 다른 모습입니다. 실제 제가 해커톤에 나가서도 이렇게 Spring boot를 과감히 사용하여 개발할 수 있었던 것도 이와 같은 이유입니다. 평소 같았으면 절대 이렇게 못하죠.. 시간적인 부담도 있고요. 그렇기 때문에 초반에는 대부분 PHP나 Python, Javascript를 이용할 것입니다.</p>
+<h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며.."></a>마치며..</h2><p>여기까지 JPA에 대한 간단한 사용법에 대해 알아봤습니다. </p>
+<p>기존의 Spring 이었다면 많은 설정들과 기본적으로 사용해야 할 API도 직접 만들어줘야하는 번거로움이 아주 많았을 것이라 생각합니다.</p>
+<p>하지만 Spring boot를 사용하면 이러한 간단한 설정만으로도 DBMS와 연동되면서 깔끔하게 만들어진 API를 사용해 쉽게 API 서버를 배포할 수 있다는 것을 보여드렸습니다.</p>
+<p>다음 포스트에서는 복잡한 DBMS 쿼리를 사용한 JPA 고급편을 진행하도록 하겠습니다.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+          
+            <a href="/tags/JPA/" rel="tag"># JPA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/01/android/2018-06-02-Anko를 이용한-Android-App-Layout-작성/" rel="next" title="Anko를 이용한 Android App Layout 작성">
+                <i class="fa fa-chevron-left"></i> Anko를 이용한 Android App Layout 작성
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/10/opencv/2018-06-10-이미지에-영역-표시/" rel="prev" title="OpenCV Mouse Event 응용 - 이미지에 영역 표시">
+                OpenCV Mouse Event 응용 - 이미지에 영역 표시 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kwang Soo Jeong</p>
+              <p class="site-description motion-element" itemprop="description">Junior Data Engineer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/NEONKID" title="GitHub &rarr; https://github.com/NEONKID" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:contact@neonkid.xyz" title="E-Mail &rarr; mailto:contact@neonkid.xyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/clax1412" title="Twitter &rarr; https://twitter.com/clax1412" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/NK.4869" title="Facebook &rarr; https://www.facebook.com/NK.4869" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DBMS-Spring-boot"><span class="nav-number">1.</span> <span class="nav-text">DBMS  Spring boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-JPA"><span class="nav-number">2.</span> <span class="nav-text">What is JPA ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-use"><span class="nav-number">3.</span> <span class="nav-text">How to use</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">4.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test"><span class="nav-number">5.</span> <span class="nav-text">Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마치며"><span class="nav-number">6.</span> <span class="nav-text">마치며..</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Neon K.I.D</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'deff617b90416ac3ab91',
+    clientSecret: '252a116f6555abbf6720cb0701491d2d9cf75038',
+    repo: 'neonkid.github.io',
+    owner: 'neonkid',
+    admin: ['neonkid'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

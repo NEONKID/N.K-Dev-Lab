@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="English, Korean">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.  오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다. TrackbarOpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만…) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록">
+<meta name="keywords" content="C++,OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV Trackbar 주무르기">
+<meta property="og:url" content="http://devlab.neonkid.xyz/2017/03/01/opencv/2017-03-01-OpenCV-trackbar-주무르기/index.html">
+<meta property="og:site_name" content="N.K Dev Lab">
+<meta property="og:description" content="안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.  오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다. TrackbarOpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만…) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록">
+<meta property="og:locale" content="English, Korean">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/opencv/trackbar-1.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/opencv/trackbar-2.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/opencv/trackbar-3.png">
+<meta property="og:image" content="http://devlab.neonkid.xyz/media/images/opencv/trackbar-4.png">
+<meta property="og:updated_time" content="2019-09-27T04:39:30.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenCV Trackbar 주무르기">
+<meta name="twitter:description" content="안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요.  오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다. TrackbarOpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만…) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록">
+<meta name="twitter:image" content="http://devlab.neonkid.xyz/media/images/opencv/trackbar-1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://devlab.neonkid.xyz/2017/03/01/opencv/2017-03-01-OpenCV-trackbar-주무르기/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>OpenCV Trackbar 주무르기 | N.K Dev Lab</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Korean">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">N.K Dev Lab</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-timeline">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Timeline</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/NEONKID" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://devlab.neonkid.xyz/2017/03/01/opencv/2017-03-01-OpenCV-trackbar-주무르기/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kwang Soo Jeong">
+      <meta itemprop="description" content="Junior Data Engineer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="N.K Dev Lab">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenCV Trackbar 주무르기
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-01 00:15:40" itemprop="dateCreated datePublished" datetime="2017-03-01T00:15:40+00:00">2017-03-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-27 04:39:30" itemprop="dateModified" datetime="2019-09-27T04:39:30+00:00">2019-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/opencv/" itemprop="url" rel="index"><span itemprop="name">opencv</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>안녕하세요. 새로운 블로그에 저도 모르게 상쾌한 기분이군요. </p>
+<p>오늘은 Tistory 블로그에 이어서, 계속 OpenCV 코드 카테고리 글 작성을 계속하려 합니다.</p>
+<h2 id="Trackbar"><a href="#Trackbar" class="headerlink" title="Trackbar"></a>Trackbar</h2><p>OpenCV에는 Trackbar라는 컴포넌트가 존재합니다. (사실 컴포넌트라고 하기에는 조금 흠이 있지만…) 여러분이 원하는 영상을 마우스의 드래그만으로 형상을 변화시킬 수 있도록 하는 것이지요. 말씀만으로는 설명이 어렵기 때문에 간단한 예시를 보며 설명을 드리겠습니다.</p>
+<p><img src="/media/images/opencv/trackbar-1.png" alt="Trackbar_example-1"></p>
+<p>위 사진은 Trackbar를 움직여서 가운데에 원을 그려놓고 그 크기를 점점 늘리고 줄이고 할 수 있는 이미지입니다. 간단한 소스 코드를 공개해보도록 하겠습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WINDOW_NAME	<span class="meta-string">"circledImage"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onCircleSizeChange</span><span class="params">(<span class="keyword">int</span> pos, <span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Mat dstImage = *(Mat*)param;</span><br><span class="line">  Mat newImage = dstImage.clone();</span><br><span class="line">  Point center = Point(dstImage.size().width / <span class="number">2</span>, dstImage.size().height / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">  dstImage.copyTo(newImage);</span><br><span class="line">  <span class="keyword">if</span>(pos == <span class="number">0</span>) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line">  circle(newImage, center, pos, Scalar(<span class="number">255</span>, <span class="number">128</span>, <span class="number">64</span>), <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">  imshow(WINDOW_NAME, newImage);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Mat srcImage = imread(<span class="string">"/home/neonkid/Pictures/bigban.png"</span>);</span><br><span class="line">  <span class="keyword">int</span> size = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(srcImage.empty()) &#123; <span class="keyword">return</span> <span class="number">-1</span>; &#125;</span><br><span class="line">  imshow(WINDOW_NAME, srcImage);</span><br><span class="line">  createTrackbar(<span class="string">"Circle size"</span>, WINDOW_NAME, &amp;size, srcImage.size().width / <span class="number">2</span>, onCircleSizeChange, (<span class="keyword">void</span>*)&amp;srcImage);</span><br><span class="line">  waitKey();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>음 쓰다보니, 가독성이 조금 별로네요.. (다음에는 조금 더 가독성에 고려를 해보도록 하겠습니다.)</p>
+<p>코드를 작성하는 것은 그다지 어렵지 않습니다. 여러분이 원하는 이미지나 영상을 한 개 준비하시고, Mat 클래스를 사용해서 영상을 하나 띄웁니다.</p>
+<p>그리고, createTrackbar 함수를 사용해 Trackbar를 만들어줍니다. createTrackbar의 인자값은 다음과 같습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createTrackbar(trackbarName, windowsName, *min_size, max_size, func, image)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>trackbarName: trackbar 왼쪽에 있는 이름입니다.</li>
+<li>windowName: 여러분이 다루고자 하는 영상의 윈도우 이름입니다. (이름이 다르면, 다른 창에 trackbar가 입혀집니다.)</li>
+<li>min_size: 최소 Trackbar 크기입니다.</li>
+<li>max_size: 최대 Trackbar 크기입니다. (최대 trackbar 크기를 잘못 지정할 경우, 프로그램이 느려질 수 있습니다.)</li>
+<li>func: 영상을 처리할 함수입니다.</li>
+<li>image: 처리할 이미지입니다.</li>
+</ul>
+<h2 id="Multiple-Trackbar"><a href="#Multiple-Trackbar" class="headerlink" title="Multiple Trackbar"></a>Multiple Trackbar</h2><p>이번에는 Trackbar를 여러개 사용해서, 영상을 다뤄보겠습니다.</p>
+<p><img src="/media/images/opencv/trackbar-2.png" alt="Trackbar_example-2"></p>
+<p>위 Trackbar는 색상 Red, Green, Blue를 놓고, 각각의 Trackbar를 움직이면 각 색상이 입혀지는 코드입니다. 소스 코드를 한 번 보겠습니다.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	WINDOW_NAME	<span class="meta-string">"image"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> rgb[<span class="number">3</span>] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onChange</span><span class="params">(<span class="keyword">int</span> pos, <span class="keyword">void</span>* param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat *pMat = (Mat*)param;</span><br><span class="line">    Mat srcImage = Mat(pMat[<span class="number">0</span>]);</span><br><span class="line">    Mat dstImage = Mat(pMat[<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; srcImage.rows; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; srcImage.cols; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            Vec3b rgb_temp = srcImage.at&lt;Vec3b&gt;(i,j);</span><br><span class="line">            Vec3b rgb_sum;</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">3</span>; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(rgb_temp[k] + rgb[k] &gt; <span class="number">255</span>) rgb_sum[k] = <span class="number">255</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(rgb_temp[k] + rgb[k] &lt; <span class="number">0</span>) rgb_sum[k] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> rgb_sum[k] = rgb_temp[k] + rgb[k];</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">            rgb_temp = Vec3b(rgb_sum[<span class="number">0</span>], rgb_sum[<span class="number">1</span>], rgb_sum[<span class="number">2</span>]);</span><br><span class="line">            dstImage.at&lt;Vec3b&gt;(i,j) = rgb_temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    imshow(WINDOW_NAME, dstImage);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image[<span class="number">2</span>];</span><br><span class="line">    image[<span class="number">0</span>] = imread(<span class="string">"/home/neonkid/Pictures/bigban.png"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(image[<span class="number">0</span>].empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    image[<span class="number">1</span>].create(image[<span class="number">0</span>].size(),CV_8UC3);</span><br><span class="line">    </span><br><span class="line">    onChange(<span class="number">0</span>, (<span class="keyword">void</span>*)&amp;image);</span><br><span class="line">    </span><br><span class="line">    createTrackbar(<span class="string">"Red"</span>, WINDOW_NAME, &amp;rgb[<span class="number">2</span>], <span class="number">255</span>, onChange, (<span class="keyword">void</span>*)&amp;image);</span><br><span class="line">    createTrackbar(<span class="string">"Green"</span>, WINDOW_NAME, &amp;rgb[<span class="number">1</span>], <span class="number">255</span>, onChange, (<span class="keyword">void</span>*)&amp;image);</span><br><span class="line">    createTrackbar(<span class="string">"Blue"</span>, WINDOW_NAME, &amp;rgb[<span class="number">0</span>], <span class="number">255</span>, onChange, (<span class="keyword">void</span>*)&amp;image);</span><br><span class="line">    </span><br><span class="line">    waitKey();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Trackbar를 만드는 방법은 비슷합니다. 색상을 나누는 법에 대해서 잠깐만 얘기해보도록 하죠.</p>
+<p>보통 저는 RGB 색상을 나눌 때, 한 이미지의 Mat 클래스에서 Trackbar에 이미지를 넣어주고, 그를 3채널로 구성한 다음 색상을 바꿨지만, 결과는 한 이미지에서 색상이 입혀지는 것이 아닌, 색상이 덮어지는 현상이 나타났습니다.</p>
+<p><img src="/media/images/opencv/trackbar-3.png" alt="Trackbar_example-3"></p>
+<p>해당 소스 코드에 대해서는 공개하지 않겠습니다. (메모리 오버플로우 문제 등을 일으킴) </p>
+<p>간단히 접근한 방법에 대해서만 알려드리자면, Vec3b 자료형을 이용해, 컬러값을 저장한 후, 해당 컬러 값을 단순히 합치기만 한 것입니다. 이렇게 할 경우, 아래와 같은 문제가 발생합니다.</p>
+<ol>
+<li>영상 3채널 모두 색상을 덮어씌우기 때문에 기존의 형상이 보이지 않게 됨.</li>
+<li>단순히 합친 결과를 이미지에 씌우므로 255 이상의 컬러 값이 나타나게 될 경우, 오버플로우 발생.</li>
+</ol>
+<p>위 2가지 문제로 인해, 저는 Mat 클래스 배열을 사용하여 각 채널에 해당하는 이미지를 create 함수를 통해 만들어준 후, 각각의 이미지를 건드리는 방법을 사용했습니다.</p>
+<p>3채널의 이미지를 두 개 만들어, 임시로 원래 모습의 이미지를 Mat 클래스 변수의 srcImage에 저장해놓습니다. 그리고 해당 색상 값을 temp 변수로 만들어, 저장한 후, 그 위에 새로이 움직이는 taskbar의 컬러 값과 합칩니다. 그러면, 색상이 위에 덮어씌워지지 않고, 원래 이미지에 입혀질 수 있겠죠?</p>
+<p>그리고 색상값이 255를 넘기지 않도록 해야 합니다. 이 이유는 taskbar에서 이미 255를 제한걸어놨는데, RGB 색상을 동시에 움직이게 될 경우, 색상값이 255를 넘겨버립니다. 이렇게 될 경우, taskbar에서 최소값이 0이라고 하더라도, 실제 영상의 색상 값은 0이 아닐 수도 있기 때문입니다.</p>
+<p>합쳐진 색상 값을 dstImage에 씌우면 적용이 완료됩니다.</p>
+<p><img src="/media/images/opencv/trackbar-4.png" alt="Trackbar_example-4"></p>
+<p>OpenCV를 최신 버전으로 패치했더니 빨라진 느낌이네요. (원래 색상 조절하는데 처리가 굉장히 느렸던 것으로 기억하는데…;;)</p>
+<h2 id="마치며…"><a href="#마치며…" class="headerlink" title="마치며…"></a>마치며…</h2><p>여기까지 trackbar를 이용한 몇 가지 소스 코드를 다뤄봤습니다.</p>
+<p>trackbar로 할 수 있는 것은 색상만이 있는 것이 아닙니다. 역투영을 할 수도 있고, 확대/축소도 가능하니, 여러분이 원하는 이미지의 색상을 바꾼다거나 역투영을 해보고 싶다면, 이런 소스 코드도 만들어보는게 어떨까요?</p>
+<p>Jekyll 블로그의 첫 OpenCV 포스트는 여기까지였습니다. ^^;</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/04/boost/2017-03-05-Boost-Library-설치와-사용/" rel="prev" title="Boost Library 설치와 사용">
+                Boost Library 설치와 사용 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kwang Soo Jeong</p>
+              <p class="site-description motion-element" itemprop="description">Junior Data Engineer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/NEONKID" title="GitHub &rarr; https://github.com/NEONKID" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:contact@neonkid.xyz" title="E-Mail &rarr; mailto:contact@neonkid.xyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/clax1412" title="Twitter &rarr; https://twitter.com/clax1412" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/NK.4869" title="Facebook &rarr; https://www.facebook.com/NK.4869" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Trackbar"><span class="nav-number">1.</span> <span class="nav-text">Trackbar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Trackbar"><span class="nav-number">2.</span> <span class="nav-text">Multiple Trackbar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마치며…"><span class="nav-number">3.</span> <span class="nav-text">마치며…</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Neon K.I.D</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'deff617b90416ac3ab91',
+    clientSecret: '252a116f6555abbf6720cb0701491d2d9cf75038',
+    repo: 'neonkid.github.io',
+    owner: 'neonkid',
+    admin: ['neonkid'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
